@@ -1,0 +1,8748 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-19T17:04:50Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 52072595,
+  "center": {
+    "lat": 28.1979057,
+    "lon": 112.9715388
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "天心区",
+    "addr:housenumber": "88",
+    "addr:postcode": "410005",
+    "addr:province": "湖南省",
+    "addr:street": "黄兴路中路",
+    "building": "commercial",
+    "building:levels": "6",
+    "height": "40",
+    "name": "平和堂百货",
+    "opening_hours": "Mo-Su 09:00-22:00",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes",
+    "payment:visa": "yes",
+    "shop": "mall",
+    "source": "Yahoo hires;local knowledge",
+    "toilets": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 87058059,
+  "center": {
+    "lat": 28.1993069,
+    "lon": 112.9702291
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "新世界大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 103279575,
+  "center": {
+    "lat": 28.1986979,
+    "lon": 112.9471389
+  },
+  "tags": {
+    "building": "yes",
+    "name": "通程商业广场",
+    "source": "bing"
+  }
+},
+{
+  "type": "way",
+  "id": 251982593,
+  "center": {
+    "lat": 28.1998263,
+    "lon": 112.9807095
+  },
+  "tags": {
+    "addr:city": "长沙",
+    "addr:housenumber": "635",
+    "addr:street": "芙蓉中路一段",
+    "building": "yes",
+    "name": "长沙益友消防大酒店",
+    "phone": "+86 731 8466 4888",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 268192474,
+  "center": {
+    "lat": 28.2139536,
+    "lon": 112.9732146
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:district": "Kaifu District",
+    "addr:housenumber": "8",
+    "addr:postcode": "410028",
+    "addr:province": "Hunan",
+    "addr:street": "Xiangchun Lane",
+    "building": "yes",
+    "building:levels": "3",
+    "name": "Bach’s Bakery",
+    "name:de": "Bachs Bäckerei",
+    "name:en": "Bach’s Bakery",
+    "name:zh-Hans": "吧赫西点",
+    "name:zh-Hant": "吧赫西點",
+    "note": "lat=\"28.2140542\" lon=\"112.9735256\"",
+    "opening_hours": "Mo-Fr 08:00-20:00",
+    "payment:alipay": "yes",
+    "payment:cash": "yes",
+    "payment:wechat": "yes",
+    "phone": "+86 139 7315 4747",
+    "shop": "bakery",
+    "website": "http://www.bachs-bakery.com/"
+  }
+},
+{
+  "type": "way",
+  "id": 268748627,
+  "center": {
+    "lat": 28.1881781,
+    "lon": 112.9452286
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "Taozihu Road(桃子湖路)",
+    "building": "school",
+    "building:levels": "2-3",
+    "name": "执中楼",
+    "name:en": "School office building"
+  }
+},
+{
+  "type": "way",
+  "id": 268752132,
+  "center": {
+    "lat": 28.1889754,
+    "lon": 112.9451490
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "taozihu Road(桃子湖路)",
+    "building": "school",
+    "building:levels": "6",
+    "name": "惟一楼",
+    "name:en": "Weiyi Classroom building"
+  }
+},
+{
+  "type": "way",
+  "id": 268758258,
+  "center": {
+    "lat": 28.1889957,
+    "lon": 112.9461145
+  },
+  "tags": {
+    "access": "customers",
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "taozihu Road(桃子湖路)",
+    "building": "yes",
+    "building:levels": "2",
+    "leisure": "pitch",
+    "lit": "yes",
+    "name": "任邦柱体育馆",
+    "name:en": "Stadium"
+  }
+},
+{
+  "type": "way",
+  "id": 269856520,
+  "center": {
+    "lat": 28.2153133,
+    "lon": 112.9882414
+  },
+  "tags": {
+    "building": "yes",
+    "fee": "no",
+    "museum": "local",
+    "name": "湖南省博物馆",
+    "name:en": "Hunan Museum",
+    "tourism": "museum",
+    "website": "https://www.hnmuseum.com/",
+    "wikidata": "Q5942029",
+    "wikipedia": "en:Hunan Provincial Museum"
+  }
+},
+{
+  "type": "way",
+  "id": 269856955,
+  "center": {
+    "lat": 28.1903254,
+    "lon": 112.9455950
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "Taozihu Road",
+    "amenity": "fast_food",
+    "building": "yes",
+    "cuisine": "chinese",
+    "fast_food": "cafeteria",
+    "name": "西园餐厅",
+    "name:en": "School I Canteen"
+  }
+},
+{
+  "type": "way",
+  "id": 269856956,
+  "center": {
+    "lat": 28.1905671,
+    "lon": 112.9461016
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "Taozihu Road",
+    "building": "school",
+    "name": "潮宗苑",
+    "name:en": "Student's II dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 271093437,
+  "center": {
+    "lat": 28.1879112,
+    "lon": 112.9454060
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "Taozihu Road(桃子湖路)",
+    "building": "school",
+    "name": "广益楼",
+    "name:en": "Guangyi Classroom building"
+  }
+},
+{
+  "type": "way",
+  "id": 271093778,
+  "center": {
+    "lat": 28.1893410,
+    "lon": 112.9451845
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "taozihu Road(桃子湖路)",
+    "building": "school",
+    "building:levels": "5",
+    "name": "科学楼",
+    "name:en": "Scientific Building"
+  }
+},
+{
+  "type": "way",
+  "id": 271094155,
+  "center": {
+    "lat": 28.1884782,
+    "lon": 112.9458694
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "48",
+    "addr:postcode": "410006",
+    "addr:street": "taozihu Road(桃子湖路)",
+    "building": "school",
+    "building:levels": "2",
+    "name": "School History Exhibition Building（校史展览馆）"
+  }
+},
+{
+  "type": "way",
+  "id": 271101775,
+  "center": {
+    "lat": 28.1871859,
+    "lon": 112.9449631
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:postcode": "410006",
+    "addr:street": "taozihu Road(桃子湖路)",
+    "building": "house",
+    "name": "Faculty of Science of Hunan Normal University( 湖南师范大学理学院 )"
+  }
+},
+{
+  "type": "way",
+  "id": 273251507,
+  "center": {
+    "lat": 28.1962072,
+    "lon": 112.9702662
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "27",
+    "addr:street": "Huangxing Middle Road",
+    "building": "commercial",
+    "building:levels": "16",
+    "height": "48",
+    "name": "王府井百货(五一广场店)",
+    "name:en": "Wangfujing Dept Store",
+    "shop": "mall",
+    "smoking": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 273258321,
+  "center": {
+    "lat": 28.1945054,
+    "lon": 112.9695923
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "197",
+    "addr:street": "解放西路",
+    "building": "retail",
+    "building:levels": "4",
+    "name": "长沙印象汇",
+    "opening_hours": "Mo-Su 10:00-22:00",
+    "shop": "mall",
+    "toilets": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 273260415,
+  "center": {
+    "lat": 28.1989848,
+    "lon": 112.9731666
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "844",
+    "addr:street": "五一路",
+    "building": "hospital",
+    "check_date": "2026-06-08",
+    "name": "长沙口腔医院",
+    "name:en": "Changsha Stomatological Hospital",
+    "name:zh": "长沙口腔医院"
+  }
+},
+{
+  "type": "way",
+  "id": 273260769,
+  "center": {
+    "lat": 28.1981522,
+    "lon": 112.9727467
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "153",
+    "addr:street": "五一路",
+    "building": "commercial",
+    "name": "新世界百货",
+    "name:en": "New World Department Store China",
+    "shop": "mall",
+    "wikidata": "Q11080927",
+    "wikipedia": "en:New World Department Store China"
+  }
+},
+{
+  "type": "way",
+  "id": 273260867,
+  "center": {
+    "lat": 28.2000750,
+    "lon": 112.9702183
+  },
+  "tags": {
+    "building": "yes",
+    "name": "万代大酒店",
+    "name:en": "Wonder Hotel",
+    "name:zh": "万代大酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 273264889,
+  "center": {
+    "lat": 28.1989235,
+    "lon": 112.9921302
+  },
+  "tags": {
+    "addr:city": "changsha长沙",
+    "addr:housenumber": "368",
+    "addr:street": "五一路",
+    "building": "commercial",
+    "name": "Friendship Shop友谊商店"
+  }
+},
+{
+  "type": "way",
+  "id": 273267138,
+  "center": {
+    "lat": 28.1930524,
+    "lon": 112.9808062
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "80",
+    "addr:street": "Furong Middle Road芙蓉中路",
+    "building": "yes",
+    "check_date": "2026-05-26",
+    "name": "顺天财富大酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 273798979,
+  "center": {
+    "lat": 28.1990066,
+    "lon": 112.9772349
+  },
+  "tags": {
+    "building": "yes",
+    "name": "中天广场国际公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 286906579,
+  "center": {
+    "lat": 28.1784128,
+    "lon": 113.0004882
+  },
+  "tags": {
+    "amenity": "restaurant",
+    "brand": "绝味鸭脖",
+    "brand:en": "Juewei Duck Neck",
+    "brand:wikidata": "Q17573681",
+    "brand:zh": "绝味鸭脖",
+    "building": "yes",
+    "name": "绝味鸭脖",
+    "name:en": "Juewei Duck Neck",
+    "name:zh": "绝味鸭脖",
+    "shop": "deli"
+  }
+},
+{
+  "type": "way",
+  "id": 286907433,
+  "center": {
+    "lat": 28.1782951,
+    "lon": 113.0012355
+  },
+  "tags": {
+    "building": "yes",
+    "name": "好客酒店‎"
+  }
+},
+{
+  "type": "way",
+  "id": 286913349,
+  "center": {
+    "lat": 28.1779040,
+    "lon": 113.0046715
+  },
+  "tags": {
+    "building": "residential",
+    "name": "铭星酒店‎"
+  }
+},
+{
+  "type": "way",
+  "id": 309166672,
+  "center": {
+    "lat": 28.1985707,
+    "lon": 112.9892822
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:housenumber": "#456",
+    "addr:street": "五一路",
+    "building": "commercial",
+    "building:levels": "20",
+    "height": "66",
+    "name": "China CITIC Bank"
+  }
+},
+{
+  "type": "way",
+  "id": 309167616,
+  "center": {
+    "lat": 28.1957175,
+    "lon": 112.9883222
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "5",
+    "name": "教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 309168328,
+  "center": {
+    "lat": 28.1945751,
+    "lon": 112.9899961
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:postcode": "410001",
+    "addr:street": "Jiefang Road",
+    "building": "commercial",
+    "building:levels": "24",
+    "height": "80",
+    "name": "华侨大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 309168329,
+  "center": {
+    "lat": 28.1954933,
+    "lon": 112.9865180
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省扶贫开发办公室"
+  }
+},
+{
+  "type": "way",
+  "id": 309265539,
+  "center": {
+    "lat": 28.1985283,
+    "lon": 112.9904951
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "芙蓉区",
+    "addr:housenumber": "372",
+    "addr:postcode": "410001",
+    "addr:province": "湖南省",
+    "addr:street": "五一大道",
+    "building": "hotel",
+    "building:levels": "6",
+    "height": "18",
+    "name": "金旺阁宾馆",
+    "smoking": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 314215549,
+  "center": {
+    "lat": 28.1724644,
+    "lon": 112.9437363
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "31"
+  }
+},
+{
+  "type": "way",
+  "id": 337138977,
+  "center": {
+    "lat": 28.1726120,
+    "lon": 112.9459961
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8"
+  }
+},
+{
+  "type": "way",
+  "id": 337138978,
+  "center": {
+    "lat": 28.1729099,
+    "lon": 112.9460512
+  },
+  "tags": {
+    "building": "residential",
+    "name": "7"
+  }
+},
+{
+  "type": "way",
+  "id": 337138979,
+  "center": {
+    "lat": 28.1732221,
+    "lon": 112.9461129
+  },
+  "tags": {
+    "building": "residential",
+    "name": "6"
+  }
+},
+{
+  "type": "way",
+  "id": 339271947,
+  "center": {
+    "lat": 28.1737018,
+    "lon": 112.9465764
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4"
+  }
+},
+{
+  "type": "way",
+  "id": 370379750,
+  "center": {
+    "lat": 28.1990569,
+    "lon": 112.9741880
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南新华大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 383219074,
+  "center": {
+    "lat": 28.1708982,
+    "lon": 112.9844620
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "6",
+    "height": "24",
+    "name": "雅礼中学主教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219077,
+  "center": {
+    "lat": 28.1717512,
+    "lon": 112.9853762
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "20",
+    "height": "60",
+    "name": "雅礼中学食堂"
+  }
+},
+{
+  "type": "way",
+  "id": 383219081,
+  "center": {
+    "lat": 28.1734926,
+    "lon": 112.9840375
+  },
+  "tags": {
+    "building": "yes",
+    "name": "雅礼中学大门"
+  }
+},
+{
+  "type": "way",
+  "id": 383219094,
+  "center": {
+    "lat": 28.1726531,
+    "lon": 112.9833462
+  },
+  "tags": {
+    "building": "school",
+    "name": "雅礼中学艺体楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219096,
+  "center": {
+    "lat": 28.1727975,
+    "lon": 112.9836737
+  },
+  "tags": {
+    "building": "school",
+    "name": "雅礼中学体育馆"
+  }
+},
+{
+  "type": "way",
+  "id": 383219097,
+  "center": {
+    "lat": 28.1716690,
+    "lon": 112.9837421
+  },
+  "tags": {
+    "building": "school",
+    "name": "雅礼中学办公楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219704,
+  "center": {
+    "lat": 28.1720988,
+    "lon": 112.9854505
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "校内居民楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219705,
+  "center": {
+    "lat": 28.1723446,
+    "lon": 112.9854680
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "校内居民楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219706,
+  "center": {
+    "lat": 28.1726059,
+    "lon": 112.9853070
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "校内居民楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219707,
+  "center": {
+    "lat": 28.1725741,
+    "lon": 112.9856987
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "校内居民楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219708,
+  "center": {
+    "lat": 28.1728021,
+    "lon": 112.9855297
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "校内老式居民楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383219709,
+  "center": {
+    "lat": 28.1729500,
+    "lon": 112.9855122
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "校内居民楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383222208,
+  "center": {
+    "lat": 28.1706833,
+    "lon": 112.9850652
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "6",
+    "name": "长雅楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383222212,
+  "center": {
+    "lat": 28.1710857,
+    "lon": 112.9852318
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "5",
+    "height": "24",
+    "name": "信息楼"
+  }
+},
+{
+  "type": "way",
+  "id": 383222219,
+  "center": {
+    "lat": 28.1713832,
+    "lon": 112.9837251
+  },
+  "tags": {
+    "building": "school",
+    "name": "校史馆",
+    "note": "里面有老师各种黑历史哈哈哈……"
+  }
+},
+{
+  "type": "way",
+  "id": 390176277,
+  "center": {
+    "lat": 28.1880011,
+    "lon": 112.9444318
+  },
+  "tags": {
+    "building": "university",
+    "name": "湖南师范大学工学院"
+  }
+},
+{
+  "type": "way",
+  "id": 390176423,
+  "center": {
+    "lat": 28.1867788,
+    "lon": 112.9449517
+  },
+  "tags": {
+    "building": "yes",
+    "name": "国际学术报告厅"
+  }
+},
+{
+  "type": "way",
+  "id": 390177180,
+  "center": {
+    "lat": 28.1887825,
+    "lon": 112.9484418
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "江边一舍"
+  }
+},
+{
+  "type": "way",
+  "id": 390177181,
+  "center": {
+    "lat": 28.1893432,
+    "lon": 112.9484237
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "江边二舍"
+  }
+},
+{
+  "type": "way",
+  "id": 390177182,
+  "center": {
+    "lat": 28.1899201,
+    "lon": 112.9485069
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "江边三舍"
+  }
+},
+{
+  "type": "way",
+  "id": 390177183,
+  "center": {
+    "lat": 28.1904668,
+    "lon": 112.9487189
+  },
+  "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "name": "江边食堂"
+  }
+},
+{
+  "type": "way",
+  "id": 390178506,
+  "center": {
+    "lat": 28.1925544,
+    "lon": 112.9439696
+  },
+  "tags": {
+    "building": "yes",
+    "name": "生物研究所"
+  }
+},
+{
+  "type": "way",
+  "id": 390178610,
+  "center": {
+    "lat": 28.1930961,
+    "lon": 112.9443571
+  },
+  "tags": {
+    "building": "yes",
+    "name": "二里半宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 442182927,
+  "center": {
+    "lat": 28.1924079,
+    "lon": 112.9808859
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "定王大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 442182928,
+  "center": {
+    "lat": 28.1925823,
+    "lon": 112.9802925
+  },
+  "tags": {
+    "building": "residential",
+    "name": "颐美会现代城"
+  }
+},
+{
+  "type": "way",
+  "id": 442182932,
+  "center": {
+    "lat": 28.1936597,
+    "lon": 112.9811308
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "新华书店-实业大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 447781370,
+  "center": {
+    "lat": 28.1750326,
+    "lon": 112.9549108
+  },
+  "tags": {
+    "building": "yes",
+    "check_date": "2026-09-29",
+    "check_date:opening_hours": "2026-09-29",
+    "name": "长沙非物质文化遗产馆",
+    "name:en": "Changsha Museum of Intangible Cultural Heritage",
+    "opening_hours": "Tu-Su 09:30-17:00",
+    "tourism": "museum"
+  }
+},
+{
+  "type": "way",
+  "id": 447781371,
+  "center": {
+    "lat": 28.1761127,
+    "lon": 112.9549546
+  },
+  "tags": {
+    "building": "yes",
+    "check_date": "2026-09-29",
+    "check_date:opening_hours": "2026-09-29",
+    "name": "长株潭都市圈展示馆",
+    "opening_hours": "Mo-Su 09:30-17:00",
+    "tourism": "museum"
+  }
+},
+{
+  "type": "way",
+  "id": 447781372,
+  "center": {
+    "lat": 28.1786016,
+    "lon": 112.9560545
+  },
+  "tags": {
+    "amenity": "fast_food",
+    "brand": "肯德基",
+    "brand:en": "KFC",
+    "brand:wikidata": "Q524757",
+    "brand:zh": "肯德基",
+    "building": "yes",
+    "check_date": "2026-09-29",
+    "check_date:opening_hours": "2026-09-29",
+    "cuisine": "chicken",
+    "drive_through": "no",
+    "name": "肯德基",
+    "name:en": "KFC",
+    "name:zh": "肯德基",
+    "opening_hours": "Mo-Th 11:00-18:00; Fr-Su 11:00-20:00",
+    "phone": "02159097778",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 467250125,
+  "center": {
+    "lat": 28.1907338,
+    "lon": 112.9691863
+  },
+  "tags": {
+    "building": "yes",
+    "leisure": "sports_centre",
+    "name": "体育馆"
+  }
+},
+{
+  "type": "way",
+  "id": 467250127,
+  "center": {
+    "lat": 28.1893381,
+    "lon": 112.9698879
+  },
+  "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "fast_food": "cafeteria",
+    "name": "食堂"
+  }
+},
+{
+  "type": "way",
+  "id": 467250128,
+  "center": {
+    "lat": 28.1887174,
+    "lon": 112.9698822
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "新学生公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 467250129,
+  "center": {
+    "lat": 28.1889993,
+    "lon": 112.9699425
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "旧学生公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 467250130,
+  "center": {
+    "lat": 28.1888244,
+    "lon": 112.9692398
+  },
+  "tags": {
+    "building": "school",
+    "name": "第一教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 467250131,
+  "center": {
+    "lat": 28.1890438,
+    "lon": 112.9693149
+  },
+  "tags": {
+    "building": "school",
+    "name": "第二教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 467250132,
+  "center": {
+    "lat": 28.1897377,
+    "lon": 112.9686476
+  },
+  "tags": {
+    "building": "school",
+    "name": "第三教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 467250133,
+  "center": {
+    "lat": 28.1899691,
+    "lon": 112.9687446
+  },
+  "tags": {
+    "building": "school",
+    "name": "第四教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 467250134,
+  "center": {
+    "lat": 28.1899356,
+    "lon": 112.9691795
+  },
+  "tags": {
+    "building": "yes",
+    "name": "办公楼",
+    "office": "government"
+  }
+},
+{
+  "type": "way",
+  "id": 467250135,
+  "center": {
+    "lat": 28.1903642,
+    "lon": 112.9688750
+  },
+  "tags": {
+    "building": "school",
+    "name": "科学馆"
+  }
+},
+{
+  "type": "way",
+  "id": 481120085,
+  "center": {
+    "lat": 28.1892130,
+    "lon": 112.9793076
+  },
+  "tags": {
+    "building": "yes",
+    "check_date": "2026-10-07",
+    "name": "长沙供水大厦",
+    "office": "company",
+    "official_name": "长沙供水有限公司",
+    "old_name": "长沙市自来水公司"
+  }
+},
+{
+  "type": "way",
+  "id": 481120086,
+  "center": {
+    "lat": 28.1871805,
+    "lon": 112.9757513
+  },
+  "tags": {
+    "area": "yes",
+    "building": "castle",
+    "name": "天心阁",
+    "name:en": "Tianxin Pavilion",
+    "name:zh": "天心阁",
+    "ref:zh": "全国重点文物保护单位",
+    "tourism": "attraction",
+    "wikidata": "Q10939614",
+    "wikipedia": "en:Tianxin Pavilion"
+  }
+},
+{
+  "type": "way",
+  "id": 481684606,
+  "center": {
+    "lat": 28.1836623,
+    "lon": 112.9772049
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "mosque",
+    "check_date": "2026-06-27",
+    "denomination": "sunni",
+    "name": "长沙清真寺",
+    "name:ar": "مسجد تشانغشا",
+    "name:en": "Changsha Mosque",
+    "name:zh": "长沙清真寺",
+    "religion": "muslim",
+    "source": "digitalGlobe Premium",
+    "wikidata": "Q28796329",
+    "wikipedia": "en:Changsha Mosque"
+  }
+},
+{
+  "type": "way",
+  "id": 482776803,
+  "center": {
+    "lat": 28.1958159,
+    "lon": 112.9857765
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省人民政府机关医院"
+  }
+},
+{
+  "type": "way",
+  "id": 482776827,
+  "center": {
+    "lat": 28.1947503,
+    "lon": 112.9883310
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "建科院"
+  }
+},
+{
+  "type": "way",
+  "id": 482776831,
+  "center": {
+    "lat": 28.1946317,
+    "lon": 112.9840234
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "鸿富大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 484303641,
+  "center": {
+    "lat": 28.1973954,
+    "lon": 112.9855596
+  },
+  "tags": {
+    "building": "yes",
+    "name": "中国电信"
+  }
+},
+{
+  "type": "way",
+  "id": 484303647,
+  "center": {
+    "lat": 28.1977313,
+    "lon": 112.9837885
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "20",
+    "height": "60",
+    "name": "华美欧大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 492244231,
+  "center": {
+    "lat": 28.1639876,
+    "lon": 112.9806706
+  },
+  "tags": {
+    "building": "hotel",
+    "name": "神农大酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 492244232,
+  "center": {
+    "lat": 28.1640054,
+    "lon": 112.9826408
+  },
+  "tags": {
+    "building": "hotel",
+    "name": "金辉大酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 527545435,
+  "center": {
+    "lat": 28.1959478,
+    "lon": 112.9731082
+  },
+  "tags": {
+    "building": "retail",
+    "building:levels": "10",
+    "height": "60",
+    "name": "长沙IFS",
+    "name:en": "Changsha Global Financial Center",
+    "shop": "mall",
+    "wikidata": "Q5410187",
+    "wikipedia": "en:Changsha IFS Tower"
+  }
+},
+{
+  "type": "way",
+  "id": 527545445,
+  "center": {
+    "lat": 28.1967268,
+    "lon": 112.9727070
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "蚂蚁工房"
+  }
+},
+{
+  "type": "way",
+  "id": 527545449,
+  "center": {
+    "lat": 28.1951538,
+    "lon": 112.9724700
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "城市生活家"
+  }
+},
+{
+  "type": "way",
+  "id": 527545451,
+  "center": {
+    "lat": 28.1961051,
+    "lon": 112.9746928
+  },
+  "tags": {
+    "building": "office",
+    "building:levels": "65",
+    "height": "315",
+    "name": "Changsha IFS Tower T2",
+    "wikidata": "Q29837575"
+  }
+},
+{
+  "type": "way",
+  "id": 527545453,
+  "center": {
+    "lat": 28.1953571,
+    "lon": 112.9735231
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:province": "湖南省",
+    "building": "office",
+    "building:levels": "93",
+    "height": "452",
+    "name": "Changsha IFS Tower T1",
+    "wikidata": "Q5410187",
+    "wikipedia": "en:Changsha IFS Tower T1"
+  }
+},
+{
+  "type": "way",
+  "id": 539607658,
+  "center": {
+    "lat": 28.2022929,
+    "lon": 112.9809191
+  },
+  "tags": {
+    "building": "yes",
+    "name": "潇湘华天大酒店"
+  }
+},
+{
+  "type": "way",
+  "id": 542788500,
+  "center": {
+    "lat": 28.1924609,
+    "lon": 112.9874050
+  },
+  "tags": {
+    "addr:city": "Changsha",
+    "addr:district": "芙蓉区",
+    "addr:postcode": "410011",
+    "addr:province": "湖南省",
+    "addr:street": "黄坭坑巷",
+    "building": "apartments",
+    "building:levels": "8",
+    "name": "劳动村1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 543405256,
+  "center": {
+    "lat": 28.1931632,
+    "lon": 112.9777061
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "东门捷径6号小区-北栋"
+  }
+},
+{
+  "type": "way",
+  "id": 543405257,
+  "center": {
+    "lat": 28.1932354,
+    "lon": 112.9782867
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "定王台社区图书室"
+  }
+},
+{
+  "type": "way",
+  "id": 543405259,
+  "center": {
+    "lat": 28.1933410,
+    "lon": 112.9778941
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "东门捷径-12号院"
+  }
+},
+{
+  "type": "way",
+  "id": 543405262,
+  "center": {
+    "lat": 28.1938629,
+    "lon": 112.9782714
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "长房大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 543405263,
+  "center": {
+    "lat": 28.1937661,
+    "lon": 112.9772816
+  },
+  "tags": {
+    "building": "hospital",
+    "layer": "1",
+    "name": "第二住院楼"
+  }
+},
+{
+  "type": "way",
+  "id": 544924866,
+  "center": {
+    "lat": 28.1932287,
+    "lon": 112.9646275
+  },
+  "tags": {
+    "addr:city": "长沙",
+    "addr:street": "湘江中路",
+    "building": "retail",
+    "building:levels": "7",
+    "check_date": "2026-09-23",
+    "check_date:opening_hours": "2026-09-23",
+    "height": "38.2",
+    "name": "长沙海信广场",
+    "name:en": "Hisense Plaza",
+    "opening_hours": "Mo-Su 10:00-22:00",
+    "shop": "mall",
+    "toilets": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 550939736,
+  "center": {
+    "lat": 28.1882500,
+    "lon": 112.9820759
+  },
+  "tags": {
+    "building": "yes",
+    "name": "谭厨专业长沙菜"
+  }
+},
+{
+  "type": "way",
+  "id": 551523048,
+  "center": {
+    "lat": 28.1878678,
+    "lon": 112.9818447
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "长聚大酒店"
+  }
+},
+{
+  "type": "way",
+  "id": 551523072,
+  "center": {
+    "lat": 28.1853519,
+    "lon": 112.9875729
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "省政府宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 551523122,
+  "center": {
+    "lat": 28.1885675,
+    "lon": 112.9818449
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "恒生大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 551532850,
+  "center": {
+    "lat": 28.1785171,
+    "lon": 112.9731988
+  },
+  "tags": {
+    "building": "yes",
+    "name": "电控大楼"
+  }
+},
+{
+  "type": "way",
+  "id": 552701044,
+  "center": {
+    "lat": 28.1890494,
+    "lon": 112.9742685
+  },
+  "tags": {
+    "building": "yes",
+    "name": "天辰腾达商务大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 560406652,
+  "center": {
+    "lat": 28.1922110,
+    "lon": 112.9775820
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "军之情家庭旅馆"
+  }
+},
+{
+  "type": "way",
+  "id": 587840427,
+  "center": {
+    "lat": 28.2097509,
+    "lon": 112.9467384
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "岳麓区",
+    "addr:postcode": "410006",
+    "addr:province": "湖南省",
+    "building": "school",
+    "building:levels": "6",
+    "name": "高中部教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587840428,
+  "center": {
+    "lat": 28.2080730,
+    "lon": 112.9449896
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "岳麓区",
+    "addr:postcode": "410006",
+    "addr:province": "湖南省",
+    "building": "school",
+    "building:levels": "6",
+    "name": "初中部教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852679,
+  "center": {
+    "lat": 28.2112354,
+    "lon": 112.9456840
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "岳麓区",
+    "addr:postcode": "410006",
+    "addr:province": "湖南省",
+    "building": "dormitory",
+    "building:levels": "10",
+    "name": "新男生公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 587852680,
+  "center": {
+    "lat": 28.2090379,
+    "lon": 112.9468119
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "岳麓区",
+    "addr:postcode": "410006",
+    "addr:province": "湖南省",
+    "building": "school",
+    "building:levels": "6",
+    "name": "办公图书楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852681,
+  "center": {
+    "lat": 28.2088830,
+    "lon": 112.9460595
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "岳麓区",
+    "addr:postcode": "410006",
+    "addr:province": "湖南省",
+    "building": "yes",
+    "leisure": "sports_centre",
+    "name": "麓山体育馆",
+    "opening_hours": "Mo-Fr 08:00-17:00",
+    "sport": "basketball"
+  }
+},
+{
+  "type": "way",
+  "id": 587852682,
+  "center": {
+    "lat": 28.2075040,
+    "lon": 112.9461536
+  },
+  "tags": {
+    "building": "dormitory",
+    "building:levels": "6",
+    "name": "红楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852683,
+  "center": {
+    "lat": 28.2077573,
+    "lon": 112.9461603
+  },
+  "tags": {
+    "building": "dormitory",
+    "building:levels": "6",
+    "name": "蓝楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852684,
+  "center": {
+    "lat": 28.2080382,
+    "lon": 112.9461525
+  },
+  "tags": {
+    "building": "dormitory",
+    "building:levels": "6",
+    "name": "绿楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852685,
+  "center": {
+    "lat": 28.2102235,
+    "lon": 112.9464096
+  },
+  "tags": {
+    "building": "dormitory",
+    "building:levels": "6",
+    "name": "高中男生楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852686,
+  "center": {
+    "lat": 28.2102291,
+    "lon": 112.9469576
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "高中女生楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852687,
+  "center": {
+    "lat": 28.2107046,
+    "lon": 112.9464465
+  },
+  "tags": {
+    "building": "dormitory",
+    "building:levels": "6",
+    "name": "英才楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852692,
+  "center": {
+    "lat": 28.2083852,
+    "lon": 112.9460987
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "4",
+    "name": "初中部食堂"
+  }
+},
+{
+  "type": "way",
+  "id": 587852693,
+  "center": {
+    "lat": 28.2073896,
+    "lon": 112.9465424
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "国际楼"
+  }
+},
+{
+  "type": "way",
+  "id": 587852694,
+  "center": {
+    "lat": 28.2093496,
+    "lon": 112.9469534
+  },
+  "tags": {
+    "building": "school",
+    "layer": "-1",
+    "name": "麓山国际学校正门"
+  }
+},
+{
+  "type": "way",
+  "id": 591705647,
+  "center": {
+    "lat": 28.2075484,
+    "lon": 112.9448215
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "岳麓区",
+    "addr:postcode": "410006",
+    "addr:province": "湖南省",
+    "building": "school",
+    "name": "小学部教学楼"
+  }
+},
+{
+  "type": "way",
+  "id": 591705653,
+  "center": {
+    "lat": 28.2077112,
+    "lon": 112.9465245
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "岳麓区",
+    "addr:postcode": "410006",
+    "addr:province": "湖南省",
+    "building": "school",
+    "name": "麓山国际南门"
+  }
+},
+{
+  "type": "way",
+  "id": 591705662,
+  "center": {
+    "lat": 28.2111623,
+    "lon": 112.9464061
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "麓山雅苑一号楼"
+  }
+},
+{
+  "type": "way",
+  "id": 591705663,
+  "center": {
+    "lat": 28.2111586,
+    "lon": 112.9470099
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "麓山雅苑二号楼"
+  }
+},
+{
+  "type": "way",
+  "id": 591705664,
+  "center": {
+    "lat": 28.2108556,
+    "lon": 112.9471027
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "麓山雅苑三号楼"
+  }
+},
+{
+  "type": "way",
+  "id": 591705665,
+  "center": {
+    "lat": 28.2105589,
+    "lon": 112.9470715
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "麓山雅苑四号楼"
+  }
+},
+{
+  "type": "way",
+  "id": 591715763,
+  "center": {
+    "lat": 28.2073717,
+    "lon": 112.9456624
+  },
+  "tags": {
+    "amenity": "clinic",
+    "building": "yes",
+    "healthcare": "clinic",
+    "healthcare:speciality": "general",
+    "name": "麓山医务室"
+  }
+},
+{
+  "type": "way",
+  "id": 599610945,
+  "center": {
+    "lat": 28.2079853,
+    "lon": 112.9848291
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "name": "第二课堂杂志社"
+  }
+},
+{
+  "type": "way",
+  "id": 599610947,
+  "center": {
+    "lat": 28.2072984,
+    "lon": 112.9846897
+  },
+  "tags": {
+    "building": "commercial",
+    "building:levels": "7",
+    "name": "锦江之星旅馆"
+  }
+},
+{
+  "type": "way",
+  "id": 599610950,
+  "center": {
+    "lat": 28.2071947,
+    "lon": 112.9842537
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "height": "0",
+    "name": "湖南省画院"
+  }
+},
+{
+  "type": "way",
+  "id": 599610953,
+  "center": {
+    "lat": 28.2071959,
+    "lon": 112.9836679
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "开福区",
+    "addr:province": "湖南省",
+    "addr:street": "东风路",
+    "building": "commercial",
+    "building:levels": "6",
+    "name": "陶波大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 599610956,
+  "center": {
+    "lat": 28.2071910,
+    "lon": 112.9832828
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "开福区",
+    "addr:province": "湖南省",
+    "addr:street": "东风路",
+    "building": "commercial",
+    "building:levels": "0",
+    "name": "科普大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 599610968,
+  "center": {
+    "lat": 28.2090007,
+    "lon": 112.9844425
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "开福区",
+    "addr:province": "湖南省",
+    "addr:street": "东风路",
+    "building": "yes",
+    "name": "湖南省妇女儿童中心"
+  }
+},
+{
+  "type": "way",
+  "id": 599610980,
+  "center": {
+    "lat": 28.2114448,
+    "lon": 112.9848743
+  },
+  "tags": {
+    "addr:housenumber": "39号",
+    "addr:street": "东风路",
+    "building": "commercial",
+    "name": "御景花园"
+  }
+},
+{
+  "type": "way",
+  "id": 599610993,
+  "center": {
+    "lat": 28.2065585,
+    "lon": 112.9838128
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省版权局"
+  }
+},
+{
+  "type": "way",
+  "id": 599610995,
+  "center": {
+    "lat": 28.2062429,
+    "lon": 112.9835183
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "出版局宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 599611026,
+  "center": {
+    "lat": 28.2048222,
+    "lon": 112.9831969
+  },
+  "tags": {
+    "amenity": "police",
+    "building": "yes",
+    "name": "清水塘派出所"
+  }
+},
+{
+  "type": "way",
+  "id": 599611029,
+  "center": {
+    "lat": 28.2045271,
+    "lon": 112.9831315
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "环卫宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 599611035,
+  "center": {
+    "lat": 28.2041156,
+    "lon": 112.9832057
+  },
+  "tags": {
+    "amenity": "arts_centre",
+    "building": "yes",
+    "name": "意境画廊"
+  }
+},
+{
+  "type": "way",
+  "id": 599611038,
+  "center": {
+    "lat": 28.2038172,
+    "lon": 112.9830314
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "湖南逸尚文化艺术有限公司"
+  }
+},
+{
+  "type": "way",
+  "id": 599611047,
+  "center": {
+    "lat": 28.2064503,
+    "lon": 112.9851178
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省政协",
+    "office": "government"
+  }
+},
+{
+  "type": "way",
+  "id": 599611070,
+  "center": {
+    "lat": 28.2072325,
+    "lon": 112.9826295
+  },
+  "tags": {
+    "amenity": "cinema",
+    "building": "yes",
+    "name": "芒果东风影城"
+  }
+},
+{
+  "type": "way",
+  "id": 599611077,
+  "center": {
+    "lat": 28.2072076,
+    "lon": 112.9815974
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省新闻出版大厦",
+    "office": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 599611094,
+  "center": {
+    "lat": 28.2123463,
+    "lon": 112.9840190
+  },
+  "tags": {
+    "building": "yes",
+    "leisure": "fitness_centre",
+    "name": "蹦床训练馆"
+  }
+},
+{
+  "type": "way",
+  "id": 599611096,
+  "center": {
+    "lat": 28.2121275,
+    "lon": 112.9839721
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省体操运动管理中心",
+    "office": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 603625391,
+  "center": {
+    "lat": 28.2109609,
+    "lon": 112.9479927
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8-3"
+  }
+},
+{
+  "type": "way",
+  "id": 603625393,
+  "center": {
+    "lat": 28.2109714,
+    "lon": 112.9484999
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8-4"
+  }
+},
+{
+  "type": "way",
+  "id": 603625395,
+  "center": {
+    "lat": 28.2112188,
+    "lon": 112.9480630
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "8-5"
+  }
+},
+{
+  "type": "way",
+  "id": 603625396,
+  "center": {
+    "lat": 28.2112097,
+    "lon": 112.9485148
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "8-6"
+  }
+},
+{
+  "type": "way",
+  "id": 603625398,
+  "center": {
+    "lat": 28.2107180,
+    "lon": 112.9479826
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8-1"
+  }
+},
+{
+  "type": "way",
+  "id": 603625400,
+  "center": {
+    "lat": 28.2107356,
+    "lon": 112.9485022
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8-2"
+  }
+},
+{
+  "type": "way",
+  "id": 628689391,
+  "center": {
+    "lat": 28.2060991,
+    "lon": 112.9875240
+  },
+  "tags": {
+    "addr:city": "长沙",
+    "addr:district": "开福",
+    "addr:housenumber": "246",
+    "addr:street": "迎宾路",
+    "building": "apartments",
+    "building:levels": "28",
+    "name": "鹏程世家"
+  }
+},
+{
+  "type": "way",
+  "id": 640439297,
+  "center": {
+    "lat": 28.2122337,
+    "lon": 112.9875949
+  },
+  "tags": {
+    "area": "yes",
+    "building": "yes",
+    "name": "烈士塔",
+    "tourism": "attraction"
+  }
+},
+{
+  "type": "way",
+  "id": 640440238,
+  "center": {
+    "lat": 28.2037724,
+    "lon": 112.9705379
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "monument",
+    "name": "中山亭",
+    "name:de": "Sun Yatsen Monument",
+    "name:zh": "中山亭"
+  }
+},
+{
+  "type": "way",
+  "id": 640440493,
+  "center": {
+    "lat": 28.1982209,
+    "lon": 112.9703110
+  },
+  "tags": {
+    "building": "yes",
+    "name": "7mall美食潮地标",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 643776047,
+  "center": {
+    "lat": 28.2113335,
+    "lon": 112.9515163
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-3"
+  }
+},
+{
+  "type": "way",
+  "id": 643776048,
+  "center": {
+    "lat": 28.2082995,
+    "lon": 112.9510075
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-18"
+  }
+},
+{
+  "type": "way",
+  "id": 643776051,
+  "center": {
+    "lat": 28.2110961,
+    "lon": 112.9491489
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-12"
+  }
+},
+{
+  "type": "way",
+  "id": 643776052,
+  "center": {
+    "lat": 28.2110946,
+    "lon": 112.9497799
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-13"
+  }
+},
+{
+  "type": "way",
+  "id": 643776053,
+  "center": {
+    "lat": 28.2108609,
+    "lon": 112.9491483
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-10"
+  }
+},
+{
+  "type": "way",
+  "id": 643776054,
+  "center": {
+    "lat": 28.2108659,
+    "lon": 112.9497906
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-11"
+  }
+},
+{
+  "type": "way",
+  "id": 643776077,
+  "center": {
+    "lat": 28.2108762,
+    "lon": 112.9514213
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-5"
+  }
+},
+{
+  "type": "way",
+  "id": 643776078,
+  "center": {
+    "lat": 28.2106710,
+    "lon": 112.9513891
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-6"
+  }
+},
+{
+  "type": "way",
+  "id": 643776079,
+  "center": {
+    "lat": 28.2101235,
+    "lon": 112.9513961
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "1-15"
+  }
+},
+{
+  "type": "way",
+  "id": 643776083,
+  "center": {
+    "lat": 28.2100584,
+    "lon": 112.9520198
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-12"
+  }
+},
+{
+  "type": "way",
+  "id": 645931098,
+  "center": {
+    "lat": 28.1974121,
+    "lon": 112.9702678
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "春天百货",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 645931334,
+  "center": {
+    "lat": 28.1971658,
+    "lon": 112.9694039
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湘茶大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645931969,
+  "center": {
+    "lat": 28.1954432,
+    "lon": 112.9688441
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "城市经典"
+  }
+},
+{
+  "type": "way",
+  "id": 645932922,
+  "center": {
+    "lat": 28.1956582,
+    "lon": 112.9696508
+  },
+  "tags": {
+    "building": "residential",
+    "name": "C"
+  }
+},
+{
+  "type": "way",
+  "id": 645933056,
+  "center": {
+    "lat": 28.1962376,
+    "lon": 112.9696179
+  },
+  "tags": {
+    "building": "residential",
+    "name": "D"
+  }
+},
+{
+  "type": "way",
+  "id": 645933439,
+  "center": {
+    "lat": 28.1964603,
+    "lon": 112.9642695
+  },
+  "tags": {
+    "building": "retail",
+    "name": "下河街商贸城"
+  }
+},
+{
+  "type": "way",
+  "id": 645933559,
+  "center": {
+    "lat": 28.1958021,
+    "lon": 112.9636303
+  },
+  "tags": {
+    "addr:housenumber": "101号",
+    "addr:street": "湘江中路",
+    "building": "commercial",
+    "layer": "1",
+    "name": "汇源大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645933704,
+  "center": {
+    "lat": 28.1959030,
+    "lon": 112.9642864
+  },
+  "tags": {
+    "building": "residential",
+    "name": "长房·汀兰雅苑"
+  }
+},
+{
+  "type": "way",
+  "id": 645934310,
+  "center": {
+    "lat": 28.1952935,
+    "lon": 112.9696330
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "B"
+  }
+},
+{
+  "type": "way",
+  "id": 645935747,
+  "center": {
+    "lat": 28.1981509,
+    "lon": 112.9748977
+  },
+  "tags": {
+    "building": "yes",
+    "name": "联合商厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645936357,
+  "center": {
+    "lat": 28.1973584,
+    "lon": 112.9759034
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "17",
+    "name": "永峰大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645939689,
+  "center": {
+    "lat": 28.1977088,
+    "lon": 112.9820854
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "30",
+    "height": "99",
+    "name": "碧云天"
+  }
+},
+{
+  "type": "way",
+  "id": 645939692,
+  "center": {
+    "lat": 28.1966046,
+    "lon": 112.9820924
+  },
+  "tags": {
+    "building": "yes",
+    "name": "新富城"
+  }
+},
+{
+  "type": "way",
+  "id": 645939694,
+  "center": {
+    "lat": 28.1969509,
+    "lon": 112.9830728
+  },
+  "tags": {
+    "building": "yes",
+    "name": "富利大楼"
+  }
+},
+{
+  "type": "way",
+  "id": 645939696,
+  "center": {
+    "lat": 28.1962834,
+    "lon": 112.9831329
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "富顺大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645946980,
+  "center": {
+    "lat": 28.1948527,
+    "lon": 112.9639729
+  },
+  "tags": {
+    "addr:housenumber": "38",
+    "addr:street": "湘江中路",
+    "building": "retail",
+    "building:levels": "8",
+    "height": "32",
+    "name": "华远悠优港",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 645946982,
+  "center": {
+    "lat": 28.1947075,
+    "lon": 112.9645355
+  },
+  "tags": {
+    "building": "residential",
+    "name": "福临大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645946984,
+  "center": {
+    "lat": 28.1948025,
+    "lon": 112.9675241
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "三王丽都大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645946992,
+  "center": {
+    "lat": 28.1924579,
+    "lon": 112.9713972
+  },
+  "tags": {
+    "building": "yes",
+    "name": "新福源"
+  }
+},
+{
+  "type": "way",
+  "id": 645946995,
+  "center": {
+    "lat": 28.1930530,
+    "lon": 112.9731591
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长沙市民主党派机关宿舍2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 645946997,
+  "center": {
+    "lat": 28.1931742,
+    "lon": 112.9743443
+  },
+  "tags": {
+    "building": "residential",
+    "name": "丰泉家园"
+  }
+},
+{
+  "type": "way",
+  "id": 645946998,
+  "center": {
+    "lat": 28.1930314,
+    "lon": 112.9747490
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "丰泉大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645947002,
+  "center": {
+    "lat": 28.1940646,
+    "lon": 112.9738047
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长沙市芙蓉区东茅街学校"
+  }
+},
+{
+  "type": "way",
+  "id": 645947004,
+  "center": {
+    "lat": 28.1942580,
+    "lon": 112.9746172
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "鸿盛大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645947005,
+  "center": {
+    "lat": 28.1944947,
+    "lon": 112.9731742
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "7天连锁酒店"
+  }
+},
+{
+  "type": "way",
+  "id": 645947009,
+  "center": {
+    "lat": 28.1945791,
+    "lon": 112.9736506
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "桔子酒店精选"
+  }
+},
+{
+  "type": "way",
+  "id": 645950987,
+  "center": {
+    "lat": 28.1927935,
+    "lon": 112.9823791
+  },
+  "tags": {
+    "building": "commercial",
+    "building:levels": "30",
+    "height": "90",
+    "name": "东成大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 645950988,
+  "center": {
+    "lat": 28.1921255,
+    "lon": 112.9821788
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "华菱大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 646383985,
+  "center": {
+    "lat": 28.1897263,
+    "lon": 112.9664086
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湘郡培粹实验中学"
+  }
+},
+{
+  "type": "way",
+  "id": 646383992,
+  "center": {
+    "lat": 28.1912377,
+    "lon": 112.9711311
+  },
+  "tags": {
+    "building": "commercial",
+    "building:levels": "4",
+    "name": "新天地"
+  }
+},
+{
+  "type": "way",
+  "id": 646383993,
+  "center": {
+    "lat": 28.1904051,
+    "lon": 112.9711506
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "西罗亚商厦"
+  }
+},
+{
+  "type": "way",
+  "id": 646384144,
+  "center": {
+    "lat": 28.1889659,
+    "lon": 112.9710478
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "森和大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 646859549,
+  "center": {
+    "lat": 28.1888195,
+    "lon": 112.9910381
+  },
+  "tags": {
+    "building": "residential",
+    "name": "上城·星座"
+  }
+},
+{
+  "type": "way",
+  "id": 646859550,
+  "center": {
+    "lat": 28.1886918,
+    "lon": 112.9903085
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省歌舞剧院"
+  }
+},
+{
+  "type": "way",
+  "id": 646859551,
+  "center": {
+    "lat": 28.1890441,
+    "lon": 112.9891149
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "恒福大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 646859552,
+  "center": {
+    "lat": 28.1888881,
+    "lon": 112.9892780
+  },
+  "tags": {
+    "building": "residential",
+    "name": "光大银行宿舍小区"
+  }
+},
+{
+  "type": "way",
+  "id": 646859555,
+  "center": {
+    "lat": 28.1865972,
+    "lon": 112.9889084
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "柏林商务楼"
+  }
+},
+{
+  "type": "way",
+  "id": 646859557,
+  "center": {
+    "lat": 28.1873594,
+    "lon": 112.9911916
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "汇富中心"
+  }
+},
+{
+  "type": "way",
+  "id": 646859559,
+  "center": {
+    "lat": 28.1862238,
+    "lon": 112.9904731
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省核工业地质局地质调查院"
+  }
+},
+{
+  "type": "way",
+  "id": 646859562,
+  "center": {
+    "lat": 28.1843628,
+    "lon": 112.9872195
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "长天大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 646859564,
+  "center": {
+    "lat": 28.1842446,
+    "lon": 112.9850952
+  },
+  "tags": {
+    "building": "yes",
+    "name": "林勘院大楼"
+  }
+},
+{
+  "type": "way",
+  "id": 646859565,
+  "center": {
+    "lat": 28.1842257,
+    "lon": 112.9866321
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "广济楼"
+  }
+},
+{
+  "type": "way",
+  "id": 646859566,
+  "center": {
+    "lat": 28.1848261,
+    "lon": 112.9817727
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省地质科学研究院"
+  }
+},
+{
+  "type": "way",
+  "id": 646859568,
+  "center": {
+    "lat": 28.1784786,
+    "lon": 112.9770592
+  },
+  "tags": {
+    "air_conditioning": "yes",
+    "amenity": "theatre",
+    "building": "yes",
+    "internet_access": "wlan",
+    "name": "贺龙体育馆"
+  }
+},
+{
+  "type": "way",
+  "id": 646859569,
+  "center": {
+    "lat": 28.1784782,
+    "lon": 112.9755871
+  },
+  "tags": {
+    "building": "yes",
+    "name": "美丽传说温泉度假酒店",
+    "shop": "wine"
+  }
+},
+{
+  "type": "way",
+  "id": 646859578,
+  "center": {
+    "lat": 28.1865465,
+    "lon": 112.9700552
+  },
+  "tags": {
+    "addr:housenumber": "199",
+    "addr:street": "黄兴南路",
+    "building": "commercial",
+    "name": "新大陆·银座"
+  }
+},
+{
+  "type": "way",
+  "id": 646859580,
+  "center": {
+    "lat": 28.1872136,
+    "lon": 112.9644622
+  },
+  "tags": {
+    "addr:housenumber": "238",
+    "addr:street": "湘江中路",
+    "atm": "no",
+    "building": "commercial",
+    "building:levels": "8",
+    "height": "26",
+    "name": "国家开发银行"
+  }
+},
+{
+  "type": "way",
+  "id": 646859582,
+  "center": {
+    "lat": 28.1689036,
+    "lon": 112.9660267
+  },
+  "tags": {
+    "building": "residential",
+    "name": "蓝湾国际广场"
+  }
+},
+{
+  "type": "way",
+  "id": 646871421,
+  "center": {
+    "lat": 28.1771557,
+    "lon": 112.9782390
+  },
+  "tags": {
+    "amenity": "theatre",
+    "building": "yes",
+    "name": "田汉大剧院"
+  }
+},
+{
+  "type": "way",
+  "id": 646871428,
+  "center": {
+    "lat": 28.1723064,
+    "lon": 112.9881364
+  },
+  "tags": {
+    "building": "commercial",
+    "building:levels": "25",
+    "height": "80",
+    "name": "新里程购物中心"
+  }
+},
+{
+  "type": "way",
+  "id": 649047187,
+  "center": {
+    "lat": 28.1716329,
+    "lon": 112.9898388
+  },
+  "tags": {
+    "building": "yes",
+    "name": "友谊商城"
+  }
+},
+{
+  "type": "way",
+  "id": 649047200,
+  "center": {
+    "lat": 28.1703128,
+    "lon": 112.9909520
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "7栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649047202,
+  "center": {
+    "lat": 28.1700810,
+    "lon": 112.9909938
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "8栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649047206,
+  "center": {
+    "lat": 28.1698356,
+    "lon": 112.9909747
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "9栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649047211,
+  "center": {
+    "lat": 28.1691443,
+    "lon": 112.9892809
+  },
+  "tags": {
+    "building": "hotel",
+    "name": "杏源大酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 649047286,
+  "center": {
+    "lat": 28.1702768,
+    "lon": 112.9927462
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "君悦星城"
+  }
+},
+{
+  "type": "way",
+  "id": 649059344,
+  "center": {
+    "lat": 28.1619141,
+    "lon": 112.9915995
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649059347,
+  "center": {
+    "lat": 28.1626355,
+    "lon": 112.9920700
+  },
+  "tags": {
+    "building": "yes",
+    "name": "梨子山24栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649059361,
+  "center": {
+    "lat": 28.1629557,
+    "lon": 112.9921240
+  },
+  "tags": {
+    "building": "yes",
+    "name": "梨子山23栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649059415,
+  "center": {
+    "lat": 28.1632881,
+    "lon": 112.9927836
+  },
+  "tags": {
+    "building": "yes",
+    "name": "附27栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649146350,
+  "center": {
+    "lat": 28.1652739,
+    "lon": 112.9973480
+  },
+  "tags": {
+    "building": "yes",
+    "name": "砂子塘社区",
+    "office": "government",
+    "opening_hours": "Sa,Su,PH off"
+  }
+},
+{
+  "type": "way",
+  "id": 649776563,
+  "center": {
+    "lat": 28.1727880,
+    "lon": 112.9965465
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "移民局宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 649776566,
+  "center": {
+    "lat": 28.1725365,
+    "lon": 112.9967377
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "湖南移民大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 649842774,
+  "center": {
+    "lat": 28.1716035,
+    "lon": 112.9923135
+  },
+  "tags": {
+    "brand": "中国联通",
+    "brand:en": "China Unicom",
+    "brand:wikidata": "Q1068485",
+    "brand:zh": "中国联通",
+    "building": "yes",
+    "name": "中国联通",
+    "name:en": "China Unicom",
+    "name:zh": "中国联通",
+    "shop": "telecommunication"
+  }
+},
+{
+  "type": "way",
+  "id": 649842799,
+  "center": {
+    "lat": 28.1729826,
+    "lon": 112.9949778
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842805,
+  "center": {
+    "lat": 28.1727532,
+    "lon": 112.9950556
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842807,
+  "center": {
+    "lat": 28.1725443,
+    "lon": 112.9952114
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842814,
+  "center": {
+    "lat": 28.1723018,
+    "lon": 112.9953876
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842815,
+  "center": {
+    "lat": 28.1719704,
+    "lon": 112.9956188
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842816,
+  "center": {
+    "lat": 28.1715423,
+    "lon": 112.9956585
+  },
+  "tags": {
+    "building": "residential",
+    "name": "6栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842825,
+  "center": {
+    "lat": 28.1696450,
+    "lon": 112.9954838
+  },
+  "tags": {
+    "amenity": "dentist",
+    "building": "yes",
+    "healthcare": "dentist",
+    "name": "长沙中诺口腔医院"
+  }
+},
+{
+  "type": "way",
+  "id": 649842828,
+  "center": {
+    "lat": 28.1699136,
+    "lon": 112.9955422
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "湖南省医疗器械宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 649842832,
+  "center": {
+    "lat": 28.1701195,
+    "lon": 112.9950530
+  },
+  "tags": {
+    "brand": "全季酒店",
+    "brand:en": "Ji Hotel",
+    "brand:wikidata": "Q116895638",
+    "brand:zh": "全季酒店",
+    "building": "yes",
+    "name": "全季酒店",
+    "name:en": "Ji Hotel",
+    "name:zh": "全季酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 649842847,
+  "center": {
+    "lat": 28.1718746,
+    "lon": 112.9961061
+  },
+  "tags": {
+    "building": "residential",
+    "name": "7栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842848,
+  "center": {
+    "lat": 28.1716492,
+    "lon": 112.9961276
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8栋"
+  }
+},
+{
+  "type": "way",
+  "id": 649842849,
+  "center": {
+    "lat": 28.1721747,
+    "lon": 112.9962509
+  },
+  "tags": {
+    "amenity": "fuel",
+    "building": "yes",
+    "name": "和顺石油兴政加油站"
+  }
+},
+{
+  "type": "way",
+  "id": 649842872,
+  "center": {
+    "lat": 28.1814725,
+    "lon": 112.9940991
+  },
+  "tags": {
+    "building": "yes",
+    "name": "中国人民财产保险有限公司"
+  }
+},
+{
+  "type": "way",
+  "id": 649895520,
+  "center": {
+    "lat": 28.1884322,
+    "lon": 112.9962610
+  },
+  "tags": {
+    "alt_name": "长沙城投集团",
+    "building": "yes",
+    "name": "城投大厦",
+    "office": "company",
+    "official_name": "长沙市城市建设投资开发集团有限公司"
+  }
+},
+{
+  "type": "way",
+  "id": 649895575,
+  "center": {
+    "lat": 28.1831736,
+    "lon": 112.9926540
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长沙市妇幼保健院"
+  }
+},
+{
+  "type": "way",
+  "id": 649933308,
+  "center": {
+    "lat": 28.1788125,
+    "lon": 113.0015760
+  },
+  "tags": {
+    "building": "yes",
+    "name": "普济医院"
+  }
+},
+{
+  "type": "way",
+  "id": 650035041,
+  "center": {
+    "lat": 28.1915529,
+    "lon": 112.9926179
+  },
+  "tags": {
+    "amenity": "library",
+    "building": "yes",
+    "building:levels": "4",
+    "check_date": "2026-10-10",
+    "name": "湖南图书馆",
+    "name:en": "Hunan Library",
+    "name:zh-Hans": "湖南图书馆",
+    "website": "http://www.library.hn.cn/",
+    "wikidata": "Q30944134",
+    "wikimedia_commons": "Category:Hunan Library",
+    "wikipedia": "en:Hunan Library"
+  }
+},
+{
+  "type": "way",
+  "id": 654161498,
+  "center": {
+    "lat": 28.2160201,
+    "lon": 112.9490727
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161499,
+  "center": {
+    "lat": 28.2160839,
+    "lon": 112.9501515
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161502,
+  "center": {
+    "lat": 28.2153133,
+    "lon": 112.9493253
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "6栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161504,
+  "center": {
+    "lat": 28.2156900,
+    "lon": 112.9503919
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "5，9栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161506,
+  "center": {
+    "lat": 28.2149494,
+    "lon": 112.9494203
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "7栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161508,
+  "center": {
+    "lat": 28.2150303,
+    "lon": 112.9500265
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "8栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161509,
+  "center": {
+    "lat": 28.2152064,
+    "lon": 112.9505639
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "10栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161511,
+  "center": {
+    "lat": 28.2144586,
+    "lon": 112.9496595
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "中南药机厂小区"
+  }
+},
+{
+  "type": "way",
+  "id": 654161512,
+  "center": {
+    "lat": 28.2147098,
+    "lon": 112.9505507
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "11栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161514,
+  "center": {
+    "lat": 28.2136577,
+    "lon": 112.9500598
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "银洲公寓1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161516,
+  "center": {
+    "lat": 28.2137861,
+    "lon": 112.9504393
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "银洲公寓2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654161521,
+  "center": {
+    "lat": 28.2149560,
+    "lon": 112.9520347
+  },
+  "tags": {
+    "amenity": "marketplace",
+    "building": "yes",
+    "name": "岳麓区人力资源市场"
+  }
+},
+{
+  "type": "way",
+  "id": 654161522,
+  "center": {
+    "lat": 28.2153182,
+    "lon": 112.9519619
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长沙市燃气热力管理局",
+    "office": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 654161526,
+  "center": {
+    "lat": 28.2165793,
+    "lon": 112.9507673
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长沙国家高新技术产业开发区创业大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 654210193,
+  "center": {
+    "lat": 28.2174134,
+    "lon": 112.9512340
+  },
+  "tags": {
+    "building": "yes",
+    "name": "M2组团A座"
+  }
+},
+{
+  "type": "way",
+  "id": 654210194,
+  "center": {
+    "lat": 28.2177158,
+    "lon": 112.9510644
+  },
+  "tags": {
+    "building": "yes",
+    "name": "金荣科技园"
+  }
+},
+{
+  "type": "way",
+  "id": 654210195,
+  "center": {
+    "lat": 28.2180013,
+    "lon": 112.9509386
+  },
+  "tags": {
+    "building": "yes",
+    "name": "M2组团C座"
+  }
+},
+{
+  "type": "way",
+  "id": 654210197,
+  "center": {
+    "lat": 28.2185891,
+    "lon": 112.9506507
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湘能大夏"
+  }
+},
+{
+  "type": "way",
+  "id": 654210198,
+  "center": {
+    "lat": 28.2183255,
+    "lon": 112.9507900
+  },
+  "tags": {
+    "building": "yes",
+    "name": "1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210200,
+  "center": {
+    "lat": 28.2188310,
+    "lon": 112.9505117
+  },
+  "tags": {
+    "building": "yes",
+    "name": "3栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210201,
+  "center": {
+    "lat": 28.2194373,
+    "lon": 112.9502467
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长平大夏"
+  }
+},
+{
+  "type": "way",
+  "id": 654210202,
+  "center": {
+    "lat": 28.2191468,
+    "lon": 112.9503572
+  },
+  "tags": {
+    "building": "yes",
+    "name": "B栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210213,
+  "center": {
+    "lat": 28.2225518,
+    "lon": 112.9487847
+  },
+  "tags": {
+    "amenity": "hospital",
+    "building": "yes",
+    "healthcare": "hospital",
+    "name": "长沙玛丽亚妇产医院"
+  }
+},
+{
+  "type": "way",
+  "id": 654210220,
+  "center": {
+    "lat": 28.2207819,
+    "lon": 112.9486891
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "湘许嘉园二期-3栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210223,
+  "center": {
+    "lat": 28.2211659,
+    "lon": 112.9485100
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "湘许嘉园二期-4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210225,
+  "center": {
+    "lat": 28.2204085,
+    "lon": 112.9488568
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "湘许嘉园二期-2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210226,
+  "center": {
+    "lat": 28.2201735,
+    "lon": 112.9489502
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "湘许嘉园二期-1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210227,
+  "center": {
+    "lat": 28.2192191,
+    "lon": 112.9492229
+  },
+  "tags": {
+    "building": "yes",
+    "name": "蓝天再生资源"
+  }
+},
+{
+  "type": "way",
+  "id": 654210229,
+  "center": {
+    "lat": 28.2199362,
+    "lon": 112.9493648
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南省电子商务示范基地"
+  }
+},
+{
+  "type": "way",
+  "id": 654210230,
+  "center": {
+    "lat": 28.2195318,
+    "lon": 112.9496109
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖南大学互联网金融研究所研究基地"
+  }
+},
+{
+  "type": "way",
+  "id": 654210232,
+  "center": {
+    "lat": 28.2186270,
+    "lon": 112.9495600
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湘许嘉园1期"
+  }
+},
+{
+  "type": "way",
+  "id": 654210234,
+  "center": {
+    "lat": 28.2184922,
+    "lon": 112.9501409
+  },
+  "tags": {
+    "building": "yes",
+    "name": "马特斯"
+  }
+},
+{
+  "type": "way",
+  "id": 654210235,
+  "center": {
+    "lat": 28.2178356,
+    "lon": 112.9499703
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长沙网商创业园"
+  }
+},
+{
+  "type": "way",
+  "id": 654210238,
+  "center": {
+    "lat": 28.2173471,
+    "lon": 112.9503184
+  },
+  "tags": {
+    "building": "yes",
+    "name": "金鑫大厦",
+    "office": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 654210240,
+  "center": {
+    "lat": 28.2169354,
+    "lon": 112.9492855
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210244,
+  "center": {
+    "lat": 28.2183568,
+    "lon": 112.9481601
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "5栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210245,
+  "center": {
+    "lat": 28.2187914,
+    "lon": 112.9476811
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "6栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210247,
+  "center": {
+    "lat": 28.2173919,
+    "lon": 112.9469657
+  },
+  "tags": {
+    "building": "yes",
+    "name": "1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210248,
+  "center": {
+    "lat": 28.2178505,
+    "lon": 112.9472382
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210257,
+  "center": {
+    "lat": 28.2194718,
+    "lon": 112.9470387
+  },
+  "tags": {
+    "building": "residential",
+    "name": "六公司宿舍-8栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210261,
+  "center": {
+    "lat": 28.2154564,
+    "lon": 112.9441369
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "6栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210262,
+  "center": {
+    "lat": 28.2157189,
+    "lon": 112.9441239
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "7栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210263,
+  "center": {
+    "lat": 28.2160069,
+    "lon": 112.9441492
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210264,
+  "center": {
+    "lat": 28.2162567,
+    "lon": 112.9441599
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210265,
+  "center": {
+    "lat": 28.2164873,
+    "lon": 112.9443262
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "3栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210268,
+  "center": {
+    "lat": 28.2169915,
+    "lon": 112.9440106
+  },
+  "tags": {
+    "building": "yes",
+    "name": "15栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210270,
+  "center": {
+    "lat": 28.2173735,
+    "lon": 112.9439280
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "14栋"
+  }
+},
+{
+  "type": "way",
+  "id": 654210271,
+  "center": {
+    "lat": 28.2177622,
+    "lon": 112.9438248
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "13栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657145458,
+  "center": {
+    "lat": 28.2256630,
+    "lon": 112.9477395
+  },
+  "tags": {
+    "building": "yes",
+    "name": "二栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657145477,
+  "center": {
+    "lat": 28.2251276,
+    "lon": 112.9459159
+  },
+  "tags": {
+    "building": "residential",
+    "name": "天马学生公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 657145480,
+  "center": {
+    "lat": 28.2241723,
+    "lon": 112.9469476
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657145489,
+  "center": {
+    "lat": 28.2235551,
+    "lon": 112.9483932
+  },
+  "tags": {
+    "building": "yes",
+    "name": "长沙威胜大厦B座"
+  }
+},
+{
+  "type": "way",
+  "id": 657145491,
+  "center": {
+    "lat": 28.2234690,
+    "lon": 112.9478306
+  },
+  "tags": {
+    "building": "residential",
+    "name": "威胜大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 657145493,
+  "center": {
+    "lat": 28.2236176,
+    "lon": 112.9471389
+  },
+  "tags": {
+    "building": "residential",
+    "name": "E栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657145494,
+  "center": {
+    "lat": 28.2232064,
+    "lon": 112.9472447
+  },
+  "tags": {
+    "building": "residential",
+    "name": "D栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657145528,
+  "center": {
+    "lat": 28.2236662,
+    "lon": 112.9446715
+  },
+  "tags": {
+    "building": "yes",
+    "name": "中联科技园"
+  }
+},
+{
+  "type": "way",
+  "id": 657187649,
+  "center": {
+    "lat": 28.2191265,
+    "lon": 112.9441861
+  },
+  "tags": {
+    "building": "residential",
+    "name": "鑫阳大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 657187673,
+  "center": {
+    "lat": 28.2167139,
+    "lon": 112.9465733
+  },
+  "tags": {
+    "building": "residential",
+    "leisure": "pitch",
+    "name": "百尚体育足球场",
+    "sport": "soccer"
+  }
+},
+{
+  "type": "way",
+  "id": 657187675,
+  "center": {
+    "lat": 28.2179087,
+    "lon": 112.9486271
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187678,
+  "center": {
+    "lat": 28.2174810,
+    "lon": 112.9491186
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187729,
+  "center": {
+    "lat": 28.2207631,
+    "lon": 112.9477442
+  },
+  "tags": {
+    "building": "residential",
+    "name": "晶鑫小区-3栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187735,
+  "center": {
+    "lat": 28.2204883,
+    "lon": 112.9476033
+  },
+  "tags": {
+    "building": "residential",
+    "name": "晶鑫小区-2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187737,
+  "center": {
+    "lat": 28.2203245,
+    "lon": 112.9481191
+  },
+  "tags": {
+    "building": "residential",
+    "name": "晶鑫小区-4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187740,
+  "center": {
+    "lat": 28.2200790,
+    "lon": 112.9481643
+  },
+  "tags": {
+    "building": "residential",
+    "name": "湖南平和堂生活小区-2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187742,
+  "center": {
+    "lat": 28.2202161,
+    "lon": 112.9475673
+  },
+  "tags": {
+    "building": "residential",
+    "name": "晶鑫小区-1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187747,
+  "center": {
+    "lat": 28.2199573,
+    "lon": 112.9469557
+  },
+  "tags": {
+    "building": "residential",
+    "name": "六公司宿舍-5栋"
+  }
+},
+{
+  "type": "way",
+  "id": 657187752,
+  "center": {
+    "lat": 28.2201841,
+    "lon": 112.9461957
+  },
+  "tags": {
+    "building": "residential",
+    "name": "六公司宿舍-自建2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 659237854,
+  "center": {
+    "lat": 28.2108063,
+    "lon": 112.9519236
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-7"
+  }
+},
+{
+  "type": "way",
+  "id": 659237856,
+  "center": {
+    "lat": 28.2093578,
+    "lon": 112.9520086
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-1"
+  }
+},
+{
+  "type": "way",
+  "id": 659276946,
+  "center": {
+    "lat": 28.2093404,
+    "lon": 112.9473279
+  },
+  "tags": {
+    "building": "yes",
+    "name": "星联宸",
+    "shop": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 659276947,
+  "center": {
+    "lat": 28.2093502,
+    "lon": 112.9474343
+  },
+  "tags": {
+    "building": "yes",
+    "name": "创新精品文具",
+    "shop": "stationery"
+  }
+},
+{
+  "type": "way",
+  "id": 659276948,
+  "center": {
+    "lat": 28.2078699,
+    "lon": 112.9485059
+  },
+  "tags": {
+    "building": "yes",
+    "name": "岳龙社区居委会"
+  }
+},
+{
+  "type": "way",
+  "id": 665314611,
+  "center": {
+    "lat": 28.1811947,
+    "lon": 112.9750541
+  },
+  "tags": {
+    "building": "yes",
+    "leisure": "pitch",
+    "name": "羽毛球馆",
+    "sport": "badminton"
+  }
+},
+{
+  "type": "way",
+  "id": 694951305,
+  "center": {
+    "lat": 28.2138937,
+    "lon": 112.9739143
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "check_date": "2026-09-23",
+    "denomination": "roman_catholic",
+    "layer": "1",
+    "name": "圣母无染原罪主教座堂",
+    "name:en": "Cathedral of the Immaculate Conception",
+    "religion": "christian",
+    "wikidata": "Q17030663",
+    "wikipedia": "zh:长沙圣母无染原罪主教座堂"
+  }
+},
+{
+  "type": "way",
+  "id": 695026104,
+  "center": {
+    "lat": 28.1958145,
+    "lon": 112.9904355
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "20",
+    "height": "60",
+    "name": "长沙市工商银行"
+  }
+},
+{
+  "type": "way",
+  "id": 699163143,
+  "center": {
+    "lat": 28.2065877,
+    "lon": 112.9907470
+  },
+  "tags": {
+    "building": "apartments",
+    "height": "6",
+    "name": "一号楼"
+  }
+},
+{
+  "type": "way",
+  "id": 726782265,
+  "center": {
+    "lat": 28.1723839,
+    "lon": 112.9717079
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "天心区",
+    "addr:housenumber": "86号",
+    "addr:postcode": "410007",
+    "addr:province": "湖南省",
+    "addr:street": "裕南街道",
+    "building": "residential",
+    "building:levels": "7",
+    "height": "22",
+    "name": "9栋"
+  }
+},
+{
+  "type": "way",
+  "id": 726804209,
+  "center": {
+    "lat": 28.1726441,
+    "lon": 112.9721044
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "天心区",
+    "addr:housenumber": "86",
+    "addr:postcode": "410007",
+    "addr:province": "湖南省",
+    "addr:street": "裕南街道",
+    "building": "residential",
+    "building:levels": "7",
+    "height": "22",
+    "name": "10栋"
+  }
+},
+{
+  "type": "way",
+  "id": 726804217,
+  "center": {
+    "lat": 28.1715714,
+    "lon": 112.9716433
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "天心区",
+    "addr:postcode": "410007",
+    "addr:province": "湖南省",
+    "building": "residential",
+    "name": "1栋"
+  }
+},
+{
+  "type": "way",
+  "id": 726804218,
+  "center": {
+    "lat": 28.1719334,
+    "lon": 112.9721895
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "天心区",
+    "addr:postcode": "410007",
+    "addr:province": "湖南省",
+    "building": "residential",
+    "name": "2栋"
+  }
+},
+{
+  "type": "way",
+  "id": 726804219,
+  "center": {
+    "lat": 28.1722814,
+    "lon": 112.9727339
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "天心区",
+    "addr:postcode": "410007",
+    "addr:province": "湖南省",
+    "building": "residential",
+    "name": "3栋"
+  }
+},
+{
+  "type": "way",
+  "id": 726826447,
+  "center": {
+    "lat": 28.1746600,
+    "lon": 112.9829699
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "28",
+    "height": "84",
+    "name": "兴威新嘉园"
+  }
+},
+{
+  "type": "way",
+  "id": 726826448,
+  "center": {
+    "lat": 28.1749851,
+    "lon": 112.9822611
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "24",
+    "height": "72",
+    "name": "梓园大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 739739018,
+  "center": {
+    "lat": 28.2138397,
+    "lon": 112.9690219
+  },
+  "tags": {
+    "addr:housenumber": "2栋",
+    "building": "residential",
+    "building:levels": "29",
+    "height": "78",
+    "name": "住宅"
+  }
+},
+{
+  "type": "way",
+  "id": 757521112,
+  "center": {
+    "lat": 28.2197065,
+    "lon": 112.9450915
+  },
+  "tags": {
+    "building": "yes",
+    "name": "友谊阿波罗宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 757521113,
+  "center": {
+    "lat": 28.2204488,
+    "lon": 112.9468538
+  },
+  "tags": {
+    "building": "residential",
+    "name": "桐梓坡-新5栋"
+  }
+},
+{
+  "type": "way",
+  "id": 757521118,
+  "center": {
+    "lat": 28.2197133,
+    "lon": 112.9470339
+  },
+  "tags": {
+    "building": "residential",
+    "name": "六公司宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 757521119,
+  "center": {
+    "lat": 28.2197440,
+    "lon": 112.9476104
+  },
+  "tags": {
+    "building": "residential",
+    "name": "六公司宿舍-7栋"
+  }
+},
+{
+  "type": "way",
+  "id": 757521120,
+  "center": {
+    "lat": 28.2195507,
+    "lon": 112.9476352
+  },
+  "tags": {
+    "building": "residential",
+    "name": "六公司宿舍-9栋"
+  }
+},
+{
+  "type": "way",
+  "id": 757543126,
+  "center": {
+    "lat": 28.2239163,
+    "lon": 112.9470363
+  },
+  "tags": {
+    "building": "yes",
+    "name": "万利新村"
+  }
+},
+{
+  "type": "way",
+  "id": 778996992,
+  "center": {
+    "lat": 28.1999328,
+    "lon": 112.9732751
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "芙蓉区",
+    "addr:province": "湖南省",
+    "addr:street": "文运街",
+    "building": "yes",
+    "name": "湖南省电化教育馆综合大楼"
+  }
+},
+{
+  "type": "way",
+  "id": 778996993,
+  "center": {
+    "lat": 28.2012355,
+    "lon": 112.9746943
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "芙蓉区",
+    "addr:housenumber": "32",
+    "addr:province": "湖南省",
+    "addr:street": "顺星桥巷",
+    "building": "yes",
+    "name": "湖南农垦局宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 779000643,
+  "center": {
+    "lat": 28.1982627,
+    "lon": 112.9676252
+  },
+  "tags": {
+    "building": "yes",
+    "name": "五一新干线"
+  }
+},
+{
+  "type": "way",
+  "id": 779000654,
+  "center": {
+    "lat": 28.2015030,
+    "lon": 112.9747155
+  },
+  "tags": {
+    "building": "dormitory",
+    "name": "邵阳坪宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 779000656,
+  "center": {
+    "lat": 28.2004095,
+    "lon": 112.9750468
+  },
+  "tags": {
+    "building": "yes",
+    "name": "五一·钻界"
+  }
+},
+{
+  "type": "way",
+  "id": 779016932,
+  "center": {
+    "lat": 28.1847538,
+    "lon": 112.9649097
+  },
+  "tags": {
+    "building": "residential",
+    "name": "景泰雅苑"
+  }
+},
+{
+  "type": "way",
+  "id": 826336731,
+  "center": {
+    "lat": 28.1847230,
+    "lon": 112.9441616
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "3",
+    "name": "C2"
+  }
+},
+{
+  "type": "way",
+  "id": 826336732,
+  "center": {
+    "lat": 28.1853103,
+    "lon": 112.9447064
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "name": "B2"
+  }
+},
+{
+  "type": "way",
+  "id": 826336733,
+  "center": {
+    "lat": 28.1852569,
+    "lon": 112.9452356
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "7",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 826336734,
+  "center": {
+    "lat": 28.1854964,
+    "lon": 112.9452462
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "7",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 826336735,
+  "center": {
+    "lat": 28.1832874,
+    "lon": 112.9448687
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "2",
+    "name": "D1"
+  }
+},
+{
+  "type": "way",
+  "id": 826336736,
+  "center": {
+    "lat": 28.1831610,
+    "lon": 112.9452161
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "2",
+    "name": "D4"
+  }
+},
+{
+  "type": "way",
+  "id": 826336740,
+  "center": {
+    "lat": 28.1857479,
+    "lon": 112.9450874
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "3",
+    "name": "B1"
+  }
+},
+{
+  "type": "way",
+  "id": 826336742,
+  "center": {
+    "lat": 28.1845590,
+    "lon": 112.9449714
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "name": "方叔章公馆"
+  }
+},
+{
+  "type": "way",
+  "id": 826346233,
+  "center": {
+    "lat": 28.1838311,
+    "lon": 112.9450362
+  },
+  "tags": {
+    "building": "school",
+    "name": "D2"
+  }
+},
+{
+  "type": "way",
+  "id": 826346234,
+  "center": {
+    "lat": 28.1842402,
+    "lon": 112.9453612
+  },
+  "tags": {
+    "building": "school",
+    "name": "D3"
+  }
+},
+{
+  "type": "way",
+  "id": 826353701,
+  "center": {
+    "lat": 28.1856828,
+    "lon": 112.9446592
+  },
+  "tags": {
+    "building": "yes",
+    "name": "B3"
+  }
+},
+{
+  "type": "way",
+  "id": 926321423,
+  "center": {
+    "lat": 28.1972389,
+    "lon": 112.9562671
+  },
+  "tags": {
+    "building": "yes",
+    "name": "橘子洲景区管理处",
+    "office": "yes",
+    "roof:colour": "red",
+    "roof:shape": "hipped"
+  }
+},
+{
+  "type": "way",
+  "id": 926321424,
+  "center": {
+    "lat": 28.1981671,
+    "lon": 112.9567834
+  },
+  "tags": {
+    "amenity": "post_office",
+    "building": "yes",
+    "check_date": "2026-09-29",
+    "check_date:opening_hours": "2026-09-29",
+    "name": "橘子洲头主题邮局",
+    "name:en": "Orange Isle Post Office",
+    "name:zh": "橘子洲头主题邮局",
+    "name:zh-Hans": "橘子洲头主题邮局",
+    "opening_hours": "Mo-Su 08:30-20:30",
+    "roof:colour": "red",
+    "roof:shape": "hipped"
+  }
+},
+{
+  "type": "way",
+  "id": 926321426,
+  "center": {
+    "lat": 28.1942766,
+    "lon": 112.9559952
+  },
+  "tags": {
+    "amenity": "cafe",
+    "brand": "茶颜悦色",
+    "brand:en": "Sexytea",
+    "brand:wikidata": "Q60992994",
+    "brand:zh": "茶颜悦色",
+    "building": "yes",
+    "cuisine": "bubble_tea",
+    "name": "茶颜悦色",
+    "name:en": "Sexytea",
+    "name:zh": "茶颜悦色",
+    "roof:colour": "red",
+    "roof:shape": "pyramidal",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 926321428,
+  "center": {
+    "lat": 28.1915022,
+    "lon": 112.9563051
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "美孚洋行旧址",
+    "name:en": "Former Residence of Mobil Company",
+    "roof:colour": "red",
+    "start_date": "1924"
+  }
+},
+{
+  "type": "way",
+  "id": 964324982,
+  "center": {
+    "lat": 28.2149426,
+    "lon": 112.9789163
+  },
+  "tags": {
+    "building": "hospital",
+    "height": "50",
+    "name": "D、E"
+  }
+},
+{
+  "type": "way",
+  "id": 974990506,
+  "center": {
+    "lat": 28.1894948,
+    "lon": 112.9460355
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "4",
+    "name": "之谟图书馆",
+    "name:en": "School Library"
+  }
+},
+{
+  "type": "way",
+  "id": 974990507,
+  "center": {
+    "lat": 28.1897709,
+    "lon": 112.9453193
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "6",
+    "name": "云麓楼",
+    "name:en": "Yunlu Classroom Building"
+  }
+},
+{
+  "type": "way",
+  "id": 974990511,
+  "center": {
+    "lat": 28.1897074,
+    "lon": 112.9445614
+  },
+  "tags": {
+    "building": "apartments",
+    "building:flats": "2",
+    "building:levels": "6",
+    "name": "新安苑",
+    "name:en": "Student's I Domitory"
+  }
+},
+{
+  "type": "way",
+  "id": 974990512,
+  "center": {
+    "lat": 28.1903408,
+    "lon": 112.9452451
+  },
+  "tags": {
+    "amenity": "fast_food",
+    "building": "yes",
+    "cuisine": "chinese",
+    "fast_food": "cafeteria",
+    "name": "小桃园餐厅",
+    "name:en": "School II Canteen"
+  }
+},
+{
+  "type": "way",
+  "id": 998933780,
+  "center": {
+    "lat": 28.1970559,
+    "lon": 112.9715587
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "惠农大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997504,
+  "center": {
+    "lat": 28.1987133,
+    "lon": 112.9564419
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "height": "15",
+    "name": "入口",
+    "name:en": "Entrance"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997505,
+  "center": {
+    "lat": 28.1986680,
+    "lon": 112.9573272
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "height": "15",
+    "name": "出口",
+    "name:en": "Exit"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997506,
+  "center": {
+    "lat": 28.1975997,
+    "lon": 112.9563883
+  },
+  "tags": {
+    "amenity": "theatre",
+    "building": "yes",
+    "building:levels": "3",
+    "height": "10",
+    "name": "恰同学少年·青春剧场",
+    "wikidata": "Q11073113",
+    "wikipedia": "zh:恰同学少年"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997507,
+  "center": {
+    "lat": 28.1968030,
+    "lon": 112.9562737
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "3",
+    "height": "10",
+    "historic": "building",
+    "name": "原长沙海关公廨",
+    "name:en": "Former Changsha Customs Office"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997508,
+  "center": {
+    "lat": 28.1964908,
+    "lon": 112.9566334
+  },
+  "tags": {
+    "amenity": "police",
+    "building": "yes",
+    "building:levels": "3",
+    "height": "10",
+    "name": "长沙市公安局岳麓分局第三治安管理大队"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997509,
+  "center": {
+    "lat": 28.1953063,
+    "lon": 112.9567744
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "3",
+    "height": "10",
+    "historic": "building",
+    "name": "神职人员居所旧址"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997510,
+  "center": {
+    "lat": 28.1950960,
+    "lon": 112.9567162
+  },
+  "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "building:levels": "3",
+    "cuisine": "french",
+    "height": "10",
+    "name": "橘洲1910·花园法餐厅"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997512,
+  "center": {
+    "lat": 28.1952329,
+    "lon": 112.9562676
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "3",
+    "height": "10",
+    "name": "橘子洲景区便利店",
+    "shop": "convenience"
+  }
+},
+{
+  "type": "way",
+  "id": 1025997513,
+  "center": {
+    "lat": 28.1949079,
+    "lon": 112.9561474
+  },
+  "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "building:levels": "3",
+    "cuisine": "chinese",
+    "diet:local": "yes",
+    "height": "10",
+    "name": "橘洲1925湖湘菜"
+  }
+},
+{
+  "type": "way",
+  "id": 1026011920,
+  "center": {
+    "lat": 28.2251684,
+    "lon": 112.9490770
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "6",
+    "height": "24",
+    "name": "银盆岭街道办事处",
+    "office": "government"
+  }
+},
+{
+  "type": "way",
+  "id": 1026012108,
+  "center": {
+    "lat": 28.2080118,
+    "lon": 112.9518372
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "6",
+    "height": "24",
+    "name": "2-11"
+  }
+},
+{
+  "type": "way",
+  "id": 1032031780,
+  "center": {
+    "lat": 28.1682961,
+    "lon": 112.9458654
+  },
+  "tags": {
+    "building": "yes",
+    "name": "桔子洲街道办事处"
+  }
+},
+{
+  "type": "way",
+  "id": 1032031781,
+  "center": {
+    "lat": 28.2049809,
+    "lon": 112.9469186
+  },
+  "tags": {
+    "building": "yes",
+    "name": "望月湖街道办事处"
+  }
+},
+{
+  "type": "way",
+  "id": 1041669657,
+  "center": {
+    "lat": 28.1939906,
+    "lon": 112.9902188
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "9",
+    "name": "金佛大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 1044650504,
+  "center": {
+    "lat": 28.2026032,
+    "lon": 112.9714333
+  },
+  "tags": {
+    "building": "yes",
+    "name": "TX长沙年轻力中心",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 1044652689,
+  "center": {
+    "lat": 28.2046774,
+    "lon": 112.9658941
+  },
+  "tags": {
+    "addr:housenumber": "589",
+    "addr:street": "中山路",
+    "building": "commercial",
+    "name": "C1"
+  }
+},
+{
+  "type": "way",
+  "id": 1044652690,
+  "center": {
+    "lat": 28.2054671,
+    "lon": 112.9657805
+  },
+  "tags": {
+    "addr:housenumber": "278",
+    "addr:street": "湘江中路",
+    "building": "commercial",
+    "name": "C2"
+  }
+},
+{
+  "type": "way",
+  "id": 1044652691,
+  "center": {
+    "lat": 28.2062058,
+    "lon": 112.9658476
+  },
+  "tags": {
+    "addr:housenumber": "276",
+    "addr:street": "湘江中路",
+    "building": "commercial",
+    "name": "C3"
+  }
+},
+{
+  "type": "way",
+  "id": 1051196842,
+  "center": {
+    "lat": 28.1600747,
+    "lon": 112.9726561
+  },
+  "tags": {
+    "building": "kindergarten",
+    "name": "长沙理工大学幼儿园"
+  }
+},
+{
+  "type": "way",
+  "id": 1086140779,
+  "center": {
+    "lat": 28.2155917,
+    "lon": 112.9764306
+  },
+  "tags": {
+    "building": "hospital",
+    "height": "180",
+    "name": "中南大学湘雅医院-科研楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1091024248,
+  "center": {
+    "lat": 28.1887986,
+    "lon": 112.9735906
+  },
+  "tags": {
+    "building": "yes",
+    "layer": "-1",
+    "name": "左家井居民楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1094378061,
+  "center": {
+    "lat": 28.1600309,
+    "lon": 112.9466683
+  },
+  "tags": {
+    "brand": "维也纳酒店",
+    "brand:en": "Vienna Hotels",
+    "brand:wikidata": "Q7928333",
+    "brand:zh": "维也纳酒店",
+    "building": "yes",
+    "building:levels": "10",
+    "name": "维也纳国际酒店（岳麓山滨江大学城店）",
+    "name:en": "Vienna Hotels",
+    "name:zh": "维也纳酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 1125778109,
+  "center": {
+    "lat": 28.2169845,
+    "lon": 112.9713345
+  },
+  "tags": {
+    "amenity": "school",
+    "building": "yes",
+    "grades": "0-6",
+    "name": "三角塘小学"
+  }
+},
+{
+  "type": "way",
+  "id": 1150592761,
+  "center": {
+    "lat": 28.1805121,
+    "lon": 112.9441887
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1150592763,
+  "center": {
+    "lat": 28.1809035,
+    "lon": 112.9439558
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1160805128,
+  "center": {
+    "lat": 28.1913603,
+    "lon": 112.9633543
+  },
+  "tags": {
+    "amenity": "bar",
+    "building": "yes",
+    "name": "方寸LIFE",
+    "name:zh": "方寸LIFE",
+    "opening_hours": "Mo-Su 16:00-03:00"
+  }
+},
+{
+  "type": "way",
+  "id": 1165040208,
+  "center": {
+    "lat": 28.2116163,
+    "lon": 112.9662010
+  },
+  "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "height": "12",
+    "name": "咖啡之翼"
+  }
+},
+{
+  "type": "way",
+  "id": 1221933421,
+  "center": {
+    "lat": 28.1750383,
+    "lon": 112.9833248
+  },
+  "tags": {
+    "building": "apartments",
+    "building:levels": "24",
+    "height": "72",
+    "name": "兴威新嘉园"
+  }
+},
+{
+  "type": "way",
+  "id": 1221933422,
+  "center": {
+    "lat": 28.1753350,
+    "lon": 112.9837341
+  },
+  "tags": {
+    "building": "apartments",
+    "building:levels": "33",
+    "height": "99",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1221933423,
+  "center": {
+    "lat": 28.1755171,
+    "lon": 112.9831516
+  },
+  "tags": {
+    "building": "apartments",
+    "building:levels": "24",
+    "height": "72",
+    "name": "电信308大院"
+  }
+},
+{
+  "type": "way",
+  "id": 1222931656,
+  "center": {
+    "lat": 28.1950718,
+    "lon": 112.9641785
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "55",
+    "height": "188.4",
+    "name": "1A"
+  }
+},
+{
+  "type": "way",
+  "id": 1222931657,
+  "center": {
+    "lat": 28.1946839,
+    "lon": 112.9638674
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "51",
+    "height": "176",
+    "name": "1B"
+  }
+},
+{
+  "type": "way",
+  "id": 1223189380,
+  "center": {
+    "lat": 28.1925327,
+    "lon": 112.9645109
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "60",
+    "height": "262.99",
+    "name": "T1"
+  }
+},
+{
+  "type": "way",
+  "id": 1223189382,
+  "center": {
+    "lat": 28.1938819,
+    "lon": 112.9645972
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "52",
+    "height": "197.4",
+    "name": "R4"
+  }
+},
+{
+  "type": "way",
+  "id": 1223189383,
+  "center": {
+    "lat": 28.1925142,
+    "lon": 112.9656496
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "21",
+    "height": "94.8",
+    "name": "T2"
+  }
+},
+{
+  "type": "way",
+  "id": 1259404518,
+  "center": {
+    "lat": 28.2147405,
+    "lon": 112.9726930
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "check_date": "2026-09-23",
+    "denomination": "protestant",
+    "name": "长沙城北堂",
+    "name:en": "Changsha Church Christianity",
+    "religion": "christian",
+    "wikidata": "Q17041578"
+  }
+},
+{
+  "type": "way",
+  "id": 1262659651,
+  "center": {
+    "lat": 28.2064935,
+    "lon": 112.9669971
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "check_date": "2026-09-23",
+    "denomination": "protestant",
+    "name": "潮宗街教堂",
+    "name:en": "Chaozongjie Christian Church",
+    "religion": "christian",
+    "wikidata": "Q17033465"
+  }
+},
+{
+  "type": "way",
+  "id": 1262659653,
+  "center": {
+    "lat": 28.2069241,
+    "lon": 112.9705594
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "check_date": "2026-09-23",
+    "denomination": "protestant",
+    "name": "北正街教堂",
+    "name:en": "Beizhengjie Christian Church",
+    "religion": "christian",
+    "wikidata": "Q10903167"
+  }
+},
+{
+  "type": "way",
+  "id": 1262659655,
+  "center": {
+    "lat": 28.1838266,
+    "lon": 112.9707556
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "protestant",
+    "name": "城南堂",
+    "religion": "christian",
+    "wikidata": "Q17030688",
+    "wikipedia": "zh:长沙城南堂"
+  }
+},
+{
+  "type": "way",
+  "id": 1304094005,
+  "center": {
+    "lat": 28.1967529,
+    "lon": 112.9742346
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "青年公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 1304094008,
+  "center": {
+    "lat": 28.1953702,
+    "lon": 112.9702561
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "世纪情大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 1304229071,
+  "center": {
+    "lat": 28.1884571,
+    "lon": 112.9630603
+  },
+  "tags": {
+    "building": "yes",
+    "check_date": "2026-09-07",
+    "name": "杜甫江阁",
+    "name:en": "Du Fu River Pavilion",
+    "name:zh-Hans": "杜甫江阁",
+    "name:zh-Hant": "杜甫江閣",
+    "tourism": "attraction",
+    "wikidata": "Q11099316",
+    "wikimedia_commons": "Category:Dufu Jiangge",
+    "wikipedia": "en:Du Fu River Pavilion"
+  }
+},
+{
+  "type": "way",
+  "id": 1306122872,
+  "center": {
+    "lat": 28.1971284,
+    "lon": 112.9470072
+  },
+  "tags": {
+    "building": "yes",
+    "name": "陈列室"
+  }
+},
+{
+  "type": "way",
+  "id": 1312558897,
+  "center": {
+    "lat": 28.1837214,
+    "lon": 112.9739684
+  },
+  "tags": {
+    "building": "yes",
+    "government": "tax",
+    "name": "长沙市税务局",
+    "office": "government",
+    "opening_hours": "Sa,Su,PH off"
+  }
+},
+{
+  "type": "way",
+  "id": 1337340971,
+  "center": {
+    "lat": 28.1936744,
+    "lon": 112.9666906
+  },
+  "tags": {
+    "building": "yes",
+    "name": "星月楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1337340979,
+  "center": {
+    "lat": 28.1964556,
+    "lon": 112.9637247
+  },
+  "tags": {
+    "addr:housenumber": "18号",
+    "addr:street": "湘江中路",
+    "building": "commercial",
+    "name": "江岸丽都大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 1342435187,
+  "center": {
+    "lat": 28.1847100,
+    "lon": 112.9445796
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "3",
+    "name": "C1"
+  }
+},
+{
+  "type": "way",
+  "id": 1380355934,
+  "center": {
+    "lat": 28.1955039,
+    "lon": 112.9565269
+  },
+  "tags": {
+    "building": "yes",
+    "name": "景区正门"
+  }
+},
+{
+  "type": "way",
+  "id": 1382705166,
+  "center": {
+    "lat": 28.1986072,
+    "lon": 112.9662972
+  },
+  "tags": {
+    "building": "yes",
+    "ceremonial_gate": "paifang",
+    "layer": "1",
+    "man_made": "ceremonial_gate",
+    "name": "太平老街牌坊"
+  }
+},
+{
+  "type": "way",
+  "id": 1382705167,
+  "center": {
+    "lat": 28.2035980,
+    "lon": 112.9580705
+  },
+  "tags": {
+    "building": "yes",
+    "building:levels": "4",
+    "man_made": "tower",
+    "name": "拱极楼",
+    "tower:type": "pagoda"
+  }
+},
+{
+  "type": "way",
+  "id": 1423808191,
+  "center": {
+    "lat": 28.2047507,
+    "lon": 112.9813575
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "5",
+    "building:material": "brick",
+    "height": "15",
+    "name": "图书馆"
+  }
+},
+{
+  "type": "way",
+  "id": 1423808192,
+  "center": {
+    "lat": 28.2051264,
+    "lon": 112.9813832
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "5",
+    "building:material": "红砖",
+    "height": "15",
+    "name": "办公楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1423808193,
+  "center": {
+    "lat": 28.2057767,
+    "lon": 112.9828117
+  },
+  "tags": {
+    "building": "pavilion",
+    "height": "3",
+    "name": "风雨球场"
+  }
+},
+{
+  "type": "way",
+  "id": 1423808195,
+  "center": {
+    "lat": 28.2040563,
+    "lon": 112.9812220
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "6",
+    "building:material": "brick",
+    "height": "18",
+    "name": "科艺楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1423808196,
+  "center": {
+    "lat": 28.2036365,
+    "lon": 112.9811962
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "6",
+    "building:material": "brick",
+    "height": "18",
+    "name": "定一楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1423808197,
+  "center": {
+    "lat": 28.2039592,
+    "lon": 112.9820998
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "6",
+    "building:material": "cement_block",
+    "height": "18",
+    "name": "润之楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1423904607,
+  "center": {
+    "lat": 28.2043899,
+    "lon": 112.9821668
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "6",
+    "building:material": "cement_block",
+    "height": "18",
+    "name": "逸夫楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1424056797,
+  "center": {
+    "lat": 28.2045739,
+    "lon": 112.9824401
+  },
+  "tags": {
+    "building": "school",
+    "building:levels": "2",
+    "height": "7",
+    "name": "逸夫楼会议室"
+  }
+},
+{
+  "type": "way",
+  "id": 1424057549,
+  "center": {
+    "lat": 28.2064949,
+    "lon": 112.9826461
+  },
+  "tags": {
+    "building": "school",
+    "height": "10",
+    "name": "体育馆"
+  }
+},
+{
+  "type": "way",
+  "id": 1427018348,
+  "center": {
+    "lat": 28.2001683,
+    "lon": 112.9729725
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "芙蓉区",
+    "addr:housenumber": "8",
+    "addr:province": "湖南省",
+    "addr:street": "南阳街",
+    "building": "yes",
+    "name": "壹号公馆"
+  }
+},
+{
+  "type": "way",
+  "id": 1427018350,
+  "center": {
+    "lat": 28.2002558,
+    "lon": 112.9733324
+  },
+  "tags": {
+    "building": "yes",
+    "name": "华联商住楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1427018351,
+  "center": {
+    "lat": 28.2008090,
+    "lon": 112.9726966
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:district": "芙蓉区",
+    "addr:housenumber": "36",
+    "addr:province": "湖南省",
+    "addr:street": "南阳街",
+    "building": "fire_station",
+    "name": "芙蓉区五一广场消防救援站"
+  }
+},
+{
+  "type": "way",
+  "id": 1427247857,
+  "center": {
+    "lat": 28.2160026,
+    "lon": 112.9444299
+  },
+  "tags": {
+    "building": "yes",
+    "name": "4栋"
+  }
+},
+{
+  "type": "way",
+  "id": 1427247858,
+  "center": {
+    "lat": 28.2162607,
+    "lon": 112.9444915
+  },
+  "tags": {
+    "building": "yes",
+    "name": "5栋"
+  }
+},
+{
+  "type": "way",
+  "id": 1435620197,
+  "center": {
+    "lat": 28.2217605,
+    "lon": 112.9459082
+  },
+  "tags": {
+    "building": "yes",
+    "layer": "1",
+    "name": "长沙万象城",
+    "shop": "department_store"
+  }
+},
+{
+  "type": "way",
+  "id": 1476072810,
+  "center": {
+    "lat": 28.2009692,
+    "lon": 112.9836245
+  },
+  "tags": {
+    "alt_name": "Hampton Inn",
+    "brand": "Hampton",
+    "brand:wikidata": "Q5646230",
+    "building": "yes",
+    "name": "长沙五一广场希尔顿欢朋酒店",
+    "name:zh": "长沙五一广场希尔顿欢朋酒店",
+    "official_name": "Hampton by Hilton",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744432,
+  "center": {
+    "lat": 28.2081434,
+    "lon": 112.9661501
+  },
+  "tags": {
+    "addr:housenumber": "6",
+    "addr:street": "营盘路",
+    "building": "residential",
+    "name": "C"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744433,
+  "center": {
+    "lat": 28.2076018,
+    "lon": 112.9660302
+  },
+  "tags": {
+    "addr:housenumber": "6",
+    "addr:street": "营盘路",
+    "building": "residential",
+    "name": "B"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744434,
+  "center": {
+    "lat": 28.2070989,
+    "lon": 112.9659201
+  },
+  "tags": {
+    "addr:housenumber": "6",
+    "addr:street": "营盘路",
+    "building": "residential",
+    "name": "A"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744437,
+  "center": {
+    "lat": 28.2078563,
+    "lon": 112.9664900
+  },
+  "tags": {
+    "addr:housenumber": "180",
+    "addr:street": "营盘路",
+    "building": "residential",
+    "name": "11"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744438,
+  "center": {
+    "lat": 28.2080629,
+    "lon": 112.9668645
+  },
+  "tags": {
+    "building": "residential",
+    "name": "13"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744439,
+  "center": {
+    "lat": 28.2077996,
+    "lon": 112.9668376
+  },
+  "tags": {
+    "building": "residential",
+    "name": "12"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744441,
+  "center": {
+    "lat": 28.2075558,
+    "lon": 112.9667313
+  },
+  "tags": {
+    "building": "residential",
+    "name": "10"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744443,
+  "center": {
+    "lat": 28.2082041,
+    "lon": 112.9671861
+  },
+  "tags": {
+    "building": "residential",
+    "name": "7"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744444,
+  "center": {
+    "lat": 28.2082247,
+    "lon": 112.9673457
+  },
+  "tags": {
+    "building": "residential",
+    "name": "6"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744445,
+  "center": {
+    "lat": 28.2079054,
+    "lon": 112.9671129
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744446,
+  "center": {
+    "lat": 28.2078700,
+    "lon": 112.9673405
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744447,
+  "center": {
+    "lat": 28.2075465,
+    "lon": 112.9670627
+  },
+  "tags": {
+    "building": "residential",
+    "name": "北"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744448,
+  "center": {
+    "lat": 28.2072646,
+    "lon": 112.9669957
+  },
+  "tags": {
+    "building": "residential",
+    "name": "南"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744449,
+  "center": {
+    "lat": 28.2069145,
+    "lon": 112.9670550
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744450,
+  "center": {
+    "lat": 28.2071864,
+    "lon": 112.9672605
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744451,
+  "center": {
+    "lat": 28.2069236,
+    "lon": 112.9668893
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744462,
+  "center": {
+    "lat": 28.2070116,
+    "lon": 112.9694841
+  },
+  "tags": {
+    "building": "residential",
+    "name": "南"
+  }
+},
+{
+  "type": "way",
+  "id": 1523744463,
+  "center": {
+    "lat": 28.2077040,
+    "lon": 112.9697106
+  },
+  "tags": {
+    "building": "residential",
+    "name": "北"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977841,
+  "center": {
+    "lat": 28.1954870,
+    "lon": 112.9674250
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湘茶大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977842,
+  "center": {
+    "lat": 28.1957564,
+    "lon": 112.9675599
+  },
+  "tags": {
+    "building": "yes",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977843,
+  "center": {
+    "lat": 28.1954017,
+    "lon": 112.9679085
+  },
+  "tags": {
+    "building": "yes",
+    "name": "永安宝苑"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977844,
+  "center": {
+    "lat": 28.1956415,
+    "lon": 112.9678096
+  },
+  "tags": {
+    "building": "yes",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977848,
+  "center": {
+    "lat": 28.1966681,
+    "lon": 112.9671317
+  },
+  "tags": {
+    "building": "residential",
+    "name": "6"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977849,
+  "center": {
+    "lat": 28.1969907,
+    "lon": 112.9671368
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977850,
+  "center": {
+    "lat": 28.1968301,
+    "lon": 112.9671335
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977851,
+  "center": {
+    "lat": 28.1967082,
+    "lon": 112.9675500
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977852,
+  "center": {
+    "lat": 28.1970114,
+    "lon": 112.9675063
+  },
+  "tags": {
+    "building": "residential",
+    "layer": "1",
+    "name": "7"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977853,
+  "center": {
+    "lat": 28.1968028,
+    "lon": 112.9679512
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977854,
+  "center": {
+    "lat": 28.1968055,
+    "lon": 112.9678900
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977855,
+  "center": {
+    "lat": 28.1970011,
+    "lon": 112.9678883
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977863,
+  "center": {
+    "lat": 28.1969762,
+    "lon": 112.9685961
+  },
+  "tags": {
+    "addr:building": "1",
+    "addr:housenumber": "1",
+    "building": "residential",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977864,
+  "center": {
+    "lat": 28.1967412,
+    "lon": 112.9685982
+  },
+  "tags": {
+    "addr:building": "2",
+    "addr:housenumber": "2",
+    "building": "residential",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977865,
+  "center": {
+    "lat": 28.1965000,
+    "lon": 112.9685988
+  },
+  "tags": {
+    "addr:building": "3",
+    "addr:housenumber": "3",
+    "building": "residential",
+    "name": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977866,
+  "center": {
+    "lat": 28.1962292,
+    "lon": 112.9686001
+  },
+  "tags": {
+    "addr:building": "4",
+    "addr:housenumber": "4",
+    "building": "residential",
+    "name": "4"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977867,
+  "center": {
+    "lat": 28.1959770,
+    "lon": 112.9686048
+  },
+  "tags": {
+    "addr:building": "5",
+    "addr:housenumber": "5",
+    "building": "residential",
+    "name": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977868,
+  "center": {
+    "lat": 28.1960930,
+    "lon": 112.9690993
+  },
+  "tags": {
+    "building": "residential",
+    "name": "7"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977869,
+  "center": {
+    "lat": 28.1963304,
+    "lon": 112.9690983
+  },
+  "tags": {
+    "building": "residential",
+    "name": "区政府宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977870,
+  "center": {
+    "lat": 28.1965642,
+    "lon": 112.9690100
+  },
+  "tags": {
+    "building": "residential",
+    "name": "针棉宿舍"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977871,
+  "center": {
+    "lat": 28.1968796,
+    "lon": 112.9690758
+  },
+  "tags": {
+    "building": "residential",
+    "name": "6"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977876,
+  "center": {
+    "lat": 28.1958474,
+    "lon": 112.9691070
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8"
+  }
+},
+{
+  "type": "way",
+  "id": 1523977885,
+  "center": {
+    "lat": 28.1958260,
+    "lon": 112.9685911
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "李富春故居"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403709,
+  "center": {
+    "lat": 28.1871857,
+    "lon": 112.9719176
+  },
+  "tags": {
+    "addr:housenumber": "城南西路228号",
+    "addr:street": "城南西路",
+    "building": "commercial",
+    "name": "海富大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403712,
+  "center": {
+    "lat": 28.1904817,
+    "lon": 112.9752414
+  },
+  "tags": {
+    "building": "residential",
+    "name": "A"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403713,
+  "center": {
+    "lat": 28.1905614,
+    "lon": 112.9757747
+  },
+  "tags": {
+    "building": "residential",
+    "name": "B"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403723,
+  "center": {
+    "lat": 28.1879867,
+    "lon": 112.9743338
+  },
+  "tags": {
+    "building": "residential",
+    "name": "B"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403724,
+  "center": {
+    "lat": 28.1872835,
+    "lon": 112.9742780
+  },
+  "tags": {
+    "building": "residential",
+    "name": "A"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403730,
+  "center": {
+    "lat": 28.1888697,
+    "lon": 112.9738447
+  },
+  "tags": {
+    "building": "residential",
+    "name": "银桥公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403740,
+  "center": {
+    "lat": 28.1904364,
+    "lon": 112.9730131
+  },
+  "tags": {
+    "building": "residential",
+    "name": "东文庙坪巷新5栋"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403741,
+  "center": {
+    "lat": 28.1906840,
+    "lon": 112.9731279
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "南"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403742,
+  "center": {
+    "lat": 28.1909048,
+    "lon": 112.9732021
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "北"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403747,
+  "center": {
+    "lat": 28.1908853,
+    "lon": 112.9727198
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "如家酒店·neo(长沙五一广场黄兴路步行街店)"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403755,
+  "center": {
+    "lat": 28.1896321,
+    "lon": 112.9720315
+  },
+  "tags": {
+    "building": "residential",
+    "name": "7"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403756,
+  "center": {
+    "lat": 28.1897966,
+    "lon": 112.9717227
+  },
+  "tags": {
+    "building": "residential",
+    "name": "6"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403757,
+  "center": {
+    "lat": 28.1897836,
+    "lon": 112.9714053
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403758,
+  "center": {
+    "lat": 28.1894181,
+    "lon": 112.9720606
+  },
+  "tags": {
+    "building": "residential",
+    "name": "10"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403759,
+  "center": {
+    "lat": 28.1894097,
+    "lon": 112.9717325
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403760,
+  "center": {
+    "lat": 28.1894348,
+    "lon": 112.9714738
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403762,
+  "center": {
+    "lat": 28.1891770,
+    "lon": 112.9720163
+  },
+  "tags": {
+    "building": "residential",
+    "name": "11"
+  }
+},
+{
+  "type": "way",
+  "id": 1524403763,
+  "center": {
+    "lat": 28.1892019,
+    "lon": 112.9717917
+  },
+  "tags": {
+    "building": "residential",
+    "name": "9"
+  }
+},
+{
+  "type": "way",
+  "id": 1526837307,
+  "center": {
+    "lat": 28.1984753,
+    "lon": 112.9652144
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "大众公寓"
+  }
+},
+{
+  "type": "way",
+  "id": 1527129514,
+  "center": {
+    "lat": 28.1970713,
+    "lon": 112.9651995
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "孚嘉巷46号"
+  }
+},
+{
+  "type": "way",
+  "id": 1527129546,
+  "center": {
+    "lat": 28.1963248,
+    "lon": 112.9655849
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "航务局湘江公司办事处旧址"
+  }
+},
+{
+  "type": "way",
+  "id": 1527576703,
+  "center": {
+    "lat": 28.1975761,
+    "lon": 112.9739038
+  },
+  "tags": {
+    "building": "residential",
+    "layer": "1",
+    "name": "北栋"
+  }
+},
+{
+  "type": "way",
+  "id": 1527576704,
+  "center": {
+    "lat": 28.1971401,
+    "lon": 112.9738753
+  },
+  "tags": {
+    "building": "residential",
+    "name": "南栋"
+  }
+},
+{
+  "type": "way",
+  "id": 1527815394,
+  "center": {
+    "lat": 28.1889220,
+    "lon": 112.9704402
+  },
+  "tags": {
+    "building": "retail",
+    "name": "黄兴南路步行商业街B区"
+  }
+},
+{
+  "type": "way",
+  "id": 1527815407,
+  "center": {
+    "lat": 28.1926572,
+    "lon": 112.9703197
+  },
+  "tags": {
+    "building": "retail",
+    "building:levels": "4",
+    "name": "黄兴南路步行商业街E区"
+  }
+},
+{
+  "type": "way",
+  "id": 1527815413,
+  "center": {
+    "lat": 28.1937871,
+    "lon": 112.9697014
+  },
+  "tags": {
+    "building": "apartments",
+    "building:levels": "22",
+    "name": "C"
+  }
+},
+{
+  "type": "way",
+  "id": 1527815416,
+  "center": {
+    "lat": 28.1925753,
+    "lon": 112.9698554
+  },
+  "tags": {
+    "building": "residential",
+    "name": "B"
+  }
+},
+{
+  "type": "way",
+  "id": 1527815417,
+  "center": {
+    "lat": 28.1926036,
+    "lon": 112.9690972
+  },
+  "tags": {
+    "building": "residential",
+    "name": "A"
+  }
+},
+{
+  "type": "way",
+  "id": 1529457811,
+  "center": {
+    "lat": 28.1946174,
+    "lon": 112.9653103
+  },
+  "tags": {
+    "building": "retail",
+    "name": "云玺潮汇",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 1529457823,
+  "center": {
+    "lat": 28.1935064,
+    "lon": 112.9639615
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "65",
+    "height": "224.3",
+    "name": "R1"
+  }
+},
+{
+  "type": "way",
+  "id": 1529457824,
+  "center": {
+    "lat": 28.1932474,
+    "lon": 112.9640146
+  },
+  "tags": {
+    "building": "residential",
+    "name": "R2"
+  }
+},
+{
+  "type": "way",
+  "id": 1529457825,
+  "center": {
+    "lat": 28.1930334,
+    "lon": 112.9641347
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "55",
+    "height": "192.65",
+    "name": "R3"
+  }
+},
+{
+  "type": "way",
+  "id": 1529457826,
+  "center": {
+    "lat": 28.1927064,
+    "lon": 112.9656543
+  },
+  "tags": {
+    "building": "retail",
+    "name": "华远FACEMORE",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 1529494783,
+  "center": {
+    "lat": 28.1947846,
+    "lon": 112.9677329
+  },
+  "tags": {
+    "building": "residential",
+    "name": "东"
+  }
+},
+{
+  "type": "way",
+  "id": 1529494784,
+  "center": {
+    "lat": 28.1948160,
+    "lon": 112.9673334
+  },
+  "tags": {
+    "building": "residential",
+    "name": "西"
+  }
+},
+{
+  "type": "way",
+  "id": 1531255032,
+  "center": {
+    "lat": 28.1943218,
+    "lon": 112.9654571
+  },
+  "tags": {
+    "building": "apartments",
+    "building:levels": "8",
+    "height": "45.02",
+    "name": "T4"
+  }
+},
+{
+  "type": "way",
+  "id": 1531255035,
+  "center": {
+    "lat": 28.1948601,
+    "lon": 112.9653175
+  },
+  "tags": {
+    "building": "apartments",
+    "building:levels": "9",
+    "height": "51.9",
+    "name": "T3"
+  }
+},
+{
+  "type": "way",
+  "id": 1531255037,
+  "center": {
+    "lat": 28.1948754,
+    "lon": 112.9667160
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "波波国际大厦"
+  }
+},
+{
+  "type": "way",
+  "id": 1531278683,
+  "center": {
+    "lat": 28.2027896,
+    "lon": 112.9651244
+  },
+  "tags": {
+    "addr:housenumber": "491",
+    "addr:street": "中山路",
+    "building": "commercial",
+    "name": "A"
+  }
+},
+{
+  "type": "way",
+  "id": 1531278684,
+  "center": {
+    "lat": 28.2019538,
+    "lon": 112.9648231
+  },
+  "tags": {
+    "addr:housenumber": "489",
+    "addr:street": "中山路",
+    "building": "commercial",
+    "name": "B"
+  }
+},
+{
+  "type": "way",
+  "id": 1535186929,
+  "center": {
+    "lat": 28.1836536,
+    "lon": 112.9637375
+  },
+  "tags": {
+    "building": "retail",
+    "name": "水晶宫",
+    "ref": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1535186936,
+  "center": {
+    "lat": 28.1842671,
+    "lon": 112.9635886
+  },
+  "tags": {
+    "building": "retail",
+    "name": "时间画廊",
+    "ref": "4"
+  }
+},
+{
+  "type": "way",
+  "id": 1535186937,
+  "center": {
+    "lat": 28.1847947,
+    "lon": 112.9641682
+  },
+  "tags": {
+    "building": "retail",
+    "name": "天符驿站",
+    "ref": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1535186938,
+  "center": {
+    "lat": 28.1854119,
+    "lon": 112.9640827
+  },
+  "tags": {
+    "building": "retail",
+    "name": "汝愚街",
+    "ref": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1535186939,
+  "center": {
+    "lat": 28.1859684,
+    "lon": 112.9642319
+  },
+  "tags": {
+    "building": "retail",
+    "name": "汝愚街",
+    "ref": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1535194937,
+  "center": {
+    "lat": 28.2019955,
+    "lon": 112.9717967
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "英尚国际"
+  }
+},
+{
+  "type": "way",
+  "id": 1537259656,
+  "center": {
+    "lat": 28.1708380,
+    "lon": 112.9441272
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-10"
+  }
+},
+{
+  "type": "way",
+  "id": 1537259657,
+  "center": {
+    "lat": 28.1711462,
+    "lon": 112.9438466
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-6"
+  }
+},
+{
+  "type": "way",
+  "id": 1537259658,
+  "center": {
+    "lat": 28.1711178,
+    "lon": 112.9444431
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-7"
+  }
+},
+{
+  "type": "way",
+  "id": 1537259676,
+  "center": {
+    "lat": 28.1713480,
+    "lon": 112.9446038
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-3"
+  }
+},
+{
+  "type": "way",
+  "id": 1537259678,
+  "center": {
+    "lat": 28.1714810,
+    "lon": 112.9440594
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-2"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512062,
+  "center": {
+    "lat": 28.1732869,
+    "lon": 112.9466277
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512063,
+  "center": {
+    "lat": 28.1728987,
+    "lon": 112.9466819
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512065,
+  "center": {
+    "lat": 28.1735468,
+    "lon": 112.9461690
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512075,
+  "center": {
+    "lat": 28.1741105,
+    "lon": 112.9463500
+  },
+  "tags": {
+    "building": "yes",
+    "layer": "1",
+    "name": "海森天麓大酒店",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512082,
+  "center": {
+    "lat": 28.1737102,
+    "lon": 112.9455252
+  },
+  "tags": {
+    "building": "school",
+    "name": "后勤保障部"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512083,
+  "center": {
+    "lat": 28.1733505,
+    "lon": 112.9455253
+  },
+  "tags": {
+    "building": "school",
+    "name": "天马实验楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512084,
+  "center": {
+    "lat": 28.1732375,
+    "lon": 112.9446208
+  },
+  "tags": {
+    "building": "school",
+    "name": "生物学院"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512085,
+  "center": {
+    "lat": 28.1734437,
+    "lon": 112.9448435
+  },
+  "tags": {
+    "amenity": "waste_transfer_station",
+    "building": "yes",
+    "name": "天马路公共垃圾站"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512090,
+  "center": {
+    "lat": 28.1716563,
+    "lon": 112.9447916
+  },
+  "tags": {
+    "building": "residential",
+    "name": "C"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512091,
+  "center": {
+    "lat": 28.1714720,
+    "lon": 112.9453473
+  },
+  "tags": {
+    "building": "residential",
+    "name": "D"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512092,
+  "center": {
+    "lat": 28.1719773,
+    "lon": 112.9449378
+  },
+  "tags": {
+    "building": "residential",
+    "name": "A"
+  }
+},
+{
+  "type": "way",
+  "id": 1537512093,
+  "center": {
+    "lat": 28.1717958,
+    "lon": 112.9454880
+  },
+  "tags": {
+    "building": "residential",
+    "name": "B"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794601,
+  "center": {
+    "lat": 28.1711292,
+    "lon": 112.9450589
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-1"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794602,
+  "center": {
+    "lat": 28.1710336,
+    "lon": 112.9453812
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-2"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794603,
+  "center": {
+    "lat": 28.1707921,
+    "lon": 112.9448555
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-4"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794604,
+  "center": {
+    "lat": 28.1709138,
+    "lon": 112.9458464
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-3"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794607,
+  "center": {
+    "lat": 28.1706020,
+    "lon": 112.9458975
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-6"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794608,
+  "center": {
+    "lat": 28.1702977,
+    "lon": 112.9459001
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-8"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794609,
+  "center": {
+    "lat": 28.1706023,
+    "lon": 112.9452311
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-5"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794610,
+  "center": {
+    "lat": 28.1702978,
+    "lon": 112.9452258
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-7"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794611,
+  "center": {
+    "lat": 28.1699309,
+    "lon": 112.9456012
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-9"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794612,
+  "center": {
+    "lat": 28.1695029,
+    "lon": 112.9455815
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4-10"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794633,
+  "center": {
+    "lat": 28.1707966,
+    "lon": 112.9467335
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-1"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794634,
+  "center": {
+    "lat": 28.1705057,
+    "lon": 112.9467832
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-3"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794635,
+  "center": {
+    "lat": 28.1701767,
+    "lon": 112.9467903
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-5"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794636,
+  "center": {
+    "lat": 28.1698519,
+    "lon": 112.9465836
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-7"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794637,
+  "center": {
+    "lat": 28.1698596,
+    "lon": 112.9470032
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-8"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794638,
+  "center": {
+    "lat": 28.1707521,
+    "lon": 112.9472653
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-2"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794639,
+  "center": {
+    "lat": 28.1703547,
+    "lon": 112.9473195
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-4"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794640,
+  "center": {
+    "lat": 28.1699639,
+    "lon": 112.9473499
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-6"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794654,
+  "center": {
+    "lat": 28.1691244,
+    "lon": 112.9439309
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-1"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794655,
+  "center": {
+    "lat": 28.1690407,
+    "lon": 112.9442345
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-2"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794656,
+  "center": {
+    "lat": 28.1690137,
+    "lon": 112.9446669
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-3"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794657,
+  "center": {
+    "lat": 28.1686432,
+    "lon": 112.9440394
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-7"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794658,
+  "center": {
+    "lat": 28.1686019,
+    "lon": 112.9467128
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-14"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794660,
+  "center": {
+    "lat": 28.1690290,
+    "lon": 112.9452737
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-4"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794661,
+  "center": {
+    "lat": 28.1695343,
+    "lon": 112.9466479
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-11"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794662,
+  "center": {
+    "lat": 28.1692246,
+    "lon": 112.9466531
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-12"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794664,
+  "center": {
+    "lat": 28.1689121,
+    "lon": 112.9466838
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-13"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794665,
+  "center": {
+    "lat": 28.1685953,
+    "lon": 112.9461503
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-10"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794666,
+  "center": {
+    "lat": 28.1690038,
+    "lon": 112.9460592
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-5"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794667,
+  "center": {
+    "lat": 28.1686160,
+    "lon": 112.9446244
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-8"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794668,
+  "center": {
+    "lat": 28.1686356,
+    "lon": 112.9453983
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3-9"
+  }
+},
+{
+  "type": "way",
+  "id": 1537794690,
+  "center": {
+    "lat": 28.1680581,
+    "lon": 112.9451201
+  },
+  "tags": {
+    "building": "school",
+    "name": "创新楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446855,
+  "center": {
+    "lat": 28.1680049,
+    "lon": 112.9459547
+  },
+  "tags": {
+    "building": "residential",
+    "name": "10"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446856,
+  "center": {
+    "lat": 28.1680104,
+    "lon": 112.9462860
+  },
+  "tags": {
+    "building": "residential",
+    "name": "9"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446857,
+  "center": {
+    "lat": 28.1680117,
+    "lon": 112.9466388
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446858,
+  "center": {
+    "lat": 28.1680335,
+    "lon": 112.9469654
+  },
+  "tags": {
+    "building": "residential",
+    "name": "7"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446859,
+  "center": {
+    "lat": 28.1678312,
+    "lon": 112.9469809
+  },
+  "tags": {
+    "building": "residential",
+    "name": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446860,
+  "center": {
+    "lat": 28.1678272,
+    "lon": 112.9466527
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446861,
+  "center": {
+    "lat": 28.1678258,
+    "lon": 112.9462822
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446862,
+  "center": {
+    "lat": 28.1678203,
+    "lon": 112.9459713
+  },
+  "tags": {
+    "building": "residential",
+    "name": "6"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446863,
+  "center": {
+    "lat": 28.1676226,
+    "lon": 112.9467973
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446864,
+  "center": {
+    "lat": 28.1676396,
+    "lon": 112.9470243
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1538446893,
+  "center": {
+    "lat": 28.1674513,
+    "lon": 112.9479853
+  },
+  "tags": {
+    "building": "yes",
+    "name": "苏援水泵房"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176859,
+  "center": {
+    "lat": 28.1818735,
+    "lon": 112.9461941
+  },
+  "tags": {
+    "building": "school",
+    "name": "湖南光电集成创新研究院"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176873,
+  "center": {
+    "lat": 28.1758319,
+    "lon": 112.9466958
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "肖劲光故居"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176887,
+  "center": {
+    "lat": 28.1743630,
+    "lon": 112.9456301
+  },
+  "tags": {
+    "building": "school",
+    "name": "房产管理处"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176890,
+  "center": {
+    "lat": 28.1747496,
+    "lon": 112.9460840
+  },
+  "tags": {
+    "building": "school",
+    "name": "基本建设处"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176893,
+  "center": {
+    "lat": 28.1750256,
+    "lon": 112.9463807
+  },
+  "tags": {
+    "building": "school",
+    "name": "招标与采购中心"
+  }
+},
+{
+  "type": "way",
+  "id": 1540012982,
+  "center": {
+    "lat": 28.1848270,
+    "lon": 112.9638633
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "天符宫"
+  }
+},
+{
+  "type": "way",
+  "id": 1540023608,
+  "center": {
+    "lat": 28.1818058,
+    "lon": 112.9633959
+  },
+  "tags": {
+    "amenity": "pub",
+    "building": "yes",
+    "name": "可可清吧"
+  }
+},
+{
+  "type": "way",
+  "id": 1540088984,
+  "center": {
+    "lat": 28.1981300,
+    "lon": 112.9572764
+  },
+  "tags": {
+    "building": "transportation",
+    "bus": "yes",
+    "name": "橘子洲观光车售票处",
+    "name:en": "Juzizhou Tour bus",
+    "name:zh": "橘子洲观光车售票处",
+    "shop": "ticket"
+  }
+},
+{
+  "type": "way",
+  "id": 1545170837,
+  "center": {
+    "lat": 28.1822668,
+    "lon": 112.9437998
+  },
+  "tags": {
+    "building": "university",
+    "name": "12舍"
+  }
+},
+{
+  "type": "way",
+  "id": 1545170839,
+  "center": {
+    "lat": 28.1819305,
+    "lon": 112.9441001
+  },
+  "tags": {
+    "building": "university",
+    "name": "11舍"
+  }
+},
+{
+  "type": "way",
+  "id": 1545170840,
+  "center": {
+    "lat": 28.1804956,
+    "lon": 112.9438968
+  },
+  "tags": {
+    "building": "residential",
+    "name": "4"
+  }
+},
+{
+  "type": "way",
+  "id": 1545170842,
+  "center": {
+    "lat": 28.1807102,
+    "lon": 112.9440910
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1545170851,
+  "center": {
+    "lat": 28.1813670,
+    "lon": 112.9440493
+  },
+  "tags": {
+    "building": "residential",
+    "name": "12"
+  }
+},
+{
+  "type": "way",
+  "id": 1545170852,
+  "center": {
+    "lat": 28.1814938,
+    "lon": 112.9441662
+  },
+  "tags": {
+    "building": "residential",
+    "name": "13"
+  }
+},
+{
+  "type": "way",
+  "id": 1545170853,
+  "center": {
+    "lat": 28.1816232,
+    "lon": 112.9442759
+  },
+  "tags": {
+    "building": "residential",
+    "name": "14"
+  }
+},
+{
+  "type": "way",
+  "id": 1545897821,
+  "center": {
+    "lat": 28.1814331,
+    "lon": 112.9553268
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "唐生智公馆旧址"
+  }
+},
+{
+  "type": "way",
+  "id": 1545897822,
+  "center": {
+    "lat": 28.1775661,
+    "lon": 112.9553551
+  },
+  "tags": {
+    "amenity": "cafe",
+    "building": "yes",
+    "cuisine": "tea",
+    "name": "橘州上岸茶馆",
+    "opening_hours": "09:00-21:00"
+  }
+},
+{
+  "type": "way",
+  "id": 1545927449,
+  "center": {
+    "lat": 28.2064616,
+    "lon": 112.9509645
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖东社区居委会"
+  }
+},
+{
+  "type": "way",
+  "id": 1545927450,
+  "center": {
+    "lat": 28.2069373,
+    "lon": 112.9492174
+  },
+  "tags": {
+    "building": "yes",
+    "name": "湖中社区居委会"
+  }
+},
+{
+  "type": "way",
+  "id": 1545927451,
+  "center": {
+    "lat": 28.2059579,
+    "lon": 112.9472629
+  },
+  "tags": {
+    "building": "yes",
+    "name": "溁湾镇社区居委会"
+  }
+},
+{
+  "type": "way",
+  "id": 1545927452,
+  "center": {
+    "lat": 28.2103497,
+    "lon": 112.9514863
+  },
+  "tags": {
+    "building": "yes",
+    "name": "荣龙社区居委会"
+  }
+},
+{
+  "type": "way",
+  "id": 1546045026,
+  "center": {
+    "lat": 28.1855817,
+    "lon": 112.9558887
+  },
+  "tags": {
+    "building": "roof",
+    "historic": "monument",
+    "name": "《沁园春·长沙》新诗词碑",
+    "name:de": "“Qinyuanchun Changsha” Gedichtstein",
+    "name:en": "“Qinyuanchun Changsha” New Poem Monument",
+    "name:ja": "「沁園春·長沙」新詩詞碑"
+  }
+},
+{
+  "type": "way",
+  "id": 1546045027,
+  "center": {
+    "lat": 28.1817080,
+    "lon": 112.9558763
+  },
+  "tags": {
+    "amenity": "shelter",
+    "bench": "no",
+    "building": "roof",
+    "lit": "no",
+    "name": "春晖亭",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "way",
+  "id": 1546045032,
+  "center": {
+    "lat": 28.1695008,
+    "lon": 112.9547361
+  },
+  "tags": {
+    "amenity": "shelter",
+    "building": "yes",
+    "name": "望江亭",
+    "name:en": "Wangjiangting Pavilion",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "way",
+  "id": 1548131063,
+  "center": {
+    "lat": 28.1940018,
+    "lon": 112.9559609
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "诗词亭"
+  }
+},
+{
+  "type": "way",
+  "id": 1559407355,
+  "center": {
+    "lat": 28.2034085,
+    "lon": 112.9582693
+  },
+  "tags": {
+    "building": "yes",
+    "man_made": "tower",
+    "name": "江神庙",
+    "tower:type": "pagoda"
+  }
+},
+{
+  "type": "way",
+  "id": 1561858755,
+  "center": {
+    "lat": 28.1727188,
+    "lon": 112.9551850
+  },
+  "tags": {
+    "amenity": "shelter",
+    "building": "yes",
+    "name": "枕江亭",
+    "name:en": "Zhenjiang Pavilion",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "way",
+  "id": 1563618226,
+  "center": {
+    "lat": 28.2013228,
+    "lon": 112.9761012
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "八路军驻湘通讯处旧址"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868140,
+  "center": {
+    "lat": 28.2213544,
+    "lon": 112.9460844
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "38",
+    "height": "133.4",
+    "name": "9"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868141,
+  "center": {
+    "lat": 28.2212236,
+    "lon": 112.9451585
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "38",
+    "height": "133.4",
+    "name": "10"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868142,
+  "center": {
+    "lat": 28.2215388,
+    "lon": 112.9442592
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "T1"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868149,
+  "center": {
+    "lat": 28.2211056,
+    "lon": 112.9468527
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "42",
+    "height": "134.45",
+    "name": "8"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868150,
+  "center": {
+    "lat": 28.2207540,
+    "lon": 112.9462755
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "43",
+    "height": "134.5",
+    "name": "7"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868151,
+  "center": {
+    "lat": 28.2205479,
+    "lon": 112.9453952
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "43",
+    "height": "134.5",
+    "name": "6"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868152,
+  "center": {
+    "lat": 28.2201485,
+    "lon": 112.9448317
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "43",
+    "height": "134.5",
+    "name": "5"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868153,
+  "center": {
+    "lat": 28.2198134,
+    "lon": 112.9442622
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "43",
+    "height": "134.5",
+    "name": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868154,
+  "center": {
+    "lat": 28.2203900,
+    "lon": 112.9442870
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "43",
+    "height": "134.5",
+    "name": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 1566868155,
+  "center": {
+    "lat": 28.2209193,
+    "lon": 112.9442808
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "43",
+    "height": "134.5",
+    "name": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1568147671,
+  "center": {
+    "lat": 28.2103893,
+    "lon": 112.9512398
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-18"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123870,
+  "center": {
+    "lat": 28.2111150,
+    "lon": 112.9515183
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-4"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123871,
+  "center": {
+    "lat": 28.2113324,
+    "lon": 112.9521023
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-1"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123872,
+  "center": {
+    "lat": 28.2111235,
+    "lon": 112.9521002
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-2"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123873,
+  "center": {
+    "lat": 28.2108816,
+    "lon": 112.9522397
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-8"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123874,
+  "center": {
+    "lat": 28.2105986,
+    "lon": 112.9521442
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-10"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123875,
+  "center": {
+    "lat": 28.2104453,
+    "lon": 112.9518808
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-9"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123876,
+  "center": {
+    "lat": 28.2103111,
+    "lon": 112.9522113
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-11"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123877,
+  "center": {
+    "lat": 28.2098361,
+    "lon": 112.9520012
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-13"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123878,
+  "center": {
+    "lat": 28.2096140,
+    "lon": 112.9519768
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-14"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123879,
+  "center": {
+    "lat": 28.2098824,
+    "lon": 112.9513168
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "1-16"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123880,
+  "center": {
+    "lat": 28.2096346,
+    "lon": 112.9512735
+  },
+  "tags": {
+    "building": "apartments",
+    "name": "1-17"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123881,
+  "center": {
+    "lat": 28.2102349,
+    "lon": 112.9510244
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-19"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123882,
+  "center": {
+    "lat": 28.2099433,
+    "lon": 112.9508960
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-20"
+  }
+},
+{
+  "type": "way",
+  "id": 1569123883,
+  "center": {
+    "lat": 28.2096501,
+    "lon": 112.9507734
+  },
+  "tags": {
+    "building": "residential",
+    "name": "1-21"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177208,
+  "center": {
+    "lat": 28.2113239,
+    "lon": 112.9497703
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-15"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177209,
+  "center": {
+    "lat": 28.2113248,
+    "lon": 112.9491464
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-14"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177210,
+  "center": {
+    "lat": 28.2106120,
+    "lon": 112.9497875
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-9"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177211,
+  "center": {
+    "lat": 28.2106123,
+    "lon": 112.9491488
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-8"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177212,
+  "center": {
+    "lat": 28.2103449,
+    "lon": 112.9490483
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-7"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177213,
+  "center": {
+    "lat": 28.2101515,
+    "lon": 112.9496941
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-6"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177214,
+  "center": {
+    "lat": 28.2099083,
+    "lon": 112.9496889
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-4"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177215,
+  "center": {
+    "lat": 28.2096517,
+    "lon": 112.9496953
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-2"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177216,
+  "center": {
+    "lat": 28.2101053,
+    "lon": 112.9490598
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-5"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177217,
+  "center": {
+    "lat": 28.2099038,
+    "lon": 112.9490577
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-3"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177218,
+  "center": {
+    "lat": 28.2096572,
+    "lon": 112.9490662
+  },
+  "tags": {
+    "building": "residential",
+    "name": "5-1"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177219,
+  "center": {
+    "lat": 28.2114451,
+    "lon": 112.9484179
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8-8"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177220,
+  "center": {
+    "lat": 28.2114543,
+    "lon": 112.9480696
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8-7"
+  }
+},
+{
+  "type": "way",
+  "id": 1569177221,
+  "center": {
+    "lat": 28.2113096,
+    "lon": 112.9474633
+  },
+  "tags": {
+    "building": "residential",
+    "name": "8-9"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238863,
+  "center": {
+    "lat": 28.2093188,
+    "lon": 112.9509752
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-14"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238864,
+  "center": {
+    "lat": 28.2090726,
+    "lon": 112.9509823
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-15"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238865,
+  "center": {
+    "lat": 28.2088221,
+    "lon": 112.9509849
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-16"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238866,
+  "center": {
+    "lat": 28.2085445,
+    "lon": 112.9509891
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-17"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238867,
+  "center": {
+    "lat": 28.2088402,
+    "lon": 112.9514937
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-5"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238868,
+  "center": {
+    "lat": 28.2090526,
+    "lon": 112.9514898
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-4"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238869,
+  "center": {
+    "lat": 28.2092666,
+    "lon": 112.9514957
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-3"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238870,
+  "center": {
+    "lat": 28.2091345,
+    "lon": 112.9519953
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-2"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238871,
+  "center": {
+    "lat": 28.2088297,
+    "lon": 112.9520694
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-6"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238872,
+  "center": {
+    "lat": 28.2085426,
+    "lon": 112.9520394
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-7"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238873,
+  "center": {
+    "lat": 28.2086004,
+    "lon": 112.9517221
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-9"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238874,
+  "center": {
+    "lat": 28.2085650,
+    "lon": 112.9513939
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-10"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238875,
+  "center": {
+    "lat": 28.2082617,
+    "lon": 112.9520199
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-8"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238879,
+  "center": {
+    "lat": 28.2077870,
+    "lon": 112.9518214
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "6",
+    "height": "24",
+    "name": "2-12"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238880,
+  "center": {
+    "lat": 28.2075587,
+    "lon": 112.9518080
+  },
+  "tags": {
+    "building": "residential",
+    "building:levels": "6",
+    "height": "24",
+    "name": "2-13"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238881,
+  "center": {
+    "lat": 28.2080481,
+    "lon": 112.9510547
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-19"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238882,
+  "center": {
+    "lat": 28.2078011,
+    "lon": 112.9510624
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-20"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238883,
+  "center": {
+    "lat": 28.2075533,
+    "lon": 112.9510632
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-21"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238884,
+  "center": {
+    "lat": 28.2089261,
+    "lon": 112.9506684
+  },
+  "tags": {
+    "building": "retail",
+    "building:levels": "2",
+    "name": "水产大楼"
+  }
+},
+{
+  "type": "way",
+  "id": 1569238886,
+  "center": {
+    "lat": 28.2083771,
+    "lon": 112.9516874
+  },
+  "tags": {
+    "building": "residential",
+    "name": "2-22"
+  }
+}
+
+  ]
+}

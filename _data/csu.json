@@ -1,0 +1,428 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-20T07:49:33Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 312886954,
+  "center": {
+    "lat": 28.1768315,
+    "lon": 112.9386102
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "国家超级计算长沙中心",
+    "office": "research"
+  }
+},
+{
+  "type": "way",
+  "id": 486904540,
+  "center": {
+    "lat": 28.1795701,
+    "lon": 112.9392527
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "湖南大学(南校区)",
+    "name:en": "Hunan University",
+    "name:ja": "湖南大学(南校区)",
+    "name:zh": "湖南大学(南校区)",
+    "name:zh-Hans": "湖南大学(南校区)",
+    "name:zh-Hant": "湖南大學",
+    "website": "https://www.hnu.edu.cn/",
+    "wikidata": "Q649868",
+    "wikipedia": "zh:湖南大学"
+  }
+},
+{
+  "type": "way",
+  "id": 486904541,
+  "center": {
+    "lat": 28.1908543,
+    "lon": 112.9440656
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "湖南师范大学",
+    "name:en": "Hunan Normal University",
+    "name:ja": "湖南師範大学",
+    "name:zh": "湖南师范大学",
+    "name:zh-Hans": "湖南师范大学",
+    "name:zh-Hant": "湖南師範大學",
+    "wikidata": "Q5942027"
+  }
+},
+{
+  "type": "way",
+  "id": 492244353,
+  "center": {
+    "lat": 28.1590911,
+    "lon": 112.9716813
+  },
+  "tags": {
+    "alt_name": "长沙理工大学（金盆岭校区）",
+    "amenity": "university",
+    "name": "长沙理工大学城南学院"
+  }
+},
+{
+  "type": "way",
+  "id": 533289733,
+  "center": {
+    "lat": 28.1638246,
+    "lon": 112.9309056
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "中南大学（麓南校区）",
+    "name:zh": "中南大学（麓南校区）",
+    "wikidata": "Q5061828",
+    "wikipedia": "zh:中南大学"
+  }
+},
+{
+  "type": "way",
+  "id": 644418501,
+  "center": {
+    "lat": 28.2015636,
+    "lon": 112.9260555
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学(财院校区)"
+  }
+},
+{
+  "type": "way",
+  "id": 646859576,
+  "center": {
+    "lat": 28.1792973,
+    "lon": 112.9675575
+  },
+  "tags": {
+    "addr:housenumber": "536",
+    "addr:street": "书院路",
+    "amenity": "university",
+    "name": "湖南第一师范学院"
+  }
+},
+{
+  "type": "way",
+  "id": 654419113,
+  "center": {
+    "lat": 28.1421937,
+    "lon": 112.9856692
+  },
+  "tags": {
+    "alt_name": "中南大学铁道学院",
+    "amenity": "university",
+    "education": "university",
+    "name": "中南大学（天心校区）",
+    "wikidata": "Q5061828",
+    "wikipedia": "zh:中南大学"
+  }
+},
+{
+  "type": "way",
+  "id": 966198402,
+  "center": {
+    "lat": 28.1576834,
+    "lon": 112.9355666
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "中南大学（潇湘校区）",
+    "wikidata": "Q5061828",
+    "wikipedia": "zh:中南大学"
+  }
+},
+{
+  "type": "way",
+  "id": 1028934324,
+  "center": {
+    "lat": 28.1731942,
+    "lon": 112.9225958
+  },
+  "tags": {
+    "addr:city": "长沙",
+    "addr:district": "岳麓",
+    "addr:housenumber": "932",
+    "addr:postcode": "410083",
+    "addr:province": "湖南",
+    "addr:street": "麓山南路",
+    "amenity": "university",
+    "name": "中南大学（岳麓山校区）",
+    "website": "https://www.csu.edu.cn/",
+    "wikidata": "Q5061828",
+    "wikipedia": "zh:中南大学"
+  }
+},
+{
+  "type": "way",
+  "id": 1029410070,
+  "center": {
+    "lat": 28.1692566,
+    "lon": 112.9338464
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "湖南师范大学（南院校区）",
+    "wikidata": "Q5942027",
+    "wikipedia": "zh:湖南师范大学"
+  }
+},
+{
+  "type": "way",
+  "id": 1098775527,
+  "center": {
+    "lat": 28.1679400,
+    "lon": 112.9450026
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "湖南大学生命医学交叉研究院"
+  }
+},
+{
+  "type": "way",
+  "id": 1098775528,
+  "center": {
+    "lat": 28.1747632,
+    "lon": 112.9463217
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "湖南大学两山一湖南区"
+  }
+},
+{
+  "type": "way",
+  "id": 1231891477,
+  "center": {
+    "lat": 28.1668848,
+    "lon": 112.9907580
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "湖南中医药大学湘杏学院"
+  }
+},
+{
+  "type": "way",
+  "id": 1298158889,
+  "center": {
+    "lat": 28.1641264,
+    "lon": 112.9931169
+  },
+  "tags": {
+    "amenity": "university"
+  }
+},
+{
+  "type": "way",
+  "id": 1337340942,
+  "center": {
+    "lat": 28.1957865,
+    "lon": 112.9791760
+  },
+  "tags": {
+    "amenity": "university"
+  }
+},
+{
+  "type": "way",
+  "id": 1387774460,
+  "center": {
+    "lat": 28.1670532,
+    "lon": 112.9835688
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:postcode": "410074",
+    "addr:street": "芙蓉中路",
+    "amenity": "university",
+    "landuse": "military",
+    "name": "国防科技大学前沿交叉学科学院",
+    "old_name": "国防科技大学政治学院",
+    "old_name:ja": "国防科技大学政治学院",
+    "old_name:zh": "国防科技大学政治学院",
+    "operator": "国防科技大学"
+  }
+},
+{
+  "type": "way",
+  "id": 1539092535,
+  "center": {
+    "lat": 28.1844543,
+    "lon": 112.9447454
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学两山一湖北区"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176861,
+  "center": {
+    "lat": 28.1816620,
+    "lon": 112.9467853
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学两山一湖中区"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176878,
+  "center": {
+    "lat": 28.1755093,
+    "lon": 112.9454562
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学菊轩"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176900,
+  "center": {
+    "lat": 28.1739303,
+    "lon": 112.9442458
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学湘江卓越工程师学院"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176901,
+  "center": {
+    "lat": 28.1734909,
+    "lon": 112.9455643
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学天马教学区"
+  }
+},
+{
+  "type": "way",
+  "id": 1539176902,
+  "center": {
+    "lat": 28.1732055,
+    "lon": 112.9445938
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学天马教学区"
+  }
+},
+{
+  "type": "relation",
+  "id": 13777138,
+  "center": {
+    "lat": 28.1504553,
+    "lon": 112.9872007
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "中南大学",
+    "type": "collection",
+    "website": "https://www.csu.edu.cn/",
+    "wikidata": "Q5061828",
+    "wikipedia": "zh:中南大学"
+  }
+},
+{
+  "type": "relation",
+  "id": 14636504,
+  "center": {
+    "lat": 28.1140090,
+    "lon": 112.9348958
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学",
+    "type": "collection"
+  }
+},
+{
+  "type": "relation",
+  "id": 16135479,
+  "center": {
+    "lat": 28.1362984,
+    "lon": 112.9890924
+  },
+  "tags": {
+    "addr:city": "长沙市",
+    "addr:country": "CN",
+    "addr:full": "湖南省长沙市韶山南路498号",
+    "addr:housenumber": "498",
+    "addr:postcode": "410004",
+    "addr:province": "湖南省",
+    "addr:street": "韶山南路",
+    "amenity": "university",
+    "name": "中南林业科技大学",
+    "name:en": "Central South University of Forestry and Technology",
+    "name:nan": "Tiong-lâm Lîm-gia̍p Kho-ki Tāi-ha̍k",
+    "name:nan-Hans": "中南林业科技大学",
+    "name:nan-Latn-pehoeji": "Tiong-lâm Lîm-gia̍p Kho-ki Tāi-ha̍k",
+    "name:nan-Latn-tailo": "Tiong-lâm Lîm-gia̍p Kho-ki Tāi-ha̍k",
+    "name:zh": "中南林业科技大学",
+    "name:zh-Hans": "中南林业科技大学",
+    "name:zh-Hant": "中南林業科技大學",
+    "type": "multipolygon",
+    "website": "https://www.csuft.edu.cn/",
+    "wikidata": "Q10872553",
+    "wikipedia": "zh:中南林业科技大学"
+  }
+},
+{
+  "type": "relation",
+  "id": 21100331,
+  "center": {
+    "lat": 28.1756994,
+    "lon": 112.9456044
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学两山一湖南区",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 21100332,
+  "center": {
+    "lat": 28.1734909,
+    "lon": 112.9452447
+  },
+  "tags": {
+    "amenity": "university",
+    "education": "university",
+    "name": "湖南大学天马教学区",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}

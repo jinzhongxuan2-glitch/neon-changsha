@@ -1,0 +1,11 @@
+# 放到 server { } 里
+gzip_static on;              # 优先发预压缩的 .gz
+gzip_types text/css application/javascript image/svg+xml;
+
+location = /index.html {
+    add_header Cache-Control "no-cache";        # 每次都校验，保证拿到新版本
+}
+
+location /assets/ {
+    add_header Cache-Control "public, max-age=31536000, immutable";
+}

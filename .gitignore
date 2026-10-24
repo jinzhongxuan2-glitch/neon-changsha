@@ -1,0 +1,12 @@
+node_modules/
+.npm-cache/
+.workbuddy/
+_shots/
+_audit/
+_build/_tmp*
+_build/_err*.txt
+_build/_blk*.txt
+_build/probe*.js
+_build/dbg*.js
+_build/shot*.js
+vendor - 快捷方式.lnk

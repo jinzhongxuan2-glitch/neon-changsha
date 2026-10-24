@@ -1,0 +1,60 @@
+loading buildings...
+  [GHSL] 未加载（本轮改用核心区引力近似高度）: No module named 'tifffile'
+function resolve: ctx 5803 / geom 7637
+buildings: 19524
+base elevation p10/p50/p90/max: 10.6 28.1 58.8 266.3
+height p50/p90/p99/max: 18.9 46.5 100.0 452.0
+distribution: 0-10m:4255 | 10-22m:7380 | 22-50m:6735 | 50-100m:959 | 100-150m:143 | 150-200m:11 | 200-300m:36 | 300-999m:5
+functions: 住宅 8376(42.9%) | 公寓宿舍 6139(31.4%) | 其他 1986(10.2%) | 商业 1101(5.6%) | 公共 914(4.7%) | 办公 453(2.3%) | 校园 347(1.8%) | 历史宗教 105(0.5%) | 酒店 45(0.2%) | 在建 45(0.2%) | 工业 13(0.1%)
+class detail (n / area p50 / height p50 / 来源):
+   住宅      8376     556 m2   17.5 m   geom:3458 ctx:2570 tag:2348
+   公寓宿舍    6139     797 m2   28.3 m   ctx:2521 tag:2024 geom:1594
+   其他      1986     229 m2    8.3 m   geom:1986
+   商业      1101     545 m2   42.0 m   tag:460 ctx:356 geom:285
+   公共       914     800 m2   24.1 m   tag:654 ctx:260
+   办公       453     433 m2   76.8 m   geom:314 tag:115 ctx:24
+   校园       347     730 m2   18.9 m   tag:347
+   历史宗教     105     322 m2   11.4 m   tag:69 ctx:36
+   酒店        45    1203 m2   43.8 m   tag:41 ctx:4
+   在建        45     858 m2   43.0 m   ctx:32 tag:13
+   工业        13     735 m2   15.3 m   tag:13
+tall audit:
+     452m  Changsha IFS Tower T1    办公
+     327m  湘江财富金融中心                 商业
+     320m  -                        办公
+     320m  -                        办公
+     315m  Changsha IFS Tower T2    办公
+     295m  长沙益友消防大酒店                酒店
+     285m  -                        办公
+     275m  -                        办公
+     265m  -                        办公
+     263m  T1                       办公
+     259m  -                        办公
+     257m  -                        办公
+campus buildings: {1: 196, 2: 104, 3: 47}
+loading campus areas...
+areas: 105
+loading roads...
+roads: 6400
+loading bridges...
+  juzizhou 橘子洲大桥          lanes=2 gap=7.3 len=1305  (-1070, -659) -> (-2374, -714)
+  yinpenling 银盆岭大桥          lanes=2 gap=7.9 len=1500  (-1854, -4049) -> (-355, -4109)
+  fuyuanlu 福元路大桥          lanes=3 gap=11.4 len=2308  (-2039, -6947) -> (241, -7200)
+  houzishi 猴子石大桥          lanes=3 gap=11.3 len=1116  (-3109, 5585) -> (-1993, 5620)
+buildings bin: 620 KB | roads bin: 156 KB
+payload MB: 1.44
+   452.0m  Changsha IFS Tower T1        (-145,-261)
+   327.0m  湘江财富金融中心                     (-2259,-5810)
+   320.0m                               (346,-429)
+   320.0m                               (338,-528)
+   315.0m  Changsha IFS Tower T2        (-30,-343)
+   295.0m  长沙益友消防大酒店                    (559,-754)
+   285.0m                               (215,-334)
+   275.0m                               (254,-216)
+   265.0m                               (338,-268)
+   263.0m  T1                           (-1031,51)
+   259.0m                               (300,-350)
+   257.0m                               (262,-453)
+   255.0m                               (1104,114)
+   253.0m                               (680,-825)
+   251.0m                               (214,-390)

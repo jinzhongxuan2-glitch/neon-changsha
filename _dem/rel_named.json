@@ -1,0 +1,387 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-19T17:05:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 4768043,
+  "center": {
+    "lat": 28.1822022,
+    "lon": 112.9444505
+  },
+  "tags": {
+    "building": "university",
+    "name": "14舍",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 7082008,
+  "center": {
+    "lat": 28.1883204,
+    "lon": 112.9775543
+  },
+  "tags": {
+    "alt_name": "Changsha Jiandu Museum",
+    "building": "museum",
+    "name": "长沙简牍博物馆",
+    "name:en": "Changsha Bamboo Slips Museum",
+    "name:zh": "长沙简牍博物馆",
+    "tourism": "museum",
+    "type": "multipolygon",
+    "wikidata": "Q28824296",
+    "wikipedia": "zh:长沙简牍博物馆"
+  }
+},
+{
+  "type": "relation",
+  "id": 7096204,
+  "center": {
+    "lat": 28.1874783,
+    "lon": 112.9770841
+  },
+  "tags": {
+    "building": "commercial",
+    "layer": "1",
+    "level": "1",
+    "name": "天心阁古玩城",
+    "name:en": "Tianxinge Antique City",
+    "name:zh": "天心阁古玩城",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 12955761,
+  "center": {
+    "lat": 28.2156620,
+    "lon": 112.9795161
+  },
+  "tags": {
+    "building": "hospital",
+    "height": "200",
+    "name": "2号楼",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 17935002,
+  "center": {
+    "lat": 28.1936945,
+    "lon": 112.9828478
+  },
+  "tags": {
+    "building": "commercial",
+    "name": "银港大厦",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 18621018,
+  "center": {
+    "lat": 28.1923890,
+    "lon": 112.9451052
+  },
+  "tags": {
+    "building": "yes",
+    "name": "生命科学学院",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950759,
+  "center": {
+    "lat": 28.1972963,
+    "lon": 112.9660686
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "乾益升粮栈",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950760,
+  "center": {
+    "lat": 28.1971535,
+    "lon": 112.9659893
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "美孚洋行",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950761,
+  "center": {
+    "lat": 28.1973813,
+    "lon": 112.9661263
+  },
+  "tags": {
+    "building": "yes",
+    "name": "福禄茶馆",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950762,
+  "center": {
+    "lat": 28.1975006,
+    "lon": 112.9658103
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "马家巷24号民居",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950765,
+  "center": {
+    "lat": 28.1969880,
+    "lon": 112.9653238
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "共进会旧址",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950766,
+  "center": {
+    "lat": 28.1968246,
+    "lon": 112.9653053
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "四正社旧址",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950769,
+  "center": {
+    "lat": 28.1966625,
+    "lon": 112.9656418
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "鲁班庙旧址",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950770,
+  "center": {
+    "lat": 28.1966373,
+    "lon": 112.9657666
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "孚嘉巷12号公馆",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950771,
+  "center": {
+    "lat": 28.1961668,
+    "lon": 112.9657914
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "渔父国医馆",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20950773,
+  "center": {
+    "lat": 28.1965735,
+    "lon": 112.9652765
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "孚嘉巷51号",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20954648,
+  "center": {
+    "lat": 28.1882498,
+    "lon": 112.9704396
+  },
+  "tags": {
+    "building": "retail",
+    "layer": "1",
+    "name": "黄兴南路步行商业街A区",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20954649,
+  "center": {
+    "lat": 28.1878750,
+    "lon": 112.9701055
+  },
+  "tags": {
+    "building": "retail",
+    "name": "1662主题购物中心",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20954650,
+  "center": {
+    "lat": 28.1898159,
+    "lon": 112.9704838
+  },
+  "tags": {
+    "building": "retail",
+    "layer": "1",
+    "name": "黄兴南路步行商业街C区",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20954651,
+  "center": {
+    "lat": 28.1909695,
+    "lon": 112.9702348
+  },
+  "tags": {
+    "building": "retail",
+    "building:levels": "4",
+    "layer": "1",
+    "name": "黄兴南路步行商业街D区",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20954652,
+  "center": {
+    "lat": 28.1940067,
+    "lon": 112.9705618
+  },
+  "tags": {
+    "building": "retail",
+    "layer": "1",
+    "name": "黄兴南路步行商业街F区",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20980392,
+  "center": {
+    "lat": 28.1931819,
+    "lon": 112.9692782
+  },
+  "tags": {
+    "building": "retail",
+    "building:levels": "5",
+    "layer": "1",
+    "name": "长沙悦方ID MALL",
+    "name:ru": "Торговый центр Чанша Юэфан iD MALL",
+    "opening_hours": "Mo-Su 10:00-22:00",
+    "shop": "mall",
+    "toilets": "yes",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20980395,
+  "center": {
+    "lat": 28.1935066,
+    "lon": 112.9659069
+  },
+  "tags": {
+    "building": "yes",
+    "name": "鸿记钱庄",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20980396,
+  "center": {
+    "lat": 28.1937546,
+    "lon": 112.9659166
+  },
+  "tags": {
+    "building": "yes",
+    "name": "苏州会馆",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 21014982,
+  "center": {
+    "lat": 28.2021233,
+    "lon": 112.9655274
+  },
+  "tags": {
+    "building": "retail;yes",
+    "name": "长沙开福万达广场",
+    "name:de": "Wanda Plaza",
+    "name:en": "Wanda Plaza",
+    "name:zh": "长沙开福万达广场",
+    "shop": "mall",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 21100330,
+  "center": {
+    "lat": 28.1753287,
+    "lon": 112.9466935
+  },
+  "tags": {
+    "building": "yes",
+    "museum": "history",
+    "name": "近现代海军装备主题展馆",
+    "tourism": "museum",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}
