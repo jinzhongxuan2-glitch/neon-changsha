@@ -37,4 +37,9 @@ _build/shot*.js
 !_build/probe_aud_diag.js
 !_build/probe_aud_ui.js
 !_build/probe_carshot.js
+!_build/probe_bridgejoin.js
+!_build/probe_bridge_dof2.js
+!_build/probe_bridge_dof3.js
+!_build/probe_bridgehead.js
+!_build/probe_bridge_lat.js
 !_build/shots.js

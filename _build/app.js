@@ -5578,6 +5578,148 @@ function bar(P, N, G, a, b, w, glow, segs){
   }
 }
 
+/* 找出「属于这座桥」的 OSM 路：逐点落在桥走线 6m 内、且过半。
+   和 TRAFFIC 里的 `bridgeRoad` 判定同一套 —— 这一步不能省：
+   橘子洲上的路网很密，只按「最近的路段」匹配会把标线对齐到岛上的另一条路
+   （实测橘子洲桥头差 8.9m，福元路却对上了，就是因为福元路桥头只有一条路）。 */
+const OWN_R = 6;     // 「桥下的路」判据半径：双向分隔的桥两条线在 ±5.99m，7m 会把辅路一起吞进来
+const OWN_CLS = 2;   // 只有 cls ≤ 2 才算「桥面级」道路。cls=3/5 是桥头匝道和辅路
+/* 找出「属于这座桥」的 OSM 路：逐点落在桥走线 6m 内、且过半。
+   和 TRAFFIC 里的 `bridgeRoad` 判定同一套 —— 这一步不能省：
+   橘子洲上的路网很密，只按「最近的路段」匹配会把标线对齐到岛上的另一条路
+   （实测橘子洲桥头差 8.9m，福元路却对上了，就是因为福元路桥头只有一条路）。
+
+   **必须按 cls 卡一刀**：只按几何判定时，福元路会认进 4 条 cls=3 的桥头匝道
+   （它们正好从桥面引下来，2/3 节点落在 6m 内就过线了），
+   5 条路一起参与平均，dof 在 -6 ~ +5.5 之间乱跳（实测 range 11.5m）。 */
+function bridgeOwnRoads(b, half){
+  const roads = (typeof RNB !== 'undefined' && RNB.roads) ? RNB.roads : null;
+  if(!roads || !roads.length) return null;
+  const bp = b.pts;
+  let x0=1e9, z0=1e9, x1=-1e9, z1=-1e9;
+  for(const q of bp){
+    if(q[0]<x0) x0=q[0]; if(q[0]>x1) x1=q[0];
+    if(q[1]<z0) z0=q[1]; if(q[1]>z1) z1=q[1];
+  }
+  const out = [];
+  for(let i=0;i<roads.length;i++){
+    const r = roads[i];
+    if(r.n < 3 || r.cls > OWN_CLS) continue;
+    const mx = r.pts[(r.n>>1)*2], mz = r.pts[(r.n>>1)*2+1];
+    if(mx < x0-150 || mx > x1+150 || mz < z0-150 || mz > z1+150) continue;
+    let hit = 0;
+    for(let k=0;k<r.n;k++){
+      const x = r.pts[k*2], z = r.pts[k*2+1];
+      let bd = 1e9;
+      for(let j=0;j+1<bp.length;j++){
+        const d = _segDist(x, z, bp[j][0], bp[j][1], bp[j+1][0], bp[j+1][1]);
+        if(d < bd) bd = d;
+      }
+      if(bd < OWN_R) hit++;
+    }
+    if(hit >= 2 && hit / r.n >= 0.5) out.push(r);
+  }
+  return out.length ? out : null;
+}
+
+/* 桥走线相对「它下面那条 OSM 路中线」的横向偏移，逐节点算一遍（§34）。
+   路面标线和桥上车流都以 OSM 中线为基准，桥面标线如果只按桥走线画，
+   桥头就会错开整整一个车道。算法和 TRAFFIC 里的 `e.dof` 同源：
+   取中点落在桥 bbox 附近的路，逐段找最近点，把差值投影到桥法线上。
+   额外加一条「走向大致平行」的判据 —— 引桥底下常有横穿的路，
+   不比走向的话 8m 钳制会把标线拉歪。
+
+   **平均的成员必须全桥一致。** 第一版是「哪个节点匹配上就把哪条算进去」，
+   成员数随位置变：福元路 578 个节点里 241 个一条都不匹配（dof 退回 0）、
+   330 个只匹配一条（dof = −4.8），标线在两者之间来回跳；
+   猴子石更干脆 —— 桥头第一个节点被 6m 钳制挡掉一条分隔路，
+   dof 从平均 0 直接跳到 −5.99，看起来就是黄线在桥头横移一个车道。
+   现在改成两遍：先定集合、算每条路的全桥均值，再逐节点算，
+   匹配不上的那条用它的全桥均值兜底。 */
+function bridgeLateralDof(path, px, pz, own, half){
+  const n = path.length, out = new Float32Array(n);
+  const roads = (typeof RNB !== 'undefined' && RNB.roads) ? RNB.roads : null;
+  if(!roads || !roads.length) return out;
+  let x0=1e9, z0=1e9, x1=-1e9, z1=-1e9;
+  for(let i=0;i<n;i++){
+    const p = path[i];
+    if(p.x<x0) x0=p.x; if(p.x>x1) x1=p.x;
+    if(p.z<z0) z0=p.z; if(p.z>z1) z1=p.z;
+  }
+  const CAND = 60;
+  const cand = [];
+  if(own){
+    /* 有「自己的路」就只用它 —— 桥头哪怕紧挨着另一条平行路也不会被抢走 */
+    for(const r of own) cand.push(r);
+  } else {
+    for(let i=0;i<roads.length;i++){
+      const r = roads[i];
+      if(r.n < 2 || r.cls > OWN_CLS) continue;
+      const mx = r.pts[(r.n>>1)*2], mz = r.pts[(r.n>>1)*2+1];
+      if(mx < x0-CAND || mx > x1+CAND || mz < z0-CAND || mz > z1+CAND) continue;
+      cand.push(r);
+    }
+  }
+  if(!cand.length) return out;
+
+  /* 第一遍：逐节点 × 逐路的原始偏移（NaN = 这条线在这个节点不适用） */
+  const raw = new Array(n);
+  const wsum = new Float64Array(cand.length);
+  const wcnt = new Int32Array(cand.length);
+  for(let i=0;i<n;i++){
+    const x = path[i].x, z = path[i].z;
+    /* 桥在该点的切向：法线是 (px,pz)，切向取 (-pz,px) */
+    const tx = -pz[i], tz = px[i];
+    const row = new Float64Array(cand.length).fill(NaN);
+    for(let ci=0;ci<cand.length;ci++){
+      const r = cand[ci];
+      let bd = 1e18, ox = 0, oz = 0;
+      for(let k=0;k+1<r.n;k++){
+        const ax = r.pts[k*2], az = r.pts[k*2+1];
+        const ex = r.pts[k*2+2]-ax, ez = r.pts[k*2+3]-az;
+        const LL = ex*ex + ez*ez;
+        if(LL < 1e-9) continue;
+        const LLen = Math.sqrt(LL);
+        if(Math.abs((ex/LLen)*tx + (ez/LLen)*tz) < 0.6) continue;   // 横穿的路不算
+        let t = ((x-ax)*ex + (z-az)*ez) / LL;
+        t = t < 0 ? 0 : (t > 1 ? 1 : t);
+        const qx = ax + ex*t, qz = az + ez*t;
+        const ddx = qx-x, ddz = qz-z;
+        const dd = ddx*ddx + ddz*ddz;
+        if(dd < bd){ bd = dd; ox = ddx; oz = ddz; }
+      }
+      if(bd < 1e18 && bd <= OWN_R * OWN_R){
+        const d = ox*px[i] + oz*pz[i];
+        if(Math.abs(d) <= OWN_R){ row[ci] = d; wsum[ci] += d; wcnt[ci]++; }
+      }
+    }
+    raw[i] = row;
+  }
+
+  /* 覆盖率过低的候选剔除（擦边的平行辅路）；全被剔除时留覆盖率最高的那条 */
+  let keep = [];
+  for(let ci=0;ci<cand.length;ci++) if(wcnt[ci] / n >= 0.25) keep.push(ci);
+  if(!keep.length){
+    let best = 0;
+    for(let ci=1;ci<cand.length;ci++) if(wcnt[ci] > wcnt[best]) best = ci;
+    keep = [best];
+  }
+  const fill = new Float64Array(keep.length);
+  for(let j=0;j<keep.length;j++) fill[j] = wcnt[keep[j]] ? wsum[keep[j]] / wcnt[keep[j]] : 0;
+
+  /* 第二遍：成员固定，匹配不到用该路的全桥均值兜底 */
+  for(let i=0;i<n;i++){
+    const row = raw[i];
+    let s = 0;
+    for(let j=0;j<keep.length;j++){
+      const v = row[keep[j]];
+      s += (v === v) ? v : fill[j];      // NaN !== NaN
+    }
+    out[i] = s / keep.length;
+  }
+  return out;
+}
+
 /* 桥面 + 侧梁 + 护栏 + 人行道 + 标线 + 灯柱：所有桥型共用 */
 function bridgeCore(b, spec){
   const S = deckSection(spec.width);
@@ -5626,6 +5768,13 @@ function bridgeCore(b, spec){
   const D = { P:[], N:[], G:[] };
   const total = (n-1) * STEP;
 
+  /* 标线的横向基准（§34）：桥走线 → 最近 OSM 路中线的偏移，逐节点。
+     以及每个节点「离地多少」—— 引桥落地段（< 0.6m）不画桥面标线。 */
+  const ownRoads = bridgeOwnRoads(b, half);
+  const dof = bridgeLateralDof(path, px, pz, ownRoads, half);
+  const dLand = new Float32Array(n);
+  for(let i=0;i<n;i++) dLand[i] = ys[i] - (terrainAt(path[i].x, path[i].z) + ROAD_H);
+
   for(let i=0;i<n-1;i++){
     const ax = path[i].x, az = path[i].z, ay = ys[i];
     const bx = path[i+1].x, bz = path[i+1].z, by = ys[i+1];
@@ -5656,13 +5805,31 @@ function bridgeCore(b, spec){
       pushQuad(D.P, D.N, D.G, q0, q1, c1, c0, [-sgn*px[i], 0, -sgn*pz[i]], 4);
     }
 
-    /* ---- 标线：双黄中线 + 每方向 (per-1) 条车道虚线 + 两条边线 ---- */
+    /* ---- 标线：双黄中线 + 每方向 (per-1) 条车道虚线 + 两条边线 ----
+       **横向基准是桥走线本身，不是 OSM 路中线**（§34）。
+       桥体几何（护栏 / 人行道 / 车行道 / 桥上车流的车道落点）全按桥走线建 ——
+       实测福元路桥面 73 辆车的横向坐标是完美对称的 ±1.64 / ±4.92 / ±8.20 / ±11.48
+       （正好 (lane+0.5)*laneW，laneW=3.28）。所以标线也只有画在桥走线坐标里，
+       才能压在车流的车道中间。
+
+       `dof`（桥走线相对桥下 OSM 路中线的横偏）唯一该出场的地方是**引桥落地段**：
+       那一段桥面已经压到 `terrainAt + ROAD_H` 附近，标线要交还给路面 shader
+       （它按 OSM 路中线画），两者差一个 dof。按 dLand 从 0.6 渐到 8.6 做 32m 过渡，
+       斜角 8° —— 看着就是一条正常的汇流段。
+
+       第一版没有这个区分，全桥都写 `oo = o - dof`：福元路 dof = −5.94，
+       双黄线直接跑到桥面 +5.9m 处（偏了将近两条车道），桥头依然接不上 ——
+       两头都错。当时把它读成「加号比减号多偏一个 dof」，是因为
+       `bridgeOwnRoads` 还没做，dof 自己在 −6~+5.5 之间乱跳，量出来的数没有意义。 */
     const mark = (o, w, dash, glow) => {
       if(dash && (i % 4) >= 2) return;
-      const a0 = [ax + px[i]*(o-w),  ay+0.030, az + pz[i]*(o-w)];
-      const a1 = [bx + px[i+1]*(o-w), by+0.030, bz + pz[i+1]*(o-w)];
-      const b0 = [ax + px[i]*(o+w),  ay+0.030, az + pz[i]*(o+w)];
-      const b1 = [bx + px[i+1]*(o+w), by+0.030, bz + pz[i+1]*(o+w)];
+      if(dLand[i] < 0.6) return;               // 已经落到地面，交给路面 shader
+      const t = 1 - Math.min(1, Math.max(0, (dLand[i] - 0.6) / 8));
+      const oo = o + dof[i] * t;
+      const a0 = [ax + px[i]*(oo-w),  ay+0.030, az + pz[i]*(oo-w)];
+      const a1 = [bx + px[i+1]*(oo-w), by+0.030, bz + pz[i+1]*(oo-w)];
+      const b0 = [ax + px[i]*(oo+w),  ay+0.030, az + pz[i]*(oo+w)];
+      const b1 = [bx + px[i+1]*(oo+w), by+0.030, bz + pz[i+1]*(oo+w)];
       pushQuad(D.P, D.N, D.G, a0, a1, b1, b0, [0,1,0], glow === undefined ? 2 : glow);
     };
     /* 双黄线：两条 0.14 宽、内侧净距 0.13 → 线心 ±0.145 */
@@ -5709,7 +5876,7 @@ function bridgeCore(b, spec){
     }
   }
 
-  return { path, ys, n, px, pz, half, TH, total, D, S };
+  return { path, ys, n, px, pz, half, TH, total, D, S, dof, dLand, dofOwn: ownRoads };
 }
 
 function finishBridge(D){
@@ -5727,7 +5894,8 @@ function finishBridge(D){
 function buildArchBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
-  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half });
+  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
   const W = spec.width;
 
@@ -5797,7 +5965,8 @@ function buildArchBridge(b){
 function buildCableBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
-  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half });
+  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
 
   /* 主跨：以河心为中心。不能取「最低点」——江面在 DEM 里是一整片 0，
@@ -5901,7 +6070,8 @@ function buildCableBridge(b){
 function buildBasketArchBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
-  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half });
+  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
   const step = total / (n - 1);
 
@@ -5990,7 +6160,8 @@ function buildBasketArchBridge(b){
 function buildBeamBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
-  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half });
+  BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
 
   /* 桥墩：等间距，从地面/水面一直到梁底，顶部带盖梁 */
@@ -8559,7 +8730,7 @@ window.__dbg = { scene, camera, water, cityMesh, roadMesh, flyTo, HOME, setTour,
   getMode: ()=> mode, applyTime, getHour: ()=> curHour, setWeather: (w)=>{ weather = w; applyTime(curHour); }, bloom, terrainAt, walkTop, roadTop, TERR, controls, now:()=>elapsed,
   setTime:(t)=>{ elapsed = t; },   /* 仅供回归截图：冻结时钟后把 elapsed 钉到固定值 */
   veg: ()=> vegBuilt, vegUniforms, vegShadowUniforms, VP, RNB, roadsBuilt, roofMesh, getRoofV: ()=> roofVCount, roofOverflow, carMesh, lampMesh, carArr, lampArr, trafficMesh, trafficMeshes, trafficGroup, TRAFFIC, pedMesh, bikeMesh, WALK,
-  renderer, composer, OCC, BD, PICK, MM, SHOT, AUD, isWater, get fly(){ return fly; }, get mode(){ return mode; }, addV, WATM, SHADOW, SKYIRR, BRIDGE_STATS, BRIDGE_DEBUG, BRIDGES: BRIDGE_PATHS, deckY, deckSection, BRIDGE_WIDTH, SIGNS: signBuilt, SHOPS: shopBuilt, FURN: furnBuilt, FURNDBG: furnDbg, getBankLights: ()=> BANK_LIGHTS,
+  renderer, composer, OCC, BD, PICK, MM, SHOT, AUD, isWater, get fly(){ return fly; }, get mode(){ return mode; }, addV, WATM, SHADOW, SKYIRR, BRIDGE_STATS, BRIDGE_DEBUG, BRIDGE_DECKS, BRIDGES: BRIDGE_PATHS, deckY, deckSection, BRIDGE_WIDTH, SIGNS: signBuilt, SHOPS: shopBuilt, FURN: furnBuilt, FURNDBG: furnDbg, getBankLights: ()=> BANK_LIGHTS,
   /* 诊断：AUD 的闭包到底读到了什么（排查「切天气/切时间声音不跟随」） */
   get wxNow(){ return weather; }, get nightNow(){ return skyUniforms.uNight.value; }, get rainOnNow(){ return rainOn; },
   stats: ()=> ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles,
