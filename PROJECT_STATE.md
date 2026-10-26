@@ -186,3 +186,51 @@ _audit/         回归基线：baseline/ 8 张 PNG + meta.json
 
 贴图来自 **Poly Haven**（CC0，可商用）：
 `asphalt_02` / `concrete_floor_02` / `concrete_tile_facade` 及其法线。
+
+---
+
+## 10. 画质档位重构（低端 GPU）（2026-10-26）
+
+**先看一件事**：同一份代码，Intel UHD 630 上 3~5fps、RTX 4060 上 128~144fps。
+用户报「卡」时先打印
+`gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_RENDERER_WEBGL)`，
+混合显卡机器上浏览器默认可能一直跑在核显。
+
+### 核显上的实测账（1440×900, q=high）
+- GPU 155~290ms/帧，CPU 仅 1.4~24ms ⇒ 纯 GPU bound
+- 三角形 **13.15M**＝同一场景画了 4 遍：主渲染 + 2 级阴影(2048²) + 水面反射
+- 单变量归因：水面反射 26~37% / 招牌叠挂+竖招 22% / 屋顶设备 10%
+- 旧 low 档只省 **16%**（155→131ms）——它只动像素和植被，没动几何
+- 分辨率敏感性：1440→720 只快 35%，再降到 360×225 完全不变 ⇒ 瓶颈是几何量
+
+### 新机制
+| 机制 | 位置 | 说明 |
+|---|---|---|
+| `frameNo / waterEvery / shadowEvery` | renderer 之后 | 整场景重复渲染的节流开关 |
+| 水面反射隔帧 | `water.onBeforeRender` 包装 | 跳帧保留上一帧 RT |
+| 阴影隔帧 | `SHADOW.update(force)` | **跳帧时矩阵必须一起冻结**，否则影子会“游” |
+| `setProfile(name)` | 画质区 | 每档控制反射/阴影频率 + 装饰件 + 后期 |
+| `detectGpuTier()` | 画质区 | 核显一进来就 low，不等采样 |
+| `wantProfile(next)` | 画质区 | 只降不升（防弱机被阶梯抬档） |
+
+| 档 | 像素比 | 反射 | 阴影 | 屋顶设备 | 招牌 |
+|---|---|---|---|---|---|
+| high | dpr | 每帧 | 2 级/每帧 | 画 | 全开 |
+| mid | ≤1.0 | 隔 1 帧 | 2 级/隔 1 帧 | 画 | core+deco |
+| low | ≤0.85 | 每 6 帧 | 关 | 不画 | 只 core |
+
+auto 阶梯：tier1→mid、tier2→low、tier3→像素比 0.65。**泛光不关**（夜景的招牌，
+且开销已随 composer 分辨率缩小）。
+
+### 结果（Intel UHD 630 / 1440×900）
+| 档位 | 改前 | 改后 |
+|---|---|---|
+| low | 2~3 fps | 15~19 fps |
+| auto | 2~3 fps | 17~19 fps（首屏 7.6s → 2.8s）|
+| high | 3~5 fps | 5 fps（全量，不变）|
+
+三角形 13.15M → 3.56M（low 单遍）。RTX 4060 上各档均 ≥128fps，画质与改前一致。
+
+### 还能再提
+城市几何是**单个合并 mesh + `frustumCulled=false`**，屏幕外三角形照样提交。
+再快 2~3 倍只能按空间切块做视锥剔除或 LOD，改动落在数据管线与 shader。

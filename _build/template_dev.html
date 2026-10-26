@@ -381,6 +381,16 @@ renderer.shadowMap.type = THREE.BasicShadowMap;   // 自己采样，只要原始
 renderer.shadowMap.autoUpdate = false;            // 每帧手动置一次，避免水面反射把阴影渲两遍
 app.appendChild(renderer.domElement);
 
+/* ------------------------------------------------------------
+   性能节流开关（2026-10-26 加）
+   本机实测瓶颈是「几何量」而不是像素：1440→720p 只快 35%，再小就不涨了。
+   原因是同一批三角形每帧被画 4 遍 —— 主渲染 1 次 + 2 级阴影 + 水面反射各 1 次。
+   所以省时间的正确做法是「减少整场景渲染的次数」，而不是降分辨率：
+     waterEvery  水面反射每隔几帧才重画一次（反射滞后 1~N 帧，肉眼几乎看不出）
+     shadowEvery 阴影贴图每隔几帧才更新一次（太阳不动，只跟相机走）
+   ============================================================ */
+let frameNo = 0, waterEvery = 1, shadowEvery = 1;
+
 const scene = new THREE.Scene();
 const FOG_D = 0.00021;
 scene.fog = new THREE.FogExp2(0x0c1626, FOG_D);
@@ -480,12 +490,16 @@ const SHADOW = (()=>{
 
   let ready = false;
 
-  function update(){
+  function update(force){
     /* 太阳落到地平线以下就没有阴影可投 */
     if(_sunDir.y < 0.03 || !shadowsWanted){
       uniforms.uShadowOn.value = 0.0;
       return;
     }
+    /* 节流：跳过的这一帧沿用上一帧的深度图，因此**矩阵也必须保持不动**，
+       否则阴影会和深度图错位（会看到整片影子在地上“游”）。
+       换时间/换天气时传 force=true 立刻重算。 */
+    if(shadowEvery > 1 && !force && (frameNo % shadowEvery) !== 0) return;
     camera.updateMatrixWorld();
     const t0 = fit(lights[0], 1, SPLIT);
     const t1 = fit(lights[1], SPLIT*0.7, FAR);
@@ -6735,6 +6749,15 @@ water.rotation.x = -Math.PI/2;
 water.position.y = 0;
 world.add(water);
 
+/* 水面反射节流：Reflector 在 onBeforeRender 里把**整个场景再渲一遍**，
+   实测占 GPU 时间的 26~37%（三角形从 6.9M 涨到 13.2M 就是它造成的）。
+   跳过的帧保留上一帧的渲染目标，视觉上只是反射晚 1~N 帧。 */
+const _waterOBR = water.onBeforeRender;
+water.onBeforeRender = function(){
+  if(waterEvery > 1 && (frameNo % waterEvery) !== 0) return;
+  return _waterOBR.apply(this, arguments);
+};
+
 if(WATER_MASK_URL && WATER_MASK_URL.length > 10){
   const tex = new THREE.TextureLoader().load(WATER_MASK_URL, ()=>{
     tex.colorSpace = THREE.NoColorSpace;
@@ -8878,57 +8901,103 @@ document.getElementById('app').addEventListener('pointerdown', ()=>{
   go(TEX.facadeN, (t)=>{ cityUniforms.uFacadeN.value = t; });
 })();
 
-/* ---------- 画质档位 ---------- */
-function applyQuality(mode){
-  qMode = mode;
-  qualityTier = 0;
+/* ---------- 画质档位 ----------
+   2026-10-26 重构：原来四个档位只改「像素比 / 反射分辨率 / 植被密度」，
+   而实测瓶颈是几何量，所以 low 档只快了 16%（155ms → 131ms），等于没救。
+   现在每档除了像素，还会控制「整场景重复渲染的次数」（水面反射/阴影更新频率）
+   和「是否画装饰件」（屋顶设备、招牌叠挂、店面凸出件）。 */
+function detectGpuTier(){
+  try{
+    const gl = renderer.getContext();
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    const s = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : '';
+    /* 核显 / 软件光栅：这套场景（约 440 万三角形、每帧 4 遍全场景）扛不住，
+       一进来就低档，不用等 4 秒采样。见 PROJECT_STATE 的实测数据。 */
+    if(/UHD Graphics|HD Graphics|Iris|Mali-|Adreno|PowerVR|SwiftShader|llvmpipe|Basic Render/i.test(s)) return 'low';
+    if(/RTX|GTX|Radeon RX|Radeon Pro|Apple M\d|Arc A\d/i.test(s)) return 'high';
+    return 'mid';
+  }catch(e){ return 'mid'; }
+}
+
+let curProfile = 'high';
+let curRT = 0.42;
+const PROFILE_RANK = { low: 0, mid: 1, high: 2 };
+
+function setProfile(name){
+  curProfile = name;
   const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
   const setRT = (f)=> water.getRenderTarget().setSize(
     Math.max(256, Math.floor(innerWidth*f)), Math.max(256, Math.floor(innerHeight*f)));
-  let pr = dpr, rt = 0.42, veg = 1.0, crowd = true, road = true;
-  if(mode === 'high'){ pr = dpr;        rt = 0.42; veg = 1.00; qBloomMul = 1.00; qRainOff = false; }
-  else if(mode === 'mid'){ pr = Math.min(dpr,1.25); rt = 0.32; veg = 0.70; qBloomMul = 0.88; qRainOff = false; }
-  else if(mode === 'low'){ pr = 1;      rt = 0.22; veg = 0.42; qBloomMul = 0.62; qRainOff = true; crowd = false; }
-  else { pr = dpr; rt = 0.42; veg = 1.0; qBloomMul = 1.0; qRainOff = false; }
+  let pr = dpr, rt = 0.42, veg = 1.0, crowd = true;
+  let wEvery = 1, sEvery = 1, roofOn = true, bloomOn = true;
+  if(name === 'high'){
+    pr = dpr; rt = 0.42; veg = 1.00; qBloomMul = 1.00; qRainOff = false;
+  } else if(name === 'mid'){
+    pr = Math.min(dpr, 1.0); rt = 0.32; veg = 0.70; qBloomMul = 0.88; qRainOff = false;
+    wEvery = 2; sEvery = 2;                     /* 反射/阴影各隔一帧 */
+  } else {  /* low：低端核显的生存档 */
+    pr = Math.min(dpr, 0.85); rt = 0.16; veg = 0.42; qBloomMul = 0.62; qRainOff = true; crowd = false;
+    /* 泛光保留 —— 它是这套夜景的招牌。它的开销已经在 composer 分辨率里按 pr 缩过了，
+       全关掉画面会从「滨江夜景」变成「一堆黑盒子」，不值。 */
+    wEvery = 6; sEvery = 1; roofOn = false; bloomOn = true;
+  }
+  waterEvery = wEvery; shadowEvery = sEvery; curRT = rt;
   renderer.setPixelRatio(pr); composer.setPixelRatio(pr);
   composer.setSize(innerWidth, innerHeight);
   /* SSAO 跟着档位走：low 直接关掉整条链（预通道也省），high/mid 只改强度 */
-  AO_STRENGTH = mode === 'low' ? 0 : (mode === 'high' ? 0.55 : 0.40);
+  AO_STRENGTH = name === 'low' ? 0 : (name === 'high' ? 0.55 : 0.40);
   aoPass.enabled = AO_STRENGTH > 0;
   if(aoPass.enabled) aoPass.setSize(innerWidth * pr, innerHeight * pr);
   setRT(rt);
   setVegQuality(veg);
-  /* 招牌三级跟着档位走：low 只留街面骨架，mid 加叠挂/竖招，high 全开。
+  /* 招牌三级：low 只留街面骨架，mid 加叠挂/竖招，high 全开。
      core 已经保证了「两侧连排」，砍掉的只是丰富度和巷口背面 —— 观感损失很小。 */
   const signTier = qSignForce >= 0 ? qSignForce
-                 : (mode === 'high' || mode === 'auto') ? 2 : (mode === 'mid' ? 1 : 0);
+                 : (name === 'high' ? 2 : (name === 'mid' ? 1 : 0));
   if(signBuilt){
     if(signBuilt.meshCore)  signBuilt.meshCore.visible  = true;
     if(signBuilt.meshDeco)  signBuilt.meshDeco.visible  = signTier >= 1;
     if(signBuilt.meshExtra) signBuilt.meshExtra.visible = signTier >= 2;
   }
+  /* 屋顶设备（女儿墙/水箱/空调/太阳能，实测约 90 万三角形 × 4 遍渲染）：
+     low 档不画。远看几乎看不出，近看只是屋顶变干净。 */
+  if(typeof roofMesh !== 'undefined') roofMesh.visible = roofOn;
+  /* 泛光：low 档整条 bloom 链路关掉（5 个全屏 pass） */
+  if(typeof bloom !== 'undefined') bloom.enabled = bloomOn;
   /* 店面真几何：low 回退到纯着色器店面（着色器那套本来就还在，只是少了凸出件） */
   if(typeof shopBuilt !== 'undefined' && shopBuilt && shopBuilt.mesh){
-    shopBuilt.mesh.visible = mode !== 'low';
-    if(shopBuilt.meshGlass) shopBuilt.meshGlass.visible = mode !== 'low';
+    shopBuilt.mesh.visible = name !== 'low';
+    if(shopBuilt.meshGlass) shopBuilt.meshGlass.visible = name !== 'low';
   }
   /* 街道家具：low 只留「构成街道边界」的三类（护栏/垃圾桶/配电柜），
      公交站和空调外机是纯细节，mid 以上才给。护栏本身很便宜（7.3 tri/m）。 */
   if(typeof furnBuilt !== 'undefined' && furnBuilt && furnBuilt.meshes){
     for(const m of furnBuilt.meshes){
       const nm = m.name;
-      m.visible = (mode === 'low')
+      m.visible = (name === 'low')
         ? (nm === 'furnRail' || nm === 'furnRailL' || nm === 'furnBin' || nm === 'furnCab')
         : true;
     }
   }
-  const shadowsOn = mode !== 'low';
+  const shadowsOn = name !== 'low';
   SHADOW.setEnabled(shadowsOn);
   renderer.shadowMap.enabled = shadowsOn;
   if(typeof shadowMesh !== 'undefined') shadowMesh.visible = !shadowsOn;
   if(typeof crowdOn !== 'undefined') crowdOn = crowd;
   if(typeof trafficGroup !== 'undefined') trafficGroup.visible = crowd;
-  document.querySelectorAll('.chip.q').forEach(b=>b.classList.toggle('on', b.dataset.q === mode));
+}
+
+/* 只允许「往下调」，不做升级 —— 否则弱机从 low 起步会被阶梯判定反过来抬到 mid */
+function wantProfile(next){
+  if(PROFILE_RANK[next] < PROFILE_RANK[curProfile]) setProfile(next);
+}
+
+function applyQuality(mode){
+  qMode = mode;
+  qualityTier = 0;
+  /* auto 先按 GPU 猜一档，之后再按实测帧率往下降 */
+  setProfile(mode === 'auto' ? detectGpuTier() : mode);
+  document.querySelectorAll('.chip.q').forEach(b=>b.classList.toggle('on', b.dataset.q === qMode));
   applyTime(curHour);
 }
 document.querySelectorAll('.chip.q').forEach(b=>{
@@ -8975,7 +9044,9 @@ addEventListener('resize', ()=>{
   camera.aspect = w/h; camera.updateProjectionMatrix();
   renderer.setSize(w,h); composer.setSize(w,h);
   gradePass.uniforms.uRes.value.set(w,h);
-  water.getRenderTarget().setSize(Math.floor(w*0.42), Math.floor(h*0.42));
+  /* 反射目标按当前档位的比例重建（low 是 0.16，别再写死 0.42） */
+  water.getRenderTarget().setSize(
+    Math.max(256, Math.floor(w*curRT)), Math.max(256, Math.floor(h*curRT)));
   if(bloom.setSize) bloom.setSize(w,h);
 });
 
@@ -9029,6 +9100,7 @@ function tick(){
   sky.position.copy(camera.position);
   gradePass.uniforms.uTime.value = elapsed;
 
+  frameNo++;
   SHADOW.update();
   if(PERF_ON){ renderer.info.reset(); perfGpuBegin(); }
   if(!window.__paint){ window.__paint = { first: 0 }; const _r0 = performance.now(); composer.render(); window.__paint.first = Math.round(performance.now() - _r0); }
@@ -9043,31 +9115,30 @@ function tick(){
     const f = frames/fpsT;
     fpsEl.textContent = Math.round(f);
     frames = 0; fpsT = 0;
-    // 三档自适应：像素比 → 反射分辨率 → 关雨
-    if(qMode === 'auto' && elapsed > 4){
-      if(qualityTier === 0 && f < 34){
+    /* 自适应阶梯（2026-10-26 重写）
+       旧版只降像素比 / 反射分辨率 / 关雨，实测收益 16%，等于没救。
+       新版直接换档位：先降到 mid（反射与阴影隔帧），再降到 low（关阴影/泛光/屋顶设备、
+       反射每 6 帧画一次）。用 wantProfile 保证只降不升。 */
+    if(qMode === 'auto' && elapsed > 3.5){
+      if(qualityTier === 0 && f < 40){
         qualityTier = 1;
-        renderer.setPixelRatio(1); composer.setPixelRatio(1);
-        composer.setSize(innerWidth, innerHeight);
-      } else if(qualityTier === 1 && f < 26){
+        wantProfile('mid');
+        bloom.strength *= 0.9;
+      } else if(qualityTier === 1 && f < 28){
         qualityTier = 2;
-        water.getRenderTarget().setSize(
-          Math.max(256, Math.floor(innerWidth*0.30)),
-          Math.max(256, Math.floor(innerHeight*0.30))
-        );
-        bloom.strength *= 0.85;
-        setVegQuality(0.58);
-      } else if(qualityTier === 2 && f < 18){
-        qualityTier = 3;
-        rainOn = false;
+        wantProfile('low');
         setVegQuality(0.30);
-        /* 已经弱到要关雨了，招牌也退到 core：只留街面骨架 + 竖招 */
-        if(qSignForce < 0 && typeof signBuilt !== 'undefined' && signBuilt){
-          if(signBuilt.meshDeco)  signBuilt.meshDeco.visible  = false;
-          if(signBuilt.meshExtra) signBuilt.meshExtra.visible = false;
-        }
+        rainOn = false;
         const chip = document.querySelector('.chip[data-t="rain"]');
         if(chip) chip.classList.remove('on');
+      } else if(qualityTier === 2 && f < 20){
+        /* 兜底：连 low 都跑不动（软件渲染 / 老核显），再砍内部分辨率与植被。
+           0.65 的渲染分辨率在 1440p 窗口上约等于 936×585 再放大 —— 夜景糊一点，
+           但换来的帧率是实打实的。 */
+        qualityTier = 3;
+        renderer.setPixelRatio(0.65); composer.setPixelRatio(0.65);
+        composer.setSize(innerWidth, innerHeight);
+        setVegQuality(0.18);
       }
     }
   }
