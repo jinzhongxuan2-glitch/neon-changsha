@@ -1,7 +1,6 @@
 /* 裁切放大：node crop.js in.png out.png x y w h [scale] */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 const [IN, OUT, X, Y, W, H, S] = process.argv.slice(2);
 const x = +X, y = +Y, w = +W, h = +H, s = +(S || 3);
 (async () => {

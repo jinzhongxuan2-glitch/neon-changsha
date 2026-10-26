@@ -3,7 +3,7 @@
 把 OSM 原始数据编译成引擎可直接消费的紧凑二进制。
 输出：_data/out/city.json  (含 buildings / roads / meta 的 base64 缓冲)
 """
-import json, os, math, struct, base64, glob, zlib
+import json, os, math, struct, base64, glob, zlib, pathlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TILES = os.path.join(HERE, "tiles")
@@ -247,7 +247,7 @@ def cbd_score(cx, cz):
 
 # ---------------- GHSL 卫星建筑高度场 ----------------
 _GHSL = {"arr": None, "ok": False, "tried": False}
-GHSL_TIF = r"C:/Users/<user>/Desktop/neon-changsha/_dem/GHS_BUILT_H_ANBH_E2018_GLOBE_R2023A_54009_100_V1_0_R6_C29.tif"
+GHSL_TIF = str(pathlib.Path(__file__).resolve().parent.parent / "_dem" / "GHS_BUILT_H_ANBH_E2018_GLOBE_R2023A_54009_100_V1_0_R6_C29.tif")
 GHSL_X0, GHSL_Y0 = 9959000.0, 4000000.0   # 瓦片左上角（Mollweide 米）
 R_MOLL = 6371007.181
 

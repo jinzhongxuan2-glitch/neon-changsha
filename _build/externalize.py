@@ -20,6 +20,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD = os.path.join(ROOT, "_build")
@@ -27,9 +28,9 @@ DIST = os.path.join(ROOT, "dist")
 ASSETS = os.path.join(DIST, "assets")
 TEX_DIR = os.path.join(ROOT, "_tex", "1k")    # 质量优先：用 1024²
 
-NODE = os.environ.get("NEON_NODE") or r"C:/Users/<user>/.workbuddy/binaries/node/versions/22.22.2-6/node.exe"
-if not os.path.exists(NODE):
-    NODE = shutil.which("node") or "node"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _env  # noqa: E402  —— node / node_modules 的定位，见 _env.py
+NODE = _env.find_node()
 ESBUILD = os.path.join(BUILD, "node_modules", "esbuild", "bin", "esbuild")
 
 KEYS = ["asphalt", "pavers", "facade", "asphaltN", "facadeN"]

@@ -1,6 +1,4 @@
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
+const { chromium, ROOT, EXE } = require('./_pw');
 (async () => {
   const b = await chromium.launch({ executablePath: EXE, headless: true,
     args: ['--use-angle=d3d11','--enable-gpu','--ignore-gpu-blocklist','--allow-file-access-from-files'] });

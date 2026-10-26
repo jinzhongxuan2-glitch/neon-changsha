@@ -1,6 +1,5 @@
 /* 读分阶段打点，输出构建耗时分解 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
+const { chromium, ROOT, EXE } = require('./_pw');
 
 (async () => {
   const b = await chromium.launch({
@@ -17,7 +16,7 @@ const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell
     } catch (e) {}
   });
 
-  await p.goto('file:///C:/Users/<user>/Desktop/neon-changsha/index.html?t=2&q=high&view=cbd&hour=21',
+  await p.goto('file:///' + ROOT + '/index.html?t=2&q=high&view=cbd&hour=21',
     { waitUntil: 'load', timeout: 240000 });
   await p.waitForFunction('window.__dbg && window.__dbg.veg()', null, { timeout: 180000 });
   await p.waitForTimeout(800);

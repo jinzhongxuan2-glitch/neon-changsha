@@ -1,8 +1,6 @@
 /* 截图验收：图不是空的 / 尺寸对 / 水印在右下角 / UI 确实被藏掉 / 关闭与重拍正常 / 分享链接能还原机位 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 const OUT = ROOT + '/_audit/shot/';
 fs.mkdirSync(OUT, { recursive: true });
 

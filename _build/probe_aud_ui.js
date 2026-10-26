@@ -1,7 +1,5 @@
 /* 只看 UI：2x DPR 截 SOUND 分组，确认「开声/静音」两态都正常、没有被挤出面板 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
+const { chromium, ROOT, EXE } = require('./_pw');
 const OUT = ROOT + '/_audit/aud/';
 
 (async () => {

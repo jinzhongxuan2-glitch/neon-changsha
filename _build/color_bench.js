@@ -1,7 +1,6 @@
 /* 色彩基准：固定三个机位拍图，并输出画面亮度分布，用于改前/改后对比 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
-const OUT = 'C:/Users/<user>/Desktop/neon-changsha/_shots/';
+const { chromium, ROOT, EXE } = require('./_pw');
+const OUT = ROOT + '/_shots/';
 const TAG = process.argv[2] || 'before';
 
 const SHOTS = [
@@ -17,7 +16,7 @@ const SHOTS = [
   const p = await b.newPage({ viewport: { width: 1280, height: 720 } });
   const errs = [];
   p.on('pageerror', e => errs.push(e.message));
-  await p.goto('file:///C:/Users/<user>/Desktop/neon-changsha/index.html?t=2',
+  await p.goto('file:///' + ROOT + '/index.html?t=2',
     { waitUntil: 'load', timeout: 240000 });
   await p.waitForFunction('window.__dbg && window.__dbg.veg()', null, { timeout: 180000 });
   await p.waitForTimeout(2500);

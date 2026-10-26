@@ -1,8 +1,6 @@
 /* 全场景体检：shader 声明的 attribute 是否都能在 geometry 上找到
    —— 名字不匹配 = 取默认 0 = 顶点塌成一点，完全静默 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
+const { chromium, ROOT, EXE } = require('./_pw');
 const BUILTIN = new Set(['position', 'normal', 'uv', 'uv2', 'color', 'tangent', 'skinIndex', 'skinWeight', 'morphTarget']);
 (async () => {
   const b = await chromium.launch({ executablePath: EXE, headless: true,

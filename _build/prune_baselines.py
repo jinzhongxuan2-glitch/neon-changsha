@@ -32,11 +32,11 @@ def bad_frames(d):
     pngs = sorted(d.glob("*.png"))
     if not pngs:
         return []
-    node = os.environ.get("NEON_NODE") or r"C:/Users/<user>/.workbuddy/binaries/node/versions/22.22.2-6/node.exe"
-    if not os.path.isfile(node):
-        node = "node"
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import _env
+    node = _env.find_node()
     env = os.environ.copy()
-    env["NODE_PATH"] = r"C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules"
+    env["NODE_PATH"] = _env.node_modules()
     bad = []
     try:
         r = subprocess.run([node, str(Path(__file__).parent / "imgstat.js")] + [str(x) for x in pngs],

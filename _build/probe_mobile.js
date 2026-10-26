@@ -1,8 +1,6 @@
 /* 移动端布局检查：390×844（iPhone 14 逻辑分辨率），小地图 + 检视卡片是否越界/遮挡 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 const OUT = ROOT + '/_audit/mm/';
 fs.mkdirSync(OUT, { recursive: true });
 

@@ -1,9 +1,7 @@
 /* 诊断：高亮顶面填充为什么降 opacity 不变淡。
    做法：读 composer 各 pass 参数，再对 hlFill / hlRib / hlMesh 逐层隐藏做 A/B 采样。 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 const OUT = ROOT + '/_audit/pick/';
 
 (async () => {

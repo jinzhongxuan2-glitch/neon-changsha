@@ -1,7 +1,5 @@
 /* isle 视角掉帧定位：小地图 draw 是不是元凶。A/B 直接覆盖 MM.draw 成空函数。 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
+const { chromium, ROOT, EXE } = require('./_pw');
 
 const readFps = async (p, n = 3) => {
   const out = [];

@@ -1,7 +1,6 @@
 
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const EXE='C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
-const OUT='C:/Users/<user>/Desktop/neon-changsha/_shots/';
+const { chromium, ROOT, EXE } = require('./_pw');
+const OUT=ROOT + '/_shots/';
 (async()=>{
   const b = await chromium.launch({ executablePath: EXE, headless:true, args:['--use-angle=d3d11','--enable-gpu','--ignore-gpu-blocklist'] });
   // 1) URL 参数：低画质 + 橘子洲 + 傍晚

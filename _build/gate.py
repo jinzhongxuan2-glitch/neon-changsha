@@ -20,10 +20,10 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 BUILD = ROOT / "_build"
 AUDIT = ROOT / "_audit"
 
-NODE = os.environ.get("NEON_NODE") or r"C:/Users/<user>/.workbuddy/binaries/node/versions/22.22.2-6/node.exe"
-if not os.path.isfile(NODE):
-    import shutil
-    NODE = shutil.which("node") or "node"
+sys.path.insert(0, str(BUILD))
+import _env  # noqa: E402  —— node / node_modules 的定位，见 _env.py
+
+NODE = _env.find_node()
 
 SCENES = ["day_cbd", "day_all", "day_street", "day_old", "dusk_cbd",
           "night_cbd", "night_all", "night_isle", "night_street"]
@@ -58,7 +58,7 @@ def imgstat(paths):
     if not paths:
         return out
     env = os.environ.copy()
-    env["NODE_PATH"] = r"C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules"
+    env["NODE_PATH"] = _env.node_modules()
     try:
         r = subprocess.run([NODE, str(BUILD / "imgstat.js")] + [str(p) for p in paths],
                            capture_output=True, text=True, env=env, timeout=240)
@@ -93,7 +93,7 @@ def main():
     if not args.no_shots:
         print("拍 %s (%s)" % (args.tag, args.mode))
         env = dict(os.environ)
-        env["NODE_PATH"] = r"C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules"
+        env["NODE_PATH"] = _env.node_modules()
         cmd = [NODE, str(BUILD / "shots.js"), "--tag", args.tag, "--mode", args.mode]
         if args.no_fps:
             cmd.append("--no-fps")

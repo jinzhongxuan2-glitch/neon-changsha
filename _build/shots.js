@@ -9,12 +9,10 @@
  *
  * 产物：_audit/<tag>/<scene>.png + _audit/<tag>/meta.json
  */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };

@@ -1,9 +1,7 @@
 /* 车在桥面上的「横向落点」直方图（相对桥走线的有符号偏移，世界坐标）
    用 updateTraffic 的同一套公式重算每车位置，不做近似。
    同时打印该处桥走线的半宽，用来判断车有没有贴到护栏 / 压到标线上。 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
+const { chromium, ROOT, EXE } = require('./_pw');
 (async () => {
   const b = await chromium.launch({ executablePath: EXE, headless: true,
     args: ['--use-angle=d3d11','--enable-gpu','--ignore-gpu-blocklist','--allow-file-access-from-files'] });

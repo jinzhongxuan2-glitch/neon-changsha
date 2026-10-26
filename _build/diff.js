@@ -7,11 +7,10 @@
  * 输出：mean（0-255 的平均绝对差）、pct2 / pct8（差值超过 2 / 8 的像素占比）
  * 退出码：0 通过；1 超过阈值；2 尺寸不一致
  */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
 const path = require('path');
 
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 
 const argv = process.argv.slice(2);
 const flag = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? Number(argv[i + 1]) : d; };

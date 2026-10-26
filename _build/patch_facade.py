@@ -1,6 +1,6 @@
 import pathlib, re
 
-p = pathlib.Path(r"C:/Users/<user>/Desktop/neon-changsha/_build/template_dev.html")
+p = pathlib.Path(__file__).resolve().parent / "template_dev.html"
 s = p.read_text(encoding="utf-8")
 
 start = s.index("const cityMat = new THREE.ShaderMaterial({")

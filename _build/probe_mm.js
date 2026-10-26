@@ -1,8 +1,6 @@
 /* 小地图验收：底图是否画出来 / 水陆建筑分得开 / 相机标记与朝向对不对 / 点击跳转是否准确 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 const OUT = ROOT + '/_audit/mm/';
 fs.mkdirSync(OUT, { recursive: true });
 

@@ -7,8 +7,11 @@
 
 ## 1. 项目是什么
 
-`C:/Users/<user>/Desktop/neon-changsha` —— 基于真实 OSM 数据的长沙（湘江/橘子洲/岳麓山/中南大学）三维城市，
+`neon-changsha`（仓库根目录）—— 基于真实 OSM 数据的长沙（湘江/橘子洲/岳麓山/中南大学）三维城市，
 单页 Three.js（无框架），支持 24 小时光照、四种天气、六个视角预设、自由/巡航/步行三种相机。
+
+> 所有脚本都已改成相对路径（`_build/_pw.js` / `_build/_env.py` 统一解析 node、playwright-core
+> 和 chromium），换机器不用改代码；需要时用 `PW_CORE` / `PW_EXE` / `NEON_NODE` / `NEON_NODE_MODULES` 覆盖。
 
 **双产物**：
 | 文件 | 说明 |

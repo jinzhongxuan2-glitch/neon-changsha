@@ -3,10 +3,9 @@
  * 输出：每行一个 JSON：{"file":..., "min":..,"max":..,"mean":..,"flat":true|false}
  * flat=true 表示这张图像是坏的（全黑或一整片平），截图失败时常见。
  */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
 
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 
 (async () => {
   const files = process.argv.slice(2).filter(Boolean);

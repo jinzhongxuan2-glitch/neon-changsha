@@ -19,22 +19,18 @@ import sys
 import time
 import pathlib
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import _env  # noqa: E402  —— node / node_modules 的定位，见 _env.py
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BUILD = ROOT / "_build"
 VENDOR = ROOT / "vendor"
 
-NODE_CANDIDATES = [
-    r"C:/Users/<user>/.workbuddy/binaries/node/versions/22.22.2-6/node.exe",
-    shutil.which("node") or "",
-    r"D:/Program Files/node.js/node.exe",
-]
+NODE_CANDIDATES = _env.node_candidates()
 
 
 def find_node() -> str:
-    for c in NODE_CANDIDATES:
-        if c and os.path.isfile(c):
-            return c
-    raise SystemExit("找不到 node.exe；请在 NODE_CANDIDATES 里补一个路径")
+    return _env.find_node()
 
 
 def find_esbuild() -> pathlib.Path:

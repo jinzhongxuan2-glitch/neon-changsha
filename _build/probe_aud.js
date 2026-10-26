@@ -9,10 +9,8 @@
    rAF 完全停住（实测 nTick 冻在 48，等 1.5s 一动不动），而 AUD 的参数是挂在 rAF 上的。
    用 waitForTimeout 等出来的结论全是「没变化」，那是假的。
 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
+const { chromium, ROOT, EXE } = require('./_pw');
 const fs = require('fs');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
 const OUT = ROOT + '/_audit/aud/';
 fs.mkdirSync(OUT, { recursive: true });
 

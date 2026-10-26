@@ -1,9 +1,7 @@
 /* 只查一件事：NIGHT 阶段 tick 到底跑没跑。
    症状：applyTime(22.5) 之后 skyUniforms.uNight 已经是 1，但 AUD 的 tgt.bird 还是 1。
    可能 A：rAF 停了（nTick 不涨）；可能 B：计算分支有问题（nTick 涨而 tgt 不变）。 */
-const { chromium } = require('C:/Users/<user>/.workbuddy/binaries/node/workspace/node_modules/playwright-core');
-const ROOT = 'C:/Users/<user>/Desktop/neon-changsha';
-const EXE = 'C:/Users/<user>/AppData/Local/ms-playwright/chromium_headless_shell-1194/chrome-win/headless_shell.exe';
+const { chromium, ROOT, EXE } = require('./_pw');
 const S = o => JSON.stringify(o);
 const pick = d => ({ nTick: d.nTick, nCalc: d.nCalc, bird: d.tgt.bird, crk: d.tgt.crk, rain: d.tgt.rain });
 
