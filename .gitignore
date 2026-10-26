@@ -6,7 +6,34 @@ _audit/
 _build/_tmp*
 _build/_err*.txt
 _build/_blk*.txt
+_build/*.log
+*.bak-*
+vendor - 快捷方式.lnk
+
+# 探针工装。
+# 这一阶段写了 120 个 probe*.js，大部分是一次性排查脚本（probe2 / probe3 / xxx_diag …），
+# 全塞进仓库只是噪音；但 ROADMAP 每一节「新工装」里点名的那几个是**可复现验证的核心**，
+# 必须跟源码一起版本化 —— 否则以后没法证明「当时的结论是怎么量出来的」。
+# 规则：先整体忽略，再逐个放行；新增正式工装时在下面补一行 `!`。
 _build/probe*.js
 _build/dbg*.js
 _build/shot*.js
-vendor - 快捷方式.lnk
+!_build/probe_attrs.js
+!_build/probe_boot.js
+!_build/probe_fps3.js
+!_build/probe_tottri.js
+!_build/probe_roadcls.js
+!_build/probe_bridgecount.js
+!_build/probe_density.js
+!_build/probe_carlat.js
+!_build/probe_inspect.js
+!_build/probe_hl.js
+!_build/probe_hl_diag.js
+!_build/probe_mm.js
+!_build/probe_isle_fps.js
+!_build/probe_mobile.js
+!_build/probe_shot.js
+!_build/probe_aud.js
+!_build/probe_aud_diag.js
+!_build/probe_aud_ui.js
+!_build/shots.js

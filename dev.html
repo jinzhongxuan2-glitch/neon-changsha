@@ -50,6 +50,61 @@
   #stats{right:40px;top:36px;text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:8px;
     letter-spacing:.18em;color:rgba(170,190,220,.28);line-height:1.9;}
   #stats b{color:rgba(206,220,240,.55);font-weight:400;}
+  /* ---- E1 建筑检视卡片 ---- */
+  #inspect{right:40px;top:106px;width:238px;opacity:0;transform:translateX(10px);visibility:hidden;
+    transition:opacity .40s ease,transform .46s cubic-bezier(.2,.8,.2,1),visibility 0s linear .46s;}
+  #inspect.on{opacity:1;transform:none;visibility:visible;transition:opacity .40s ease,transform .46s cubic-bezier(.2,.8,.2,1),visibility 0s;}
+  #inspect .card{position:relative;background:linear-gradient(180deg,rgba(11,17,28,.84),rgba(7,11,19,.78));
+    border:1px solid rgba(160,190,230,.20);border-radius:2px;padding:15px 16px 13px;
+    backdrop-filter:blur(12px) saturate(1.12);-webkit-backdrop-filter:blur(12px) saturate(1.12);
+    box-shadow:0 22px 56px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);}
+  /* 8px 的等宽小字用在英文标签上没问题，但中文项名（高度/层数/占地…）在这个尺寸下
+     几乎读不出来，所以 .n 单独提到 9px；.k / .sub / 单位也跟着提了一档不透明度。 */
+  #inspect .k{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.26em;color:rgba(176,198,230,.58);}
+  #inspect .ttl{margin-top:9px;font-size:14px;letter-spacing:.13em;color:rgba(240,246,255,.96);line-height:1.15;}
+  #inspect .sub{margin-top:7px;font-family:ui-monospace,Menlo,monospace;font-size:8px;
+    letter-spacing:.16em;color:rgba(150,202,255,.72);white-space:nowrap;}
+  #inspect .hr{height:1px;background:linear-gradient(90deg,rgba(160,190,230,.24),rgba(160,190,230,0));margin:13px 0 11px;}
+  #inspect .rows{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;align-items:baseline;}
+  #inspect .rows .n{font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.13em;color:rgba(178,198,228,.62);}
+  #inspect .rows .v{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.05em;
+    color:rgba(230,240,254,.94);text-align:right;}
+  #inspect .rows .v em{font-style:normal;font-size:8.5px;letter-spacing:0;color:rgba(178,200,232,.70);margin-left:3px;}
+  #inspect .x{position:absolute;right:8px;top:7px;width:20px;height:20px;padding:0;border:0;background:none;
+    color:rgba(178,198,228,.56);cursor:pointer;font-size:12px;line-height:1;font-family:inherit;transition:color .3s;}
+  #inspect .x:hover{color:rgba(232,242,255,.95);}
+  /* ---- E2 小地图 ---- */
+  #mm{left:40px;top:118px;width:176px;}
+  #mm .box{position:relative;width:176px;height:176px;border-radius:2px;overflow:hidden;
+    border:1px solid rgba(160,190,230,.24);background:#0d141c;
+    box-shadow:0 20px 48px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.05);}
+  #mm canvas{display:block;width:176px;height:176px;cursor:crosshair;}
+  #mm .cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:7px;
+    font-family:ui-monospace,Menlo,monospace;font-size:8px;letter-spacing:.15em;color:rgba(176,198,228,.70);}
+  #mm .cap b{color:rgba(216,234,255,.88);font-weight:400;}
+  /* ---- E3 分享截图 ---- */
+  #shotbox{inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(3,6,11,.84);backdrop-filter:blur(7px) saturate(.9);-webkit-backdrop-filter:blur(7px) saturate(.9);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .34s ease,visibility 0s linear .34s;}
+  #shotbox.on{opacity:1;visibility:visible;pointer-events:auto;
+    transition:opacity .30s ease,visibility 0s;}
+  #shotbox .wrap{display:flex;flex-direction:column;gap:15px;max-width:86vw;}
+  #shotbox img{display:block;max-width:86vw;max-height:73vh;border:1px solid rgba(160,190,230,.22);
+    box-shadow:0 34px 90px rgba(0,0,0,.72);background:#05080e;}
+  #shotbox .bar{display:flex;justify-content:space-between;align-items:center;gap:22px;}
+  #shotbox .meta{font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.16em;
+    color:rgba(186,206,234,.72);white-space:nowrap;}
+  #shotbox .acts{display:flex;gap:8px;}
+  #shotbox a.chip{text-decoration:none;display:inline-flex;align-items:center;}
+  /* 遮罩是深色，.chip 默认的 --ink-3 在上面几乎看不见 —— 这里单独提亮 */
+  #shotbox .acts .chip{color:rgba(216,234,255,.90);border-color:rgba(160,190,230,.34);background:rgba(255,255,255,.05);}
+  #shotbox .acts .chip:hover{color:#fff;border-color:rgba(160,190,230,.62);background:rgba(255,255,255,.10);}
+  #shotbox #shot-dl{color:#0a0f18;background:rgba(196,224,255,.94);border-color:rgba(196,224,255,.94);}
+  #shotbox #shot-dl:hover{color:#0a0f18;background:#e4f1ff;border-color:#e4f1ff;}
+  #shot-flash{position:fixed;inset:0;z-index:40;background:#eaf4ff;opacity:0;pointer-events:none;}
+  #shot-flash.go{animation:flash .42s ease-out;}
+  @keyframes flash{0%{opacity:.55}100%{opacity:0}}
   .label{position:fixed;z-index:9;pointer-events:none;transform:translate(-50%,-50%);transition:opacity .4s ease;}
   .label .en{font-family:ui-monospace,Menlo,monospace;font-size:8px;letter-spacing:.22em;color:rgba(216,230,250,.72);white-space:nowrap;}
   .label .zh{font-size:10px;letter-spacing:.18em;color:rgba(238,244,255,.9);margin-top:3px;white-space:nowrap;}
@@ -75,6 +130,16 @@
   @media (max-width:820px){
     #brand{left:22px;top:24px;} #nav{left:22px;bottom:26px;} #panel{right:22px;bottom:26px;gap:12px;}
     #stats{display:none;} #hint{display:none;} #hour{width:92px;} #brand h1{font-size:12px;letter-spacing:.3em;}
+    /* 小地图在 390px 宽的屏幕上如果保持 176px 会占掉 45% 画面，
+       缩到 124（底图分辨率仍是 352²，只是显示更小，反而更清楚）。 */
+    #mm{left:22px;top:88px;width:124px;}
+    #mm .box,#mm canvas{width:124px;height:124px;}
+    #mm .cap{font-size:7px;letter-spacing:.10em;}
+    /* 检视卡片在手机上贴底、占满宽度，别让 238px 固定宽挡住大半个画面。
+       卡片一出现，右下那堆 chip 和左下导航必然被压住 —— 直接收掉，别让它们
+       半透明地浮在卡片上面（黑底叠黑底，看着像坏掉）。 */
+    #inspect{left:12px;right:12px;top:auto;bottom:14px;width:auto;}
+    body.insp #panel, body.insp #nav{opacity:0;pointer-events:none;transition:opacity .3s ease;}
   }
 </style>
 <script type="importmap">
@@ -96,6 +161,13 @@
   </div>
 </div>
 
+<div class="ui" id="mm">
+  <div class="box">
+    <canvas id="mm-c" width="352" height="352"></canvas>
+  </div>
+  <div class="cap"><span id="mm-co">—</span><b id="mm-sc">15.2km</b></div>
+</div>
+
 <div class="ui" id="nav">
   <button data-mode="free" class="on"><span class="n">01</span><span class="ln"></span>FREE</button>
   <button data-mode="tour"><span class="n">02</span><span class="ln"></span>TOUR</button>
@@ -103,6 +175,15 @@
 </div>
 
 <div class="ui" id="panel">
+  <div class="grp">
+    <span class="lbl">SHARE</span>
+    <button class="chip" id="btn-shot">拍照</button>
+    <button class="chip" id="btn-link">链接</button>
+  </div>
+  <div class="grp">
+    <span class="lbl">SOUND</span>
+    <button class="chip" id="btn-snd" title="环境声：风 / 江水 / 车流 / 雨 / 鸟虫（P 拍照 · M 静音）">开声</button>
+  </div>
   <div class="grp">
     <span class="lbl">CSU</span>
     <button class="chip camp" data-camp="1">岳麓山</button>
@@ -145,13 +226,44 @@
   </div>
 </div>
 
-<div class="ui" id="hint">左键环绕 · 右键平移 · 滚轮推拉 · WASD 移动 · QE 升降 · 双击定位 · WALK 下拖拽转头</div>
+<div class="ui" id="hint">左键环绕 · 单击检视 · 右键平移 · 滚轮缩放 · WASD 移动 · 空格巡航</div>
 <div class="ui" id="stats">
   <div><b id="s-build">0</b> BUILDINGS</div>
   <div><b id="s-road">0</b> ROADS</div>
   <div><b id="s-tree">0</b> TREES</div>
   <div><b id="s-fps">60</b> FPS</div>
 </div>
+
+<div class="ui" id="inspect">
+  <div class="card">
+    <button class="x" id="insp-x" title="关闭 (Esc)">✕</button>
+    <div class="k">INSPECT · 建筑检视</div>
+    <div class="ttl" id="insp-fn">—</div>
+    <div class="sub" id="insp-sub">—</div>
+    <div class="hr"></div>
+    <div class="rows">
+      <div class="n">高度</div><div class="v" id="insp-h">—</div>
+      <div class="n">层数</div><div class="v" id="insp-fl">—</div>
+      <div class="n">占地</div><div class="v" id="insp-ar">—</div>
+      <div class="n">片区</div><div class="v" id="insp-cp">—</div>
+      <div class="n">距离</div><div class="v" id="insp-d">—</div>
+    </div>
+  </div>
+</div>
+
+<div class="ui" id="shotbox">
+  <div class="wrap">
+    <img id="shot-img" alt="长沙 · 截图预览">
+    <div class="bar">
+      <span class="meta" id="shot-meta">—</span>
+      <div class="acts">
+        <a class="chip" id="shot-dl" href="#" download="changsha.png">下载 PNG</a>
+        <button class="chip" id="shot-x">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="shot-flash"></div>
 
 <div id="load">
   <div class="t">
@@ -1098,7 +1210,7 @@ const cityMat = new THREE.ShaderMaterial({
       vec3 dp1perp = cross(N, dp1);
       vec3 T = dp2perp * duv1.x + dp1perp * duv2.x;
       vec3 B = dp2perp * duv1.y + dp1perp * duv2.y;
-      float invmax = inversesqrt(max(dot(T,T), dot(B,B)));
+      float invmax = inversesqrt(max(max(dot(T,T), dot(B,B)), 1e-12));
       return mat3(T * invmax, B * invmax, N);
     }
 
@@ -1669,9 +1781,28 @@ if(CITY.areas){
   world.add(areasMesh);
 }
 
+/* 路面抬升：路面板相对地形的高度。原来写死 1.2，路面/人行道比两侧地面
+   高 1.2m —— 店面台基（terrain+0.18）整整低了一米，路缘只能靠 shader 画。
+   抽成常量后，配合「逐顶点跟地形」的横断面，才能把街面压回地面。 */
+let ROAD_H = 0.20;
+/* 路缘石：平面宽 0.18（花岗岩条石标准宽度）、高出车行道 0.15。
+   只在这个半径内做真实横断面 —— 5 个横向顶点代替 1 个，三角形 ×8。
+   核心区里程只占全网 3%，远处路缘在 1.6km 上不足一个像素。 */
+const CURB_W = 0.18, CURB_H = 0.15, CURB_R = 1600;
 const ROAD_W = [22, 19, 16, 13, 10, 7, 4];
 const SW_W   = [5.0, 4.5, 4.0, 3.2, 2.6, 2.0, 1.2];
 const LANE_W = 3.5;
+
+/* 人行道面高。核心区人行道比车行道高一个路缘石，之外（2 顶点断面）是平的。
+   路灯 / 行人 / 交通灯都站在人行道上，必须用这个而不是 terrain+ROAD_H，
+   否则整个街道层的竖向构件集体埋进铺装 15cm。 */
+function walkTop(x, z){
+  return terrainAt(x, z) + ROAD_H + (Math.sqrt(x*x + z*z) < CURB_R ? CURB_H : 0);
+}
+/* 车行道面高（车轮着地面）。车流 / 车道上的构件用这个，不要用 walkTop */
+function roadTop(x, z){
+  return terrainAt(x, z) + ROAD_H;
+}
 
 /* ---------- 路段空间索引：查询「到其他道路」的最近距离 ---------- */
 const RNB = (()=>{
@@ -1832,18 +1963,41 @@ function _segDist(px, pz, ax, az, bx, bz){
   return Math.sqrt(qx*qx + qz*qz);
 }
 
-/* 是否落在某座桥的桥面范围内（默认 16m 半宽） */
-function onBridgeDeck(x, z, r){
+/* 是否落在某座桥的桥面范围内（默认 16m 半宽）；返回桥序号，-1 表示不在桥上 */
+function bridgeIndexAt(x, z, r){
   const rr = r || 16;
   for(let i=0;i<BRIDGE_PATHS.length;i++){
     const b = BRIDGE_PATHS[i], bx = b.box;
     if(x < bx[0] || x > bx[2] || z < bx[1] || z > bx[3]) continue;
     const pts = b.pts;
     for(let k=0;k<pts.length-1;k++){
-      if(_segDist(x, z, pts[k][0], pts[k][1], pts[k+1][0], pts[k+1][1]) < rr) return true;
+      if(_segDist(x, z, pts[k][0], pts[k][1], pts[k+1][0], pts[k+1][1]) < rr) return i;
     }
   }
-  return false;
+  return -1;
+}
+function onBridgeDeck(x, z, r){ return bridgeIndexAt(x, z, r) >= 0; }
+
+/* ============================================================
+   桥面横断面：唯一真源
+   ------------------------------------------------------------
+   原来桥面标线是 `half*0.54` 随手定的（每侧只有一条虚线，
+   13~16m 的半幅被读成「一条 7m 宽的车道 + 6m 空白沥青」），
+   而桥上车流的横向坐标取自它下面那条 OSM 路的中线 —— 两条线不同源，
+   实测车相对桥走线散落在 ±9m 内，压着护栏跑。
+   现在：桥宽 → 横断面（人行道 / 车行道 / 每方向车道数 / 车道宽）一次算定，
+   标线和车流都从这里取，桥面从护栏到护栏是完整的一套断面。
+   ============================================================ */
+const BRIDGE_WIDTH = { juzizhou:26, yinpenling:28, fuyuanlu:32, houzishi:28 };
+/* rail: 护栏内表面到桥面边缘（= 半宽 - hw - wallT/2，见 bridgeCore 的护栏段） */
+const DECK_RAIL = 0.48;
+function deckSection(W){
+  const half = W * 0.5;
+  /* 人行道：桥越宽越宽。26m→1.40 / 28m→1.60 / 32m→2.40 */
+  const sw = Math.min(2.6, Math.max(1.4, (W - 20) * 0.20));
+  const cw = half - DECK_RAIL - sw;             // 车行道半宽
+  const per = Math.max(2, Math.round(cw / 3.5)); // 每方向车道数
+  return { W, half, rail: DECK_RAIL, sw, cw, per, laneW: cw / per };
 }
 
 function buildRoads(){
@@ -1889,21 +2043,27 @@ function buildRoads(){
       run += sl;
     }
 
-    // 斑马线块数（每个交叉口两侧各一块）
+    // 斑马线块数（进出路口各一条，与填充时的判定完全一致）
     let zc = 0;
     if(cls <= 3 && w >= 4.0){
       let wasCr = false;
       for(let k=0;k<n;k++){
         const isCr = cr[k] === 1;
-        if(isCr && !wasCr) zc += 2;
+        if(isCr !== wasCr) zc++;
         wasCr = isCr;
       }
+      if(wasCr) zc++;
     }
 
-    prep[ri] = { r, n, cls, w, sw, dd, ww, cr, nx, nz, OL, np, zc, lampOff: (ri * 37.719) % 76 };
+    /* 真实路缘只在核心区：横断面 5 点/侧，每段 8 个三角形（原 2 个） */
+    const mi = (n >> 1) * 2;
+    const curb = (Math.hypot(r.pts[mi], r.pts[mi+1]) < CURB_R) ? 1 : 0;
+    prep[ri] = { r, n, cls, w, sw, dd, ww, cr, nx, nz, OL, np, zc, curb,
+                 frw: Math.min(6.0, Math.max(1.8, sw*1.6)),
+                 lampOff: (ri * 37.719) % 76 };
     if(np >= 2){
-      totalV += np*2 + zc*4;
-      totalIdxMain += (np-1)*6;
+      totalV += np*(curb ? 10 : 2) + zc*4;
+      totalIdxMain += (np-1)*(curb ? 48 : 6);
       totalIdxZm += zc*6;
     }
   }
@@ -1924,11 +2084,22 @@ function buildRoads(){
   let ip = 0;              // 主索引写指针
   let zp = totalIdxMain;   // 斑马线索引写指针（接在主索引之后）
 
+  /* 单个横向顶点。u 是带符号的横向偏移（+ 侧 / − 侧），
+     所有路面属性都按 u 线性插值，横断面加密不影响着色器的语义 */
+  const putV = (x, z, ax, az, u, yv, l, cls, w, sw, vR0, vL0, lampOff) => {
+    pos[vp*3]   = x + ax*u;
+    pos[vp*3+1] = yv;
+    pos[vp*3+2] = z + az*u;
+    aU[vp] = u; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = l;
+    aC[vp] = cls; aV[vp*2] = vR0; aV[vp*2+1] = vL0; aM[vp] = 0; aLO[vp] = lampOff;
+    vp++;
+  };
+
   /* ============ 第二遍：填充 ============ */
   for(let ri=0; ri<NR; ri++){
     const P = prep[ri];
     if(!P) continue;
-    const { r, n, cls, w, sw, dd, ww, cr, nx, nz, OL, np, zc, lampOff } = P;
+    const { r, n, cls, w, sw, dd, ww, cr, nx, nz, OL, np, zc, curb, frw, lampOff } = P;
     if(np < 2) continue;
     const full = w + sw;
     const base = vp;
@@ -1944,6 +2115,8 @@ function buildRoads(){
       const nxk = nx[k], nzk = nz[k];
       const dnx = nx[k+1]-nxk, dnz = nz[k+1]-nzk;
       const nearL = dd[k] < ww[k] + sw + 4;
+      /* 本段是否挨着路口：挨着才逐个断面查「是否压在别的道路上」 */
+      const nearJ = (dd[k] < ww[k] + full + 3) || (dd[k+1] < ww[k+1] + full + 3);
       const oL = full * 0.45;
 
       for(let s=0;s<steps;s++){
@@ -1953,7 +2126,8 @@ function buildRoads(){
         const ax = ax0/axl, az = az0/axl;
         const x = x1 + ex*t, z = z1 + ez*t;
         /* 只在“水面上的桥段”把重复路面沉掉；陆上引桥下方本来就该有地面道路 */
-        const y = terrainAt(x, z) + 1.2 - ((terrainAt(x, z) < 3 && onBridgeDeck(x, z)) ? 600 : 0);
+        const tC = terrainAt(x, z);
+        const sink = (tC < 3 && onBridgeDeck(x, z)) ? 600 : 0;
 
         let vL0 = 1, vR0 = 1;
         if(nearL){
@@ -1971,71 +2145,151 @@ function buildRoads(){
 
         const l = run + sl*t;
 
-        pos[vp*3]   = x + ax*full; pos[vp*3+1] = y; pos[vp*3+2] = z + az*full;
-        aU[vp] = full; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = l;
-        aC[vp] = cls; aV[vp*2] = vR0; aV[vp*2+1] = vL0; aM[vp] = 0; aLO[vp] = lampOff;
-        vp++;
+        /* 路面必须压在最外侧地形之上，否则就是「地形顶穿路面」（本项目出过的最大事故）。
+           抬升量封顶 0.55m：真正的陡坎（桥头、削坡）上宁可让地形露一点，
+           也不能把整条路抬成土堤。 */
+        const tR = terrainAt(x + ax*full, z + az*full);
+        const tL = terrainAt(x - ax*full, z - az*full);
+        const up = Math.min(0.55, Math.max(0, Math.max(tR, tL) - tC));
+        const yRoad = tC + ROAD_H + up - sink;
 
-        pos[vp*3]   = x - ax*full; pos[vp*3+1] = y; pos[vp*3+2] = z - az*full;
-        aU[vp] = -full; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = l;
-        aC[vp] = cls; aV[vp*2] = vR0; aV[vp*2+1] = vL0; aM[vp] = 0; aLO[vp] = lampOff;
-        vp++;
+        if(!curb){
+          /* 远场：2 点断面（路缘在 1.6km 上不足一像素），保留画出来的路缘带 */
+          putV(x, z, ax, az,  full, yRoad, l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az, -full, yRoad, l, cls, w, sw, vR0, vL0, lampOff);
+        } else {
+          /* 核心区：车行道 | 路缘石立面 | 路缘石顶 | 人行道 | 前区（降到地形）
+             —— 5 个横向顶点。前区把人行道外沿那圈 1.2m 断崖填掉，
+             店面台基才有连续的落脚面。 */
+
+          /* 路口：断面正压在别的车行道上时，人行道必须横向收窄到路缘线、
+             高程并回车行道（缘石坡道的做法）。不收的话，0.15m 的路缘会横切
+             过交叉口，两条路的条带在路口中央互相顶出锯齿断崖，人行道贴图
+             还会铺满整个路口 —— 路口是视线最集中的地方，一眼就能看见。 */
+          let jf = 1;
+          if(nearJ){
+            const jr = RNB.nearest(x, z, ri, ax, az);
+            const jd = jr[0] - jr[1];          // > 0 表示在对方车行道外
+            jf = (jd + 0.5) * 0.25;            // 4m 内收干
+            jf = jf < 0 ? 0 : (jf > 1 ? 1 : jf);
+            jf = jf*jf*(3 - 2*jf);
+          }
+
+          const uc    = w - CURB_W;
+          const fEnd  = full + frw;
+          const ucE   = uc + (full - uc) * jf;          // 收窄后的人行道内沿
+          const fEndE = uc + (fEnd - uc) * jf;
+          const yCurbS = yRoad + CURB_H * jf;
+          const yWalkR0 = Math.max(tR + ROAD_H + 0.03 - sink, yRoad + CURB_H);
+          const yWalkL0 = Math.max(tL + ROAD_H + 0.03 - sink, yRoad + CURB_H);
+          const yWalkR = yRoad + (yWalkR0 - yRoad) * jf;
+          const yWalkL = yRoad + (yWalkL0 - yRoad) * jf;
+          const yFR0 = terrainAt(x + ax*fEnd, z + az*fEnd) + ROAD_H*0.12 - sink;
+          const yFL0 = terrainAt(x - ax*fEnd, z - az*fEnd) + ROAD_H*0.12 - sink;
+          const yFR = yRoad + (yFR0 - yRoad) * jf;
+          const yFL = yRoad + (yFL0 - yRoad) * jf;
+          putV(x, z, ax, az,   0,   yRoad,  l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,   uc,  yRoad,  l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,   uc,  yCurbS, l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,   ucE, yWalkR, l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,   fEndE,yFR,   l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,   0,   yRoad,  l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,  -uc,  yRoad,  l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,  -uc,  yCurbS, l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,  -ucE, yWalkL, l, cls, w, sw, vR0, vL0, lampOff);
+          putV(x, z, ax, az,  -fEndE,yFL,   l, cls, w, sw, vR0, vL0, lampOff);
+        }
       }
 
       run += sl;
     }
 
-    // 索引：按顶点对顺序
-    const npWritten = (vp - base) >> 1;
-    for(let k=0;k<npWritten-1;k++){
-      const a = base + k*2, b = a+1, c = a+2, d = a+3;
-      idx[ip] = a; idx[ip+1] = c; idx[ip+2] = b;
-      idx[ip+3] = b; idx[ip+4] = c; idx[ip+5] = d;
-      ip += 6;
+    // 索引
+    if(!curb){
+      const npWritten = (vp - base) >> 1;
+      for(let k=0;k<npWritten-1;k++){
+        const a = base + k*2, b = a+1, c = a+2, d = a+3;
+        idx[ip] = a; idx[ip+1] = c; idx[ip+2] = b;
+        idx[ip+3] = b; idx[ip+4] = c; idx[ip+5] = d;
+        ip += 6;
+      }
+    } else {
+      /* 10 顶点/站：+ 侧 0..4、− 侧 5..9；每侧 4 个四边形 */
+      const npWritten = (vp - base) / 10;
+      for(let k=0;k<npWritten-1;k++){
+        const s0 = base + k*10, s1 = s0 + 10;
+        for(let sd=0; sd<2; sd++){
+          const o = sd*5;
+          for(let j=0;j<4;j++){
+            const a = s0+o+j, b = a+1, c = s1+o+j, d = c+1;
+            idx[ip] = a; idx[ip+1] = c; idx[ip+2] = b;
+            idx[ip+3] = b; idx[ip+4] = c; idx[ip+5] = d;
+            ip += 6;
+          }
+        }
+      }
     }
 
     // 斑马线
     if(zc > 0){
+      /* 斑马线贴着交叉口边界两侧各一条（进路口一条、出路口一条）。
+         原来是从「第一个进入路口的点」沿切向偏移 ±(对向车道半宽 + 3.2)：
+         宽路上这一头离路口 10m、那一头却落进路口中央，三条斑马在路口
+         中央叠成一片白花花的重叠块。改成对 dd/ww 线性插值找真正的边界。 */
+      const emit = (k0, f, sgn) => {
+        const x0 = r.pts[k0*2], z0 = r.pts[k0*2+1];
+        const ex = r.pts[(k0+1)*2] - x0, ez = r.pts[(k0+1)*2+1] - z0;
+        const sl = Math.sqrt(ex*ex + ez*ez) || 1;
+        const tx = ex/sl, tz = ez/sl;            // 本路走向
+        const nxk = -tz, nzk = tx;               // 本路法向
+        const bx = x0 + ex*f, bz = z0 + ez*f;    // 交叉口边界上的点
+        const cx = bx + tx*(sgn*3.2), cz = bz + tz*(sgn*3.2);
+        const wq = w * 0.97;
+        /* 抬 12mm：路面本身有 up（最多 0.55）的抬升，斑马线原来贴着
+           terrain+ROAD_H 写死，跟路面板共面，深度测试打架把白条啃成锯齿。 */
+        const tCz = terrainAt(cx, cz);
+        const upZ = Math.min(0.55, Math.max(0,
+          Math.max(terrainAt(cx + nxk*full, cz + nzk*full),
+                   terrainAt(cx - nxk*full, cz - nzk*full)) - tCz));
+        const y = tCz + ROAD_H + upZ + 0.012;
+        const b0 = vp;
+
+        pos[vp*3] = cx - tx*2.5 - nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz - tz*2.5 - nzk*wq;
+        aU[vp] = -wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 0; aC[vp] = cls;
+        aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
+
+        pos[vp*3] = cx - tx*2.5 + nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz - tz*2.5 + nzk*wq;
+        aU[vp] = wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 0; aC[vp] = cls;
+        aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
+
+        pos[vp*3] = cx + tx*2.5 - nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz + tz*2.5 - nzk*wq;
+        aU[vp] = -wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 5; aC[vp] = cls;
+        aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
+
+        pos[vp*3] = cx + tx*2.5 + nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz + tz*2.5 + nzk*wq;
+        aU[vp] = wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 5; aC[vp] = cls;
+        aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
+
+        idx[zp] = b0; idx[zp+1] = b0+1; idx[zp+2] = b0+2;
+        idx[zp+3] = b0+1; idx[zp+4] = b0+3; idx[zp+5] = b0+2;
+        zp += 6;
+
+        const phNS = Math.abs(nzk) >= Math.abs(nxk) ? 1 : 0;
+        RW_GATES.push({ ri, s: OL[k0] + sl*f + sgn*3.2, ph: phNS });
+      };
       let wasCr = false;
       for(let k=0;k<n;k++){
         const isCr = cr[k] === 1;
-        if(isCr && !wasCr){
-          const tx = nz[k], tz = -nx[k];
-          const nxk = nx[k], nzk = nz[k];
-          const wq = w * 0.97;
-          for(let side=0; side<2; side++){
-            const sgn = side === 0 ? 1 : -1;
-            const off = (ww[k] + 3.2) * sgn;
-            const cx = r.pts[k*2] + tx*off, cz = r.pts[k*2+1] + tz*off;
-            const y = terrainAt(cx, cz) + 1.2;
-            const b0 = vp;
-
-            pos[vp*3] = cx - tx*2.5 - nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz - tz*2.5 - nzk*wq;
-            aU[vp] = -wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 0; aC[vp] = cls;
-            aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
-
-            pos[vp*3] = cx - tx*2.5 + nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz - tz*2.5 + nzk*wq;
-            aU[vp] = wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 0; aC[vp] = cls;
-            aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
-
-            pos[vp*3] = cx + tx*2.5 - nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz + tz*2.5 - nzk*wq;
-            aU[vp] = -wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 5; aC[vp] = cls;
-            aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
-
-            pos[vp*3] = cx + tx*2.5 + nxk*wq; pos[vp*3+1] = y; pos[vp*3+2] = cz + tz*2.5 + nzk*wq;
-            aU[vp] = wq; aWm[vp] = w; aSWm[vp] = sw; aL[vp] = 5; aC[vp] = cls;
-            aV[vp*2] = 1; aV[vp*2+1] = 1; aM[vp] = 1; aLO[vp] = lampOff; vp++;
-
-            idx[zp] = b0; idx[zp+1] = b0+1; idx[zp+2] = b0+2;
-            idx[zp+3] = b0+1; idx[zp+4] = b0+3; idx[zp+5] = b0+2;
-            zp += 6;
-
-            const phNS = Math.abs(nzk) >= Math.abs(nxk) ? 1 : 0;
-            RW_GATES.push({ ri, s: OL[k] + off, ph: phNS });
-          }
+        if(isCr !== wasCr){
+          const k0 = Math.max(0, k-1);
+          const d0 = dd[k0] - ww[k0], d1 = dd[k] - ww[k];
+          let f = (k > 0 && d0 !== d1) ? d0/(d0 - d1) : 0;
+          f = f < 0 ? 0 : (f > 1 ? 1 : f);
+          emit(k0, f, isCr ? -1 : 1);          // 进路口往前退 3.2，出路口往后推
         }
         wasCr = isCr;
       }
+      if(wasCr) emit(Math.max(0, n-2), 1, 1);  // 路尾还压在路口里
     }
   }
 
@@ -2109,7 +2363,7 @@ const roadMat = new THREE.ShaderMaterial({
       vec3 dp1perp = cross(N, dp1);
       vec3 T = dp2perp * duv1.x + dp1perp * duv2.x;
       vec3 B = dp2perp * duv1.y + dp1perp * duv2.y;
-      float invmax = inversesqrt(max(dot(T,T), dot(B,B)));
+      float invmax = inversesqrt(max(max(dot(T,T), dot(B,B)), 1e-12));
       return mat3(T * invmax, B * invmax, N);
     }
 
@@ -2122,6 +2376,20 @@ const roadMat = new THREE.ShaderMaterial({
       float u = vU, au = abs(vU);
       float aw = vWd, sw = vSW, l = vL;
       float isWalk = step(aw, au);
+      /* ---------- 几何法线：靠它识别真实路缘石立面与前区斜坡 ----------
+         路缘立面每个顶点都写在 au = aw-0.18 上，所以先用横向坐标把候选锁死
+         （掠射角下导数法线会退化，只看 nGy 会闪）。
+         前区在 au > aw+sw 之外，由横向坐标直接判定。 */
+      /* normalize(cross(...)) 在退化三角形/掠射角上会出 NaN，而一个 NaN 像素
+         经泛光会糊满整个屏幕（表现为全黑）。所以先反转向量、再按长度守住。 */
+      vec3 nGd = cross(dFdx(vW), dFdy(vW));
+      nGd *= (nGd.y < 0.0 ? -1.0 : 1.0);
+      float nG2 = dot(nGd, nGd);
+      vec3 nG = (nG2 > 1e-12) ? nGd * inversesqrt(nG2) : vec3(0.0, 1.0, 0.0);
+      float nGy = nG.y;
+      float faceU  = step(au, aw - 0.02) * step(aw - 0.30, au);
+      float isFace = (1.0 - smoothstep(0.45, 0.72, nGy)) * faceU;
+      float isFront = step(aw + sw - 0.02, au);
 
       /* ---------- 沥青 ---------- */
       float grain = vn(vW.xz*1.6)*0.52 + vn(vW.xz*6.5)*0.30 + vn(vW.xz*21.0)*0.18;
@@ -2153,7 +2421,10 @@ const roadMat = new THREE.ShaderMaterial({
       float joint = max(smoothstep(0.40,0.48,jx), smoothstep(0.40,0.48,jl));
       walkC *= 1.0 - 0.28*joint;
       // 路缘石顶面 + 路侧接地暗线
-      float curbTop = smoothstep(aw+0.34, aw+0.02, au) * isWalk;
+      /* 前区（人行道外沿 → 建筑红线）：混凝土/碎石铺装，比人行道砖暗一档、
+         略偏暖，才看得出「人行道到墙根了」这层过渡 */
+      walkC = mix(walkC, walkC * vec3(0.97, 0.99, 0.93) * 0.87, isFront);
+      float curbTop = smoothstep(aw+0.20, aw+0.02, au) * isWalk;
       walkC = mix(walkC, vec3(0.285,0.280,0.268), curbTop*0.92);
 
       /* ---------- 标线 ---------- */
@@ -2180,9 +2451,12 @@ const roadMat = new THREE.ShaderMaterial({
       float paintMask = 0.0;
       if(vM > 0.5) paintMask = step(fract(u + 0.5), 0.40);
 
-      if(isWalk > 0.5 && vVis < 0.5) discard;
+      if(vVis < 0.5 && (isWalk > 0.5 || isFace > 0.5)) discard;
 
       vec3 alb = mix(asph, walkC, isWalk);
+      /* 路缘石立面：磨光花岗岩，比顶面亮，且带竖向石纹 */
+      float stoneV = vn(vec2(u*9.0 + l*0.7, l*0.35));
+      alb = mix(alb, vec3(0.320,0.315,0.302) * (0.88 + 0.26*stoneV), isFace);
       alb = mix(alb, whiteP, max(wLine, paintMask) * (1.0-isWalk));
       alb = mix(alb, yellowP, yLine * (1.0-isWalk));
       // 路缘内侧的接地压暗
@@ -2205,6 +2479,10 @@ const roadMat = new THREE.ShaderMaterial({
         nR = normalize(cotangentFrame(vec3(0.0,1.0,0.0), vW, uvR) * nm);
       }
       nR = normalize(mix(nR, vec3((vn(vW.xz*2.7)-0.5)*0.22, 1.0, (vn(vW.xz*2.7+17.0)-0.5)*0.22), 0.45));
+      nR = normalize(mix(nR, nG, isFace));
+      /* 兜底：法线再坏也不许把 NaN 交给 pow / bloom */
+      float nR2 = dot(nR, nR);
+      nR = (nR2 > 1e-8) ? nR * inversesqrt(nR2) : vec3(0.0, 1.0, 0.0);
       float wet = smoothstep(0.58, 0.86, vn(vW.xz*0.035 + 41.0)) * (1.0 - isWalk);
       float ndl = max(dot(nR, uSunDir), 0.0);
       float sh = shadowAt(vW, vec3(0.0, 1.0, 0.0));
@@ -2216,7 +2494,7 @@ const roadMat = new THREE.ShaderMaterial({
       dayC += uSunCol * pow(max(dot(nR, Hd), 0.0), 90.0) * (0.10 + 0.55*wet) * ao * sh;
 
       /* 沥青的掠射天空反射：白天路面「发灰发亮」主要来自这一项，而不是反照率 */
-      float fresA = pow(1.0 - max(dot(nR, Vd), 0.0), 4.0);
+      float fresA = pow(clamp(1.0 - max(dot(nR, Vd), 0.0), 0.0, 1.0), 4.0);
       dayC += uSkyAmb * fresA * 0.60 * (1.0 - isWalk*0.45) * ao;
 
       // 路灯真实光池：间距 76m、左右交替，与灯杆位置严格对应
@@ -2240,6 +2518,9 @@ const roadMat = new THREE.ShaderMaterial({
       float dist = length(cameraPosition - vW);
       float fogF = 1.0 - exp(-uFogDensity*uFogDensity*dist*dist);
       col = mix(col, uFogColor, clamp(fogF,0.0,1.0));
+      /* 最后一道闸：一个 NaN 像素经过 bloom 会糊满整屏（全黑）。
+         用自比较判 NaN，代价是 3 条比较指令。 */
+      if(!(col.r == col.r) || !(col.g == col.g) || !(col.b == col.b)) col = vec3(0.0);
       gl_FragColor = vec4(col, 1.0);
     }`
 });
@@ -2386,6 +2667,7 @@ const BD = (()=>{
     const y0 = dv.getInt16(p,true)/10; p += 2;
     const tagB = dv.getUint8(p); p += 1;
     const func = tagB & 31;                // 5 bit，和 buildCity 里保持一致
+    const camp = (tagB >> 5) & 3;          // 2 bit，检视卡片要显示片区
     const pts = new Float32Array(n*2);
     let x0=1e9, x1=-1e9, z0=1e9, z1=-1e9;
     for(let k=0;k<n;k++){
@@ -2394,7 +2676,7 @@ const BD = (()=>{
       if(x<x0)x0=x; if(x>x1)x1=x; if(z<z0)z0=z; if(z>z1)z1=z;
     }
     // 只保留有实际高度的楼（矮棚不挡树，但也会穿模，所以都留）
-    bld.push({ n, pts, x0, x1, z0, z1, h, y0, func });
+    bld.push({ n, pts, x0, x1, z0, z1, h, y0, func, camp });
     const i0 = Math.floor(x0/CELL), i1 = Math.floor(x1/CELL);
     const j0 = Math.floor(z0/CELL), j1 = Math.floor(z1/CELL);
     if(i0<mnI)mnI=i0; if(i1>mxI)mxI=i1;
@@ -2470,7 +2752,10 @@ const BD = (()=>{
     return best;
   }
 
-  return { near, count: bld.length, all: bld };
+  return { near, count: bld.length, all: bld,
+           /* 拾取要用同一套栅格：沿射线步进，只测当前格里的楼。
+              重建一份索引要多 2MB 内存，没有必要。 */
+           CELL, GW, GH, mnI: mnI, mnJ: mnJ, grid, insidePoly };
 })();
 
 function pip(rx, rz, n, x, z){
@@ -2925,8 +3210,15 @@ function assembleVeg(){
       for(let i=0;i<a.length;i+=6){
         const x = a[i], z = a[i+1], y = a[i+2], rot = a[i+4], rnd = a[i+5];
         if(y < 0.55) continue;                            // 水里不长树（VP 里有沿江道路的树，会插在河面上）
-        if(onBridgeDeck(x, z, 18) && y < 6) continue;    // 桥面上的树会卡在梁里
         const h = hLo + (hHi - hLo) * rnd;
+        /* 树根在桥面之下、树顶又戳出桥面 → 整棵删掉。
+           旧判据是 y < 6（默认桥都架在低处），猴子石桥面 24m、地面 12.5m 就漏了，
+           站在桥上一抬头就是一丛灌木长在车行道正中间。
+           树冠比树高更宽，所以高度乘 1.2 再比。根部高于桥面的（桥上/引桥旁）保留。 */
+        if(onBridgeDeck(x, z, 18)){
+          const dy = deckY(x, z);
+          if(dy > -1e8 && y < dy && y + h * 1.2 > dy - 0.4) continue;
+        }
         const c = pal[(rnd*pal.length)|0] || pal[0];
         const r1 = (rnd*137.13)%1, r2 = (rnd*61.71)%1, r3 = (rnd*91.37)%1;
         const vj = 0.80 + 0.44*r1;
@@ -3151,29 +3443,64 @@ function carGeo(withLights){
     A.push(part, part, part);
   }
   function quad(a, b, c, d, part){ tri(a,b,c,part); tri(a,c,d,part); }
-  // 车身 y 0.14 → 1.02
-  const b = { x0:-2.15, x1:2.15, z0:-0.90, z1:0.90, y0:0.14, y1:1.02 };
+  /* 车身 3.90 × 1.76 × 0.84（紧凑型轿车尺度）。
+     原来是 4.30 长，配上偏后的车厢，3/4 角度像一块架在车轮上的长板。 */
+  const b = { x0:-1.95, x1:1.95, z0:-0.88, z1:0.88, y0:0.14, y1:0.98 };
   quad([b.x0,b.y1,b.z0],[b.x1,b.y1,b.z0],[b.x1,b.y1,b.z1],[b.x0,b.y1,b.z1], 0);   // 顶
   quad([b.x0,b.y0,b.z0],[b.x1,b.y0,b.z0],[b.x1,b.y1,b.z0],[b.x0,b.y1,b.z0], 0);   // 侧
   quad([b.x1,b.y0,b.z1],[b.x0,b.y0,b.z1],[b.x0,b.y1,b.z1],[b.x1,b.y1,b.z1], 0);
   quad([b.x1,b.y0,b.z0],[b.x1,b.y0,b.z1],[b.x1,b.y1,b.z1],[b.x1,b.y1,b.z0], 0);   // 头
   quad([b.x0,b.y0,b.z1],[b.x0,b.y0,b.z0],[b.x0,b.y1,b.z0],[b.x0,b.y1,b.z1], 0);   // 尾
-  // 车厢（玻璃） y 1.02 → 1.52
-  const c = { x0:-1.30, x1:0.95, z0:-0.82, z1:0.82, y0:1.02, y1:1.52 };
-  quad([c.x0,c.y1,c.z0],[c.x1,c.y1,c.z0],[c.x1,c.y1,c.z1],[c.x0,c.y1,c.z1], 1);
-  quad([c.x0,c.y0,c.z0],[c.x1,c.y0,c.z0],[c.x1,c.y1,c.z0],[c.x0,c.y1,c.z0], 1);
-  quad([c.x1,c.y0,c.z1],[c.x0,c.y0,c.z1],[c.x0,c.y1,c.z1],[c.x1,c.y1,c.z1], 1);
-  quad([c.x1,c.y0,c.z0],[c.x1,c.y0,c.z1],[c.x1,c.y1,c.z1],[c.x1,c.y1,c.z0], 1);
-  quad([c.x0,c.y0,c.z1],[c.x0,c.y0,c.z0],[c.x0,c.y1,c.z0],[c.x0,c.y1,c.z1], 1);
+  /* 车厢：底部大、顶部小 —— 前后挡风是斜面。
+     竖直的挡风玻璃是「像盒子」的第二大来源（第一是全玻璃车厢）。
+     斜面不增加任何三角形，只是顶点位置不同。 */
+  const cy0 = 0.98, cy1 = 1.44;
+  const cbx0 = -1.18, cbx1 = 0.82, cbz = 0.80;   // 底部
+  const ctx0 = -0.92, ctx1 = 0.46, ctz = 0.74;   // 顶部（往里收）
+  quad([ctx0,cy1,-ctz],[ctx1,cy1,-ctz],[ctx1,cy1,ctz],[ctx0,cy1,ctz], 0);          // 车顶（钣金）
+  quad([cbx1,cy0,-cbz],[cbx1,cy0,cbz],[ctx1,cy1,ctz],[ctx1,cy1,-ctz], 1);          // 前挡风（斜面）
+  quad([cbx0,cy0,cbz],[cbx0,cy0,-cbz],[ctx0,cy1,-ctz],[ctx0,cy1,ctz], 1);          // 后窗（斜面）
+  quad([cbx0,cy0,-cbz],[cbx1,cy0,-cbz],[ctx1,cy1,-ctz],[ctx0,cy1,-ctz], 1);        // 左侧窗（梯形）
+  quad([cbx1,cy0,cbz],[cbx0,cy0,cbz],[ctx0,cy1,ctz],[ctx1,cy1,ctz], 1);            // 右侧窗
+  /* B 柱：把侧窗打断成前后两扇。跟着车厢往里收，外凸 6mm 避开共面 z-fighting。 */
+  for(const sz of [-1, 1]){
+    const xc = -0.16, xw = 0.07;
+    const za = sz * (cbz + 0.006), zb = sz * (ctz + 0.006);
+    quad([xc-xw, cy0, za],[xc+xw, cy0, za],[xc+xw, cy1, zb],[xc-xw, cy1, zb], 0);
+  }
   // 接地阴影
-  quad([-2.45,0.03,-1.05],[2.45,0.03,-1.05],[2.45,0.03,1.05],[-2.45,0.03,1.05], 2);
+  quad([-2.25,0.03,-1.02],[2.25,0.03,-1.02],[2.25,0.03,1.02],[-2.25,0.03,1.02], 2);
+  /* 底盘裙边 + 前后轮组（aPart 5，深色）：
+     车身 y0 是 0.14，原来从侧面能看见车底悬空 14cm，车像一块浮在半空的砖。
+     两个横贯车宽的轮轴盒子比 4 个独立轮子便宜一半（16 vs 40 tri），
+     而且车是随机朝向的，横盒在任何角度都读得出来。 */
+  const sk = { x0:-1.90, x1:1.90, z0:-0.82, z1:0.82, y0:0.04, y1:0.15 };
+  quad([sk.x0,sk.y0,sk.z0],[sk.x1,sk.y0,sk.z0],[sk.x1,sk.y1,sk.z0],[sk.x0,sk.y1,sk.z0], 5);
+  quad([sk.x1,sk.y0,sk.z1],[sk.x0,sk.y0,sk.z1],[sk.x0,sk.y1,sk.z1],[sk.x1,sk.y1,sk.z1], 5);
+  quad([sk.x1,sk.y0,sk.z0],[sk.x1,sk.y0,sk.z1],[sk.x1,sk.y1,sk.z1],[sk.x1,sk.y1,sk.z0], 5);
+  quad([sk.x0,sk.y0,sk.z1],[sk.x0,sk.y0,sk.z0],[sk.x0,sk.y1,sk.z0],[sk.x0,sk.y1,sk.z1], 5);
+  for(const wx of [-1.22, 1.22]){
+    /* 轮轴横条只在车底以下（车身 y0 是 0.14）。上沿留 0.01 余量，
+       探进车身内部会在侧面顶出一块黑色缺口 —— 车身是 DoubleSide，内表面照样画。 */
+    const w = { x0:wx-0.30, x1:wx+0.30, z0:-0.84, z1:0.84, y0:0.02, y1:0.145 };
+    quad([w.x0,w.y0,w.z0],[w.x1,w.y0,w.z0],[w.x1,w.y1,w.z0],[w.x0,w.y1,w.z0], 5);
+    quad([w.x1,w.y0,w.z1],[w.x0,w.y0,w.z1],[w.x0,w.y1,w.z1],[w.x1,w.y1,w.z1], 5);
+    quad([w.x1,w.y0,w.z0],[w.x1,w.y0,w.z1],[w.x1,w.y1,w.z1],[w.x1,w.y1,w.z0], 5);
+    quad([w.x0,w.y0,w.z1],[w.x0,w.y0,w.z0],[w.x0,w.y1,w.z0],[w.x0,w.y1,w.z1], 5);
+    /* 侧面轮拱片：贴在车身外侧 5mm，从侧面读成轮胎。纯贴片，
+       从正前/正后看是一条线，但车是随机朝向的，四个角度里总有两个能读到。 */
+    for(const sz of [-1, 1]){
+      const zz = 0.885 * sz;
+      quad([w.x0, 0.14, zz],[w.x1, 0.14, zz],[w.x1, 0.56, zz],[w.x0, 0.56, zz], 5);
+    }
+  }
   if(withLights){
     // 前灯（+X 端）
-    quad([2.17,0.50,-0.76],[2.17,0.50,-0.40],[2.17,0.68,-0.40],[2.17,0.68,-0.76], 3);
-    quad([2.17,0.50, 0.40],[2.17,0.50, 0.76],[2.17,0.68, 0.76],[2.17,0.68, 0.40], 3);
+    quad([1.97,0.48,-0.74],[1.97,0.48,-0.40],[1.97,0.64,-0.40],[1.97,0.64,-0.74], 3);
+    quad([1.97,0.48, 0.40],[1.97,0.48, 0.74],[1.97,0.64, 0.74],[1.97,0.64, 0.40], 3);
     // 尾灯（-X 端）
-    quad([-2.17,0.56,-0.78],[-2.17,0.74,-0.78],[-2.17,0.74,-0.42],[-2.17,0.56,-0.42], 4);
-    quad([-2.17,0.56, 0.42],[-2.17,0.74, 0.42],[-2.17,0.74, 0.78],[-2.17,0.56, 0.78], 4);
+    quad([-1.97,0.54,-0.76],[-1.97,0.70,-0.76],[-1.97,0.70,-0.42],[-1.97,0.54,-0.42], 4);
+    quad([-1.97,0.54, 0.42],[-1.97,0.70, 0.42],[-1.97,0.70, 0.76],[-1.97,0.54, 0.76], 4);
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(P,3));
@@ -3265,7 +3592,7 @@ const carArr = [], lampArr = [];
             const rot = Math.atan2(-tz, tx) + (carSide > 0 ? 0 : Math.PI);
             const col = CAR_COLS[(Math.random()*CAR_COLS.length)|0];
             carArr.push(px + (Math.random()-0.5)*0.22,
-                        terrainAt(px,pz) + 1.2,
+                        terrainAt(px,pz) + ROAD_H,
                         pz + (Math.random()-0.5)*0.22,
                         rot, col[0], col[1], col[2]);
           }
@@ -3287,7 +3614,7 @@ const carArr = [], lampArr = [];
           const px = cx + nx*o2*sd, pz = cz + nz*o2*sd;
           if(terrainAt(px, pz) > -0.6 && !isWater(px, pz) && !OCC.hit(px, pz)){
             const rot = Math.atan2(-nx*sd, -nz*sd);
-            lampArr.push(px, terrainAt(px,pz) + 1.2, pz, rot);
+            lampArr.push(px, walkTop(px, pz), pz, rot);
           }
           j++; lj += LSTEP;
         }
@@ -3323,22 +3650,36 @@ const carMat = new THREE.ShaderMaterial({
     uniform vec3 uSunDir, uSunCol, uSkyAmb, uFogColor, uLamp;
     varying vec3 vW; varying vec3 vC; varying float vP;
     void main(){
-      vec3 n = normalize(cross(dFdx(vW), dFdy(vW)));
+      /* 导数法线守卫：退化三角形/掠射角得到零向量 → NaN → bloom 糊满全屏（坑 13） */
+      vec3 nc = cross(dFdx(vW), dFdy(vW));
+      float n2 = dot(nc, nc);
+      vec3 n = n2 > 1e-16 ? nc * inversesqrt(n2) : vec3(0.0, 1.0, 0.0);
       if(dot(n, cameraPosition - vW) < 0.0) n = -n;
       vec3 V = normalize(cameraPosition - vW);
       vec3 alb = vP < 0.5 ? vC * (0.86 + 0.28*max(n.y,0.0))
-               : (vP < 1.5 ? vec3(0.020,0.026,0.034) : vec3(0.012,0.012,0.013));
+               : (vP < 1.5 ? vec3(0.020,0.026,0.034)
+               : (vP < 4.5 ? vec3(0.012,0.012,0.013) : vec3(0.017,0.017,0.019)));
       float ndl = max(dot(n, uSunDir), 0.0);
       float sky = 0.52 + 0.48*max(n.y, 0.0);
       vec3 dayC = alb * (uSunCol*(ndl*1.10 + 0.08) + uSkyAmb*sky);
-      // 车漆高光
+      // 车漆高光：不乘底色，深色车也有亮边（和车流材质同一条）
       vec3 H = normalize(uSunDir + V);
-      dayC += uSunCol * pow(max(dot(n,H),0.0), 40.0) * 0.55 * vC * step(vP, 0.5) * step(0.5, uDay);
+      dayC += uSunCol * pow(max(dot(n,H),0.0), 40.0) * 0.55 * mix(vC, vec3(1.0), 0.62)
+              * step(vP, 0.5) * step(0.5, uDay);
+      /* 玻璃：暗基底 + 天光反射（和车流材质同一条，§26） */
+      float isGlass = step(0.5, vP) * step(vP, 1.5);
+      float fres = pow(1.0 - max(dot(n, V), 0.0), 2.6);
+      vec3 skyRefl = mix(vec3(0.030, 0.038, 0.052), vec3(0.50, 0.60, 0.74), uDay);
+      /* 基础 0.35 反射：正对着看玻璃菲涅尔接近 0，但真实车窗还能透过它看见
+        车内（灰米色座椅），不是纯黑。少了这一项，侧窗在正视角就是一整块黑板。 */
+      dayC = mix(dayC, skyRefl, (0.35 + 0.65*fres) * isGlass);
       vec3 nightC = alb * 0.030 * (1.0 - uDay) + vC * uLamp * 0.105 * (1.0-uDay) * (0.35 + 0.65*max(n.y,0.0));
+      nightC += uLamp * 0.030 * fres * isGlass * (1.0 - uDay);
       vec3 col = mix(nightC, dayC, uDay);
       float dist = length(cameraPosition - vW);
       float fogF = 1.0 - exp(-uFogDensity*uFogDensity*dist*dist);
       col = mix(col, uFogColor, clamp(fogF, 0.0, 1.0));
+      if(!(col.r == col.r)) col = vec3(0.0);
       gl_FragColor = vec4(col, 1.0);
     }`
 });
@@ -3430,6 +3771,35 @@ const lampMesh = (()=>{
    ============================================================ */
 const TRAFFIC = (()=>{
   const roads = RNB.roads;
+
+  /* 哪些 OSM 路**就是桥面本身**。只有它们该取 `deckY`。
+     `DECK_GRID` 是 2D 栅格（只按平面距离盖章），不区分「在桥上」和「在桥下」：
+     桥旁边 15m 内的地面道路（沿江大道、引桥下的辅道）会被整条抬到桥面上去。
+     判定只看几何：一条路上逐点看是否落在桥面走线 6m 内，
+     超过一半在桥上就算桥 —— OSM 的 way 会把引道一起画进来，
+     实测福元路是 6/9、猴子石是 2/3，卡 5/6 会把这两座漏掉。
+     存「桥序号 + 1」而不是布尔：桥上的横向坐标系要按这座桥的断面来算。 */
+  const bridgeRoad = new Int8Array(roads.length);
+  for(let bi=0; bi<BRIDGE_PATHS.length; bi++){
+    const bp = BRIDGE_PATHS[bi].pts;
+    let x0=1e9, z0=1e9, x1=-1e9, z1=-1e9;
+    for(const q of bp){
+      if(q[0]<x0) x0=q[0]; if(q[0]>x1) x1=q[0];
+      if(q[1]<z0) z0=q[1]; if(q[1]>z1) z1=q[1];
+    }
+    for(let i=0;i<roads.length;i++){
+      const r = roads[i];
+      if(r.n < 3 || bridgeRoad[i]) continue;
+      const mx = r.pts[(r.n>>1)*2], mz = r.pts[(r.n>>1)*2+1];
+      if(mx < x0-150 || mx > x1+150 || mz < z0-150 || mz > z1+150) continue;
+      let hit = 0;
+      for(let k=0;k<r.n;k++){
+        if(bridgeIndexAt(r.pts[k*2], r.pts[k*2+1], 6) === bi) hit++;
+      }
+      if(hit >= 2 && hit / r.n >= 0.5) bridgeRoad[i] = bi + 1;
+    }
+  }
+
   const list = [];
   for(let i=0;i<roads.length;i++){
     const r = roads[i];
@@ -3441,13 +3811,71 @@ const TRAFFIC = (()=>{
       cum[k] = L;
     }
     if(L < 60) continue;
-    list.push({ r, cum, L, ri: i, w: (ROAD_W[r.cls] || 10) * 0.5 });
+    /* 车道必须和路面 shader 里的画法用同一套算法：
+         shader  float lanes = max(1, floor(aw*2/3.5 + 0.5)); float laneW = aw*2/lanes;
+       车按 (i+0.5)*laneW 摆，才会正好落在画出来的车道里、并压上轮胎磨痕。
+       原来只有一条线（±0.42w），四条车道的大路上每个方向都只跑一列车。 */
+    const w2 = (ROAD_W[r.cls] || 10) * 0.5;
+    const lanes = Math.max(1, Math.floor(w2 * 2 / 3.5 + 0.5));
+    const laneW = (w2 * 2) / lanes;
+    const nl = Math.max(1, Math.floor(w2 / laneW));
+    const e = { r, cum, L, ri: i, w: w2, isBridge: bridgeRoad[i] > 0, laneW, nl };
+
+    /* ---- 桥面路：横向坐标系必须换成桥走线的 ----
+       桥面标线画在 BRIDGE_PATHS 上，而车一直是从它下面那条 OSM 路的中线量的，
+       两条线不同源：实测车相对桥走线散落在 ±9m 里，压着护栏跑，
+       怎么画标线都对不上。这里逐节点预存「桥法线 + 本节点相对桥中线的偏移」，
+       每帧只多两次数组读，成本可以忽略。 */
+    if(e.isBridge){
+      const B = BRIDGE_PATHS[bridgeRoad[i] - 1];
+      const S = deckSection(BRIDGE_WIDTH[B.id] || 26);
+      e.laneW = S.laneW;
+      e.nl = S.per;
+      const bp = B.pts, bn = bp.length;
+      const dnx = new Float32Array(r.n), dnz = new Float32Array(r.n), dof = new Float32Array(r.n);
+      for(let k=0;k<r.n;k++){
+        const x = r.pts[k*2], z = r.pts[k*2+1];
+        let bd = 1e18, bqx = x, bqz = z, btx = 1, btz = 0;
+        for(let j=0;j+1<bn;j++){
+          const x0 = bp[j][0], z0 = bp[j][1];
+          const ex = bp[j+1][0]-x0, ez = bp[j+1][1]-z0;
+          const LL = ex*ex + ez*ez;
+          if(LL < 1e-9) continue;
+          let tt = ((x-x0)*ex + (z-z0)*ez) / LL;
+          tt = tt < 0 ? 0 : (tt > 1 ? 1 : tt);
+          const qx = x0 + ex*tt, qz = z0 + ez*tt;
+          const dd = (qx-x)*(qx-x) + (qz-z)*(qz-z);
+          if(dd < bd){ bd = dd; bqx = qx; bqz = qz; btx = ex; btz = ez; }
+        }
+        const LL = Math.hypot(btx, btz) || 1;
+        dnx[k] = -btz / LL;
+        dnz[k] =  btx / LL;
+        dof[k] = (x-bqx)*dnx[k] + (z-bqz)*dnz[k];
+      }
+      e.dnx = dnx; e.dnz = dnz; e.dof = dof;
+    }
+    list.push(e);
   }
   const cars = [];
   const groups = [[], []];
   const N = 18000;
+  /* 选路按「路长」加权，而不是按「路的条数」。
+     按条数分的时候，22m 宽的双向 6 车道主干道密度只有 14.3 辆/km，
+     比 16m 的次干道（27.7）还稀 —— 越宽越空，完全反直觉：
+     15 条主干道只分走 1.6% 的配额，却占了 17.9km。 */
+  let Ltot = 0;
+  for(const e of list){ Ltot += e.L; e.cw = Ltot; }
+  const pickRoad = (u) => {
+    const t = u * Ltot;
+    let lo = 0, hi = list.length - 1;
+    while(lo < hi){
+      const m = (lo + hi) >> 1;
+      if(list[m].cw < t) lo = m + 1; else hi = m;
+    }
+    return lo;
+  };
   for(let i=0;i<N;i++){
-    const li = (Math.random()*list.length)|0;
+    const li = pickRoad(Math.random());
     const c = {
       li,
       s: Math.random() * list[li].L,
@@ -3457,6 +3885,11 @@ const TRAFFIC = (()=>{
       big: Math.random() < 0.08,
       col: CAR_COLS[(Math.random()*CAR_COLS.length)|0],
     };
+    /* 车道与随机状态都必须确定性派生，不能吃 Math.random：
+         初始化阶段每多消费一次，后面分帧构建的植被就整体错位（坑 7）。
+         i*7 mod nl 对 nl=1/2/3 都是均匀的。 */
+    c.lane = (i * 7 + 3) % list[li].nl;
+    c.rnd  = Math.imul(i + 1, 2654435761) >>> 0;
     cars.push(c);
     groups[i % 2].push(c);
   }
@@ -3469,7 +3902,7 @@ const TRAFFIC = (()=>{
     arr.push(g);
   }
   for(const arr of gates.values()) arr.sort((a,b)=>a.s-b.s);
-  return { list, cars, groups, gates, t: 0 };
+  return { list, cars, groups, gates, t: 0, Ltot, pickRoad };
 })();
 
 /* 信号相位：26s 周期 —— A 相绿 11s / 黄 2s，B 相反相 */
@@ -3478,6 +3911,17 @@ function sigState(ph, t){
   const c = t % SIG_CYCLE;
   if(ph < 0.5) return c < SIG_G ? 0 : (c < SIG_G + SIG_Y ? 1 : 2);
   return c < SIG_G + SIG_Y ? 2 : (c < 2*SIG_G + SIG_Y ? 0 : 1);
+}
+
+/* 每车独立的确定性随机流（xorshift32）。
+   换路 / 重生这类「偶发」事件不能用 Math.random：调用次数随车况变化，
+   回归两次跑的序列就对不上；而且它会和植被等分帧构建抢同一个全局序列。
+   种子在初始化时由 i 派生，不消费任何 Math.random。 */
+function carRnd(c){
+  let x = c.rnd;
+  x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
+  c.rnd = x >>> 0;
+  return c.rnd / 4294967296;
 }
 
 const carMoveMat = new THREE.ShaderMaterial({
@@ -3503,22 +3947,43 @@ const carMoveMat = new THREE.ShaderMaterial({
     uniform vec3 uSunDir, uSunCol, uSkyAmb, uFogColor, uLamp;
     varying vec3 vW; varying vec3 vC; varying float vP;
     void main(){
-      vec3 n = normalize(cross(dFdx(vW), dFdy(vW)));
+      /* 导数法线必须守卫：退化三角形/掠射角会得到零向量 → NaN，
+         而一个 NaN 像素经 bloom 会糊满整个屏幕（坑 13）。 */
+      vec3 nc = cross(dFdx(vW), dFdy(vW));
+      float n2 = dot(nc, nc);
+      vec3 n = n2 > 1e-16 ? nc * inversesqrt(n2) : vec3(0.0, 1.0, 0.0);
       if(dot(n, cameraPosition - vW) < 0.0) n = -n;
       vec3 V = normalize(cameraPosition - vW);
       vec3 alb = vP < 0.5 ? vC * (0.86 + 0.28*max(n.y,0.0))
                : (vP < 1.5 ? vec3(0.020,0.026,0.034)
-               : (vP < 2.5 ? vec3(0.012,0.012,0.013) : vec3(0.05,0.05,0.05)));
+               : (vP < 2.5 ? vec3(0.012,0.012,0.013)
+               : (vP < 4.5 ? vec3(0.05,0.05,0.05) : vec3(0.017,0.017,0.019))));
       float ndl = max(dot(n, uSunDir), 0.0);
       float sky = 0.52 + 0.48*max(n.y, 0.0);
       vec3 dayC = alb * (uSunCol*(ndl*1.10 + 0.08) + uSkyAmb*sky);
       vec3 H = normalize(uSunDir + V);
-      dayC += uSunCol * pow(max(dot(n,H),0.0), 40.0) * 0.55 * vC * step(vP, 0.5) * step(0.5, uDay);
+      /* 车漆镜面高光不该乘底色：它是表面反射，深色车也有一条亮边。
+         原来乘 vC（深色车漆只有 0.03）等于没有高光，近看就是一整块黑砖。 */
+      dayC += uSunCol * pow(max(dot(n,H),0.0), 40.0) * 0.55 * mix(vC, vec3(1.0), 0.62)
+              * step(vP, 0.5) * step(0.5, uDay);
+      /* 玻璃：反照率只有 0.02，乘完光照就是纯黑，正对看整块车厢是一条黑洞。
+         改成「固定暗基底 + 天光反射」—— 正对着看透出车内（暗），掠射角反射
+         天空（浅蓝灰）。反射色直接按 uDay 插值，不用 uSkyAmb：
+         车厢法线是水平的、视线也几乎水平，dot(n,V) 很小，菲涅尔本来就该强。 */
+      float isGlass = step(0.5, vP) * step(vP, 1.5);
+      float fres = pow(1.0 - max(dot(n, V), 0.0), 2.6);
+      vec3 skyRefl = mix(vec3(0.030, 0.038, 0.052), vec3(0.50, 0.60, 0.74), uDay);
+      /* 基础 0.35 反射：正对着看玻璃菲涅尔接近 0，但真实车窗还能透过它看见
+        车内（灰米色座椅），不是纯黑。少了这一项，侧窗在正视角就是一整块黑板。 */
+      dayC = mix(dayC, skyRefl, (0.35 + 0.65*fres) * isGlass);
       vec3 nightC = alb * 0.030 * (1.0 - uDay) + vC * uLamp * 0.105 * (1.0-uDay) * (0.35 + 0.65*max(n.y,0.0));
+      /* 夜里玻璃靠路灯和对面车灯，不该比车身更黑 —— 补一点掠射反射 */
+      nightC += uLamp * 0.030 * fres * isGlass * (1.0 - uDay);
       vec3 col = mix(nightC, dayC, uDay);
 
-      /* 车灯：前白后红，只在夜间点亮 */
-      if(vP > 2.5){
+      /* 车灯：前白后红，只在夜间点亮。上限 4.5 必须留着：
+         aPart 5 是底盘/轮组，不卡住会被当成尾灯整片发红。 */
+      if(vP > 2.5 && vP < 4.5){
         float night = 1.0 - uDay;
         vec3 lampC = (vP < 3.5) ? vec3(1.00,0.95,0.84) : vec3(1.00,0.10,0.07);
         // 近处要「清晰的点」，远处要「泛光的光斑」——按距离抬升发光值
@@ -3529,6 +3994,7 @@ const carMoveMat = new THREE.ShaderMaterial({
       float dist = length(cameraPosition - vW);
       float fogF = 1.0 - exp(-uFogDensity*uFogDensity*dist*dist);
       col = mix(col, uFogColor, clamp(fogF, 0.0, 1.0));
+      if(!(col.r == col.r)) col = vec3(0.0);   /* NaN 兜底，见坑 13 */
       gl_FragColor = vec4(col, 1.0);
     }`
 });
@@ -3565,7 +4031,7 @@ const trafficMeshes = (()=>{
     const aScl = new THREE.InstancedBufferAttribute(scl, 1); aScl.setUsage(THREE.DynamicDrawUsage);
     g.setAttribute('aPos', aPos);
     g.setAttribute('aYaw', aYaw);
-    g.setAttribute('aScl', aScl);
+    g.setAttribute('aScale', aScl);   // 名字必须和顶点着色器里的 attribute 完全一致，否则取默认 0 → 顶点全塌成一点
     const mesh = new THREE.Mesh(g, carMoveMat);
     mesh.frustumCulled = false;
     world.add(mesh);
@@ -3625,11 +4091,12 @@ function updateTraffic(dt){
     c.s += c.v * step * c.dir;
 
     if(c.s >= rd.L || c.s < 0){
-      c.li = (Math.random()*L.length)|0;
+      c.li = TRAFFIC.pickRoad(carRnd(c));
       rd = L[c.li];
-      c.s = Math.random()*rd.L;
-      c.dir = Math.random() < 0.5 ? 1 : -1;
-      c.spd = 7 + Math.random()*9;
+      c.s = carRnd(c)*rd.L;
+      c.dir = carRnd(c) < 0.5 ? 1 : -1;
+      c.lane = (carRnd(c) * rd.nl) | 0;
+      c.spd = 7 + carRnd(c)*9;
       c.v = c.spd;
     }
     const r = rd.r, cum = rd.cum, pts = r.pts;
@@ -3646,12 +4113,23 @@ function updateTraffic(dt){
     const len = Math.sqrt(dx*dx + dz*dz) || 1;
     const tx = dx/len, tz = dz/len;
     const nx = -tz, nz = tx;
-    const off = rd.w * 0.42 * c.dir;
-    const px = ax + dx*t + nx*off;
-    const pz = az + dz*t + nz*off;
+    const off = ((c.lane + 0.5) * rd.laneW) * c.dir;   // 车道中心，与路面标线同源
+    let px, pz;
+    if(rd.dof){
+      /* 桥面路：`off` 是从**桥中线**量起的，而节点本身相对桥中线还偏了 dof，
+         所以先减掉节点自己的偏移。这样车正好落在桥面上画出来的车道里。 */
+      const dofv = rd.dof[lo] + (rd.dof[lo+1] - rd.dof[lo]) * t;
+      const lat = off - dofv;
+      px = ax + dx*t + rd.dnx[lo]*lat;
+      pz = az + dz*t + rd.dnz[lo]*lat;
+    } else {
+      px = ax + dx*t + nx*off;
+      pz = az + dz*t + nz*off;
+    }
     PA[i*3] = px;
-    const _dk = deckY(px, pz);
-    PA[i*3+1] = (_dk > -1e8 ? _dk + 0.12 : terrainAt(px, pz) + 1.22);
+    /* 只有桥面路才查桥面高程；地面路一律车行道面 */
+    const _dk = rd.isBridge ? deckY(px, pz) : -1e9;
+    PA[i*3+1] = (_dk > -1e8 ? _dk + 0.02 : roadTop(px, pz) + 0.02);
     PA[i*3+2] = pz;
     YA[i] = Math.atan2(-tz*c.dir, tx*c.dir);
   }
@@ -3942,7 +4420,7 @@ function updateCrowd(dt){
       const px = ax + dx*t + nx*off;
       const pz = az + dz*t + nz*off;
       q.setFromAxisAngle(_tup, Math.atan2(-tz*c.dir, tx*c.dir));
-      p.set(px, terrainAt(px, pz) + 1.20, pz);
+      p.set(px, kind === 0 ? walkTop(px, pz) : terrainAt(px, pz) + ROAD_H, pz);
       const s = (kind === 0) ? (c.h / 1.72) : 1.0;
       sc.set(s, s, s);
       m4.compose(p, q, sc);
@@ -4074,7 +4552,7 @@ const sigLightMesh = (()=>{
     const pz = p.z + nz * (w + 0.9);
     // 灯面朝向来车（+X 对齐 -切线）
     q.setFromAxisAngle(up, Math.atan2(p.tz, -p.tx));
-    pv.set(px, terrainAt(px, pz) + 1.2, pz);
+    pv.set(px, walkTop(px, pz), pz);
     m4.compose(pv, q, sv);
     mesh.setMatrixAt(k, m4);
     phArr[k] = ph;
@@ -4324,29 +4802,45 @@ const signBuilt = (()=>{
    ============================================================ */
 const SHOP_SPEC = {
   minH: 10,          // 和立面着色器的店面条件一致（h > 10）
-  maxRoadDist: 12,   // 边中点离道路中心线；再远就不是「街面」了
-  maxEdge: 46,       // 单边最多做多长，超长边只做前段
-  base: 0.16,        // 台基露出高度
-  baseD: 0.36,       // 台基出挑
+  maxRoadDist: 20,   // 边中点离道路中心线；再远就不是「街面」了。
+                     // 原来是 12 —— 长沙这批楼普遍退红线 10~18m，结果整条
+                     // 低层商业街一栋店面都没有（招牌阈值是 22，所以只有招牌没有店面）
+  maxEdge: 34,       // 单边最多做多长，超长边只做前段。46 太长了 ——
+                     // 真实街面 10~15m 就换一家店，一条 46m 连续店面反而假
+  maxEdges: 2,       // 一栋楼最多做几条街边（转角楼两侧都临街）
+  edgeMinDot: 0.72,  // 两条边法线夹角的余弦上限，超过就当成同一面墙
+  /* 台基改成两级真实踏步：路面基准降到地形之后，0.18 的平板读起来就是一道
+     踢脚线。0.30 = 2×0.15（踏步高），出挑 0.62 = 0.32 + 0.30（踏步宽）。 */
+  base: 0.30,        // 台基（=店面地坪）露出高度
+  baseD: 0.62,       // 台基总出挑
   baseSink: 0.55,    // 台基往地下埋多深（坡地上不悬空）
   segLen: 6.0,       // 台基分段：逐段采样地面，避免一头悬空一头埋掉
   colW: 0.24,        // 门套柱宽
-  colD: 0.26,        // 门套柱出挑
-  colEvery: 4.2,     // 柱间距
-  headY: 3.00,       // 门头梁底（相对建筑底 y0）
-  headH: 0.56,
-  headD: 0.34,
-  awnY: 3.66,        // 雨棚内缘高度
-  awnD: 1.15,        // 雨棚出挑
-  awnDrop: 0.14,     // 外缘下沉，做出坡度
-  awnTh: 0.075,
+  colD: 0.16,        // 门套柱出挑（必须小于台基出挑，柱子才像「立在台基上」）
+  colEvery: 3.6,     // 柱间距 = 一个开间
+  /* 门头梁压在 2.35m：招牌最低从 2.73m 起（b.y0 + 3.2 - hgt/2），
+     再高就会和招牌穿插 —— 第一版放在 3.0 就是这样糊成一片的 */
+  headY: 2.35,       // 门头梁底（相对建筑底 y0）
+  headH: 0.34,
+  headD: 0.28,
+  awnY: 2.76,        // 雨棚内缘高度（正好在招牌下沿之下）
+  awnD: 1.05,        // 雨棚出挑
+  awnDrop: 0.13,     // 外缘下沉，做出坡度
+  awnTh: 0.10,       // 板厚：0.06 太薄，正午时前缘高光几乎看不见
+  awnLip: 0.16,      // 前缘下折挡板，投影和轮廓都靠它
+  awnBay: 3.6,       // 雨棚按开间分段（和柱距一致，缝隙正好落在柱子上）
 };
 
 const SHOP_COL = {
-  base: '#6a655d',   // 石材台基
-  col:  '#7c766b',   // 门套柱
-  head: '#3b3630',   // 门头梁 / 卷帘箱
-  awn:  ['#8b887f', '#5d6b74', '#7d5a52', '#6d7265', '#8a8577'],
+  base: '#7f796f',   // 石材台基：太暗会糊进墙根的阴影里
+  col:  '#968f82',   // 门套柱：全街最亮的一道线，柱子不亮就没有「开间」
+  head: '#a39b8c',   // 门头梁：必须是亮面。深色会跟雨棚、玻璃连成一个黑洞
+  /* 雨棚整体压暗一档。原来这五个色都比墙面亮，沿街看是一圈浅灰饰面板；
+     压暗之后才有「深色玻璃 → 中间调雨棚 → 亮墙」的三层读法。 */
+  awn:  ['#7f7c73', '#5a666e', '#755650', '#666b60', '#7d7867'],
+  /* 门洞：白天就是「里面很黑」。亮一点都会立刻变成一面灰墙 */
+  glass: '#161c1e',
+  shutter: '#7b776e',   // 卷帘门：压花铝，带横向筋
 };
 
 const shopUniforms = {
@@ -4380,13 +4874,93 @@ const shopMat = new THREE.ShaderMaterial({
       vec3 n = normalize(vN);
       if(dot(n, cameraPosition - vW) < 0.0) n = -n;
       float ndl = max(dot(n, uSunDir), 0.0);
-      float sh = shadowAt(vW, n);
+      /* 贴墙构件不能全信阴影图：它们在墙根，CSM 的法线偏移和深度精度
+         很容易把整片判成「在建筑自身阴影里」，那样门头梁和台基会黑成一块。
+         参考桥的细杆件，保底 30% 直射光。 */
+      float sh = mix(shadowAt(vW, n), 1.0, 0.30);
       vec3 ambC = mix(uSkyAmb*(0.60 + 0.40*max(n.y, 0.0)), skyIrr(n)*1.02, uDay);
-      vec3 dayC = vC * (uSunCol*ndl*1.08*sh + ambC*1.02);
-      /* 夜里几乎没有自发光：只有环境光 + 路灯从下方打上来的一点暖光，
+      vec3 dayC = vC * (uSunCol*ndl*1.12*sh + ambC*1.10);
+      /* 夜里几乎没有自发光：环境光 + 路灯从下往上打的暖光，
          朝下的面（雨棚底面、门头梁底面）吃到更多，这个方向感很关键 */
-      vec3 nightC = vC*(uSkyAmb*0.55) + uLamp*0.030*(1.0 - max(n.y, 0.0))*vC;
+      vec3 nightC = vC*(uSkyAmb*0.85 + 0.030*uNight) + uLamp*0.045*(1.0 - max(n.y, 0.0))*vC;
       vec3 col = mix(nightC, dayC, uDay);
+      float d = length(cameraPosition - vW);
+      float f = 1.0 - exp(-uFogDensity*uFogDensity*d*d);
+      gl_FragColor = vec4(mix(col, uFogColor, clamp(f, 0.0, 1.0)), 1.0);
+    }`,
+});
+
+/* 门洞单独一套材质。理由：
+   ① 玻璃和金属的受光完全不同（玻璃白天几乎不反光、夜里自发光；
+      卷帘门是死板的漫反射 + 横向筋），塞进同一段 shader 会互相拖累；
+   ② 只有它需要 aSeed（每家店的亮度/色温不一样），
+      做成独立 geometry 就不用给主体 1.75M 顶点多挂一个属性。 */
+const shopGlassMat = new THREE.ShaderMaterial({
+  uniforms: Object.assign({
+    uDay:{value:0}, uSunDir:{value:new THREE.Vector3(0,1,0)},
+    uSunCol:{value:new THREE.Color(1,1,1)}, uSkyAmb:{value:new THREE.Color('#0a1018')},
+    uFogColor:{value:PAL.fog.clone()}, uFogDensity:{value:FOG_D},
+    uNight:{value:0}, uLamp:{value:PAL.lamp.clone()},
+    uGlow:{value:new THREE.Color('#ffc98a')},
+  }, SHADOW.uniforms, SKYIRR.uniforms),
+  /* 必须 DoubleSide：门洞是单面四边形，绕序稍偏一点就会被背面剔除，
+     而店面主体一直是 DoubleSide，所以主体正常、门洞整片消失 —— 排查了很久。
+     这片只有 7 万三角形，双面渲染的代价远小于再踩一次这个坑。 */
+  side: THREE.DoubleSide,
+  vertexShader:`
+    attribute vec3 aCol;
+    attribute float aSeed;
+    varying vec3 vC, vW, vN;
+    varying float vSeed;
+    void main(){
+      vec4 wp = modelMatrix * vec4(position, 1.0);
+      vW = wp.xyz; vN = normalize(mat3(modelMatrix) * normal);
+      vC = aCol; vSeed = aSeed;
+      gl_Position = projectionMatrix * viewMatrix * wp;
+    }`,
+  fragmentShader:`
+    precision highp float;
+    ${SHADOW_GLSL}
+    ${SKY_GLSL}
+    uniform float uDay, uFogDensity, uNight;
+    uniform vec3 uSunDir, uSunCol, uSkyAmb, uFogColor, uLamp, uGlow;
+    varying vec3 vC, vW, vN;
+    varying float vSeed;
+    void main(){
+      vec3 n = normalize(vN);
+      if(dot(n, cameraPosition - vW) < 0.0) n = -n;
+      vec3 V = normalize(cameraPosition - vW);
+      float ndl = max(dot(n, uSunDir), 0.0);
+      float sh = mix(shadowAt(vW, n), 1.0, 0.30);
+      vec3 ambC = mix(uSkyAmb*(0.60 + 0.40*max(n.y, 0.0)), skyIrr(n)*1.02, uDay);
+
+      float isGlass = step(0.0, vSeed);   /* seed >= 0 玻璃，< 0 卷帘门 */
+      float sd = abs(vSeed);
+      float isShut = 1.0 - isGlass;
+      /* vSeed <= -1 是门窗框（竖挺）：同样是金属漫反射，但不要压花筋 */
+      float isFrame = step(vSeed, -0.999);
+
+      /* 卷帘门：压花铝的横向筋。58 rad/m ≈ 一根筋 11cm，真人尺度 */
+      float ribV = 0.90 + 0.10*sin(vW.y*58.0 + sd*6.283);
+      float rib = mix(ribV, 1.0, max(isGlass, isFrame));
+
+      /* 卷帘门走正常的漫反射；玻璃不能走 —— 玻璃是「反射 + 透过」，
+         用「反照率 × 辐照度」算出来会接近纯黑（vC 只有 0.02 左右），
+         沿街看就是一整条黑洞。所以玻璃直接给一个很暗的基底，
+         再叠天光菲涅尔反射，正对着看偏暗、斜着看发亮。 */
+      vec3 shutC = vC * rib * (uSunCol*ndl*0.98*sh + ambC*1.08);
+      vec3 glassC = vec3(0.022, 0.027, 0.030) * (0.75 + 0.55*sd) * (1.0 + 1.9*ndl*sh);
+      float fres = pow(1.0 - max(dot(n, V), 0.0), 4.0);
+      vec3 dayC = mix(glassC, shutC, isShut) + skyIrr(n)*fres*mix(0.85, 0.26, isShut);
+
+      /* 夜间：店内灯光。seed 决定亮度与冷暖，全街同一色温立刻假。
+         强度必须压得很低 —— 0.55~1.6 会直接曝到纯白，后面还有 bloom 再乘一遍 */
+      vec3 glowC = mix(uGlow, uGlow*vec3(1.06, 1.0, 0.86), sd);
+      vec3 glow = glowC * (0.15 + 0.38*sd) * isGlass * uNight;
+      vec3 nightC = mix(vC*(uSkyAmb*0.85), vC*rib*(uSkyAmb*0.85), isShut) + glow
+                  + uLamp*0.055*(1.0 - max(n.y, 0.0))*vC*isShut;
+      vec3 col = mix(nightC, dayC, uDay);
+
       float d = length(cameraPosition - vW);
       float f = 1.0 - exp(-uFogDensity*uFogDensity*d*d);
       gl_FragColor = vec4(mix(col, uFogColor, clamp(f, 0.0, 1.0)), 1.0);
@@ -4399,9 +4973,16 @@ const shopBuilt = (()=>{
   Math.random = () => 0.5;
   try {
   const G = { P: [], N: [], C: [], I: [], v: 0 };
+  const GG = { P: [], N: [], C: [], S: [], I: [], v: 0 };   /* 门洞（玻璃/卷帘门） */
+  /* 调试样本 + 街道家具的挂点：
+     [ax, az, ux, uz, nx, nz, L, y0, h, func] —— 边起点、沿边方向、外法线、长度、
+     基准高、楼高、功能类别。只给 __dbg 和空调外机用，不进渲染。 */
+  const SAMP = [];
   const C_BASE = new THREE.Color(SHOP_COL.base);
   const C_COL  = new THREE.Color(SHOP_COL.col);
   const C_HEAD = new THREE.Color(SHOP_COL.head);
+  const C_GLASS = new THREE.Color(SHOP_COL.glass);
+  const C_SHUT  = new THREE.Color(SHOP_COL.shutter);
   const AWN = SHOP_COL.awn.map(h => new THREE.Color(h));
   const col = new THREE.Color();
 
@@ -4411,6 +4992,17 @@ const shopBuilt = (()=>{
     for(let i = 0; i < 4; i++){ G.N.push(nx, ny, nz); G.C.push(col.r, col.g, col.b); }
     G.I.push(base, base+1, base+2, base, base+2, base+3);
     G.v += 4;
+  }
+
+  /* 门洞的四边面。seed >= 0 = 玻璃，< 0 = 卷帘门（shader 靠符号分材质） */
+  function quadG(a, b, c, d, nx, ny, nz, seed){
+    const base = GG.v;
+    GG.P.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2], d[0], d[1], d[2]);
+    for(let i = 0; i < 4; i++){
+      GG.N.push(nx, ny, nz); GG.C.push(col.r, col.g, col.b); GG.S.push(seed);
+    }
+    GG.I.push(base, base+1, base+2, base, base+2, base+3);
+    GG.v += 4;
   }
 
   /* 边坐标系里的盒子：su 沿边、sn 向外、y 竖直。skip 里为 true 的面不造
@@ -4428,8 +5020,8 @@ const shopBuilt = (()=>{
     if(!skip || !skip.bot) quad(a00, a10, a11, a01, 0, -1, 0);
   }
 
-  /* 斜板（雨棚）：内缘高 ya0、外缘低 ya1，板厚 th */
-  function slabUVN(ax, az, ux, uz, nx, nz, su0, su1, sn0, sn1, ya0, ya1, th){
+  /* 斜板（雨棚）：内缘高 ya0、外缘低 ya1，板厚 th，前缘下折 lip */
+  function slabUVN(ax, az, ux, uz, nx, nz, su0, su1, sn0, sn1, ya0, ya1, th, lip){
     const P = (su, sn, y) => [ax + ux*su + nx*sn, y, az + uz*su + nz*sn];
     const t00 = P(su0, sn0, ya0), t10 = P(su1, sn0, ya0);
     const t01 = P(su0, sn1, ya1), t11 = P(su1, sn1, ya1);
@@ -4440,6 +5032,10 @@ const shopBuilt = (()=>{
     quad(t11, t01, u01, u11, nx, 0, nz);
     quad(t01, t00, u00, u01, -ux, 0, -uz);
     quad(t10, t11, u11, u10, ux, 0, uz);
+    if(lip > 0){
+      const g01 = P(su0, sn1, ya1 - lip), g11 = P(su1, sn1, ya1 - lip);
+      quad(g01, g11, t11, t01, nx, 0, nz);
+    }
   }
 
   let nb = 0;
@@ -4453,8 +5049,10 @@ const shopBuilt = (()=>{
     for(let k = 0; k < b.n; k++){ cx += b.pts[k*2]; cz += b.pts[k*2+1]; }
     cx /= b.n; cz /= b.n;
 
-    /* 只做评分最高的那一条边（长 × 贴街）；一栋楼一个街面就够 */
-    let best = null, bestScore = 0;
+    /* 选街边：评分 = 边长 × 贴街程度。一栋楼最多做 maxEdges 条，
+       且两条边的法线不能太接近（夹角余弦 < edgeMinDot），否则等于把同一面墙做两遍。
+       转角楼两侧都临街是常态，只做一条会让另一侧街面整片空白 —— 沿街看非常明显。 */
+    const cands = [];
     for(let ei = 0; ei < b.n; ei++){
       const ei2 = (ei+1) % b.n;
       const ax = b.pts[ei*2], az = b.pts[ei*2+1];
@@ -4464,20 +5062,38 @@ const shopBuilt = (()=>{
       const mx = (ax+bx)*0.5, mz = (az+bz)*0.5;
       const rd = RNB.nearest(mx, mz, -1, 0, 1)[0];
       if(rd > SHOP_SPEC.maxRoadDist) continue;
-      const sc = Math.min(L0, SHOP_SPEC.maxEdge) * (1 + (SHOP_SPEC.maxRoadDist - rd) / SHOP_SPEC.maxRoadDist);
-      if(sc > bestScore){
-        bestScore = sc;
-        const ux = (bx-ax)/L0, uz = (bz-az)/L0;
-        let nx = -uz, nz = ux;
-        if((mx-cx)*nx + (mz-cz)*nz < 0){ nx = -nx; nz = -nz; }
-        best = { ax, az, ux, uz, nx, nz, L: Math.min(L0, SHOP_SPEC.maxEdge) };
-      }
+      const ux = (bx-ax)/L0, uz = (bz-az)/L0;
+      let nx = -uz, nz = ux;
+      if((mx-cx)*nx + (mz-cz)*nz < 0){ nx = -nx; nz = -nz; }
+      const LL = Math.min(L0, SHOP_SPEC.maxEdge);
+      /* 贴街程度加权 1.5：长边但深退红线的楼不该压过真正临街的短边 */
+      cands.push({ ax, az, ux, uz, nx, nz, L: LL, rd,
+                   score: LL * (1 + 1.5 * (SHOP_SPEC.maxRoadDist - rd) / SHOP_SPEC.maxRoadDist) });
     }
-    if(!best) continue;
+    if(!cands.length) continue;
+    cands.sort((p, q) => (q.score - p.score) || (p.rd - q.rd));
+    const picks = [];
+    for(const c of cands){
+      let ok = true;
+      for(const p of picks){
+        if(Math.abs(c.nx*p.nx + c.nz*p.nz) > SHOP_SPEC.edgeMinDot){ ok = false; break; }
+      }
+      /* 第二条边必须真的临街（rd <= 15），不能为了凑数做到院子里去 */
+      if(picks.length && c.rd > 15) ok = false;
+      if(ok){ picks.push(c); if(picks.length >= SHOP_SPEC.maxEdges) break; }
+    }
 
-    const ax = best.ax, az = best.az, ux = best.ux, uz = best.uz;
-    const nx = best.nx, nz = best.nz, L = best.L;
-    const y0 = b.y0;
+    for(const pick of picks){
+    const ax = pick.ax, az = pick.az, ux = pick.ux, uz = pick.uz;
+    const nx = pick.nx, nz = pick.nz, L = pick.L;
+    /* 必须用「拟合底」而不是数据里的 y0：buildCity 把楼底沉到
+       轮廓最低地形之下 0.25m（否则楼会悬空），店面挂在同一个基准上才不会飘 */
+    let minT = 1e9;
+    for(let k = 0; k < b.n; k++){
+      const t = terrainAt(b.pts[k*2], b.pts[k*2+1]);
+      if(t < minT) minT = t;
+    }
+    const y0 = Math.min(b.y0, minT - 0.25);
     const headB = y0 + SHOP_SPEC.headY;
     const headT = headB + SHOP_SPEC.headH;
     const awnIn = y0 + SHOP_SPEC.awnY;
@@ -4486,12 +5102,21 @@ const shopBuilt = (()=>{
     /* ① 台基：逐段采样地面。坡地上必须分段，否则整条平的一头悬空一头埋掉 */
     const segN = Math.max(1, Math.ceil(L / SHOP_SPEC.segLen));
     col.copy(C_BASE);
+    const midY0 = SHOP_SPEC.base * 0.5;
+    const tread = SHOP_SPEC.baseD * 0.52;      // 上踏步前沿 = 0.32
     for(let s = 0; s < segN; s++){
       const su0 = L * s / segN, su1 = L * (s + 1) / segN;
       const mu = (su0 + su1) * 0.5;
       const gy = terrainAt(ax + ux*mu + nx*0.20, az + uz*mu + nz*0.20);
       const yTop = gy + SHOP_SPEC.base;
-      boxUVN(ax, az, ux, uz, nx, nz, su0, su1, -0.03, SHOP_SPEC.baseD,
+      /* 下踏步（外挑那半级）：顶面 gy+0.15，踏板 0.30 宽。
+         顶面不能 skip —— 站在 2m 高、10m 外看台基是俯角 ~10°，
+         下踏板的踏面正好整个露出来。第一版跳掉顶面，两级被读成一块平台。 */
+      boxUVN(ax, az, ux, uz, nx, nz, su0, su1, tread - 0.03, SHOP_SPEC.baseD,
+             yTop - SHOP_SPEC.baseSink, gy + midY0,
+             { bot: true, su0: true, su1: true });
+      /* 上踏步（贴墙那半级）：顶面 gy+0.30，踏板 0.32 宽 */
+      boxUVN(ax, az, ux, uz, nx, nz, su0, su1, -0.03, tread,
              yTop - SHOP_SPEC.baseSink, yTop, { bot: true });
     }
 
@@ -4499,11 +5124,21 @@ const shopBuilt = (()=>{
     col.copy(C_HEAD);
     boxUVN(ax, az, ux, uz, nx, nz, 0, L, -0.03, SHOP_SPEC.headD, headB, headT, null);
 
-    /* ③ 雨棚：斜板 + 前缘下折，出挑 1.15m */
-    col.copy(AWN[(bi * 3) % AWN.length]);
-    slabUVN(ax, az, ux, uz, nx, nz, 0.05, L - 0.05,
-            SHOP_SPEC.headD - 0.02, SHOP_SPEC.headD + SHOP_SPEC.awnD - 0.02,
-            awnIn, awnOut, SHOP_SPEC.awnTh);
+    /* ③ 雨棚：按开间分段。整条一根在沿街视角下只是一条死板的直线，
+       分格之后才有「一格一格挑出来」的轮廓 —— 这是沿街唯一看得见的层次。
+       缝隙宽度 0.12m，正好落在门套柱上。 */
+    const bayN = Math.max(1, Math.round(L / SHOP_SPEC.awnBay));
+    const gap = Math.min(0.10, L / bayN * 0.04);
+    for(let s = 0; s < bayN; s++){
+      const su0 = L * s / bayN + gap, su1 = L * (s + 1) / bayN - gap;
+      if(su1 - su0 < 0.7) continue;
+      col.copy(AWN[(bi * 3 + s) % AWN.length]);
+      /* 段与段之间错开一点点高度：完全对齐会像贴图重复 */
+      const dv = ((bi * 7 + s * 5) % 3) * 0.012;
+      slabUVN(ax, az, ux, uz, nx, nz, su0, su1,
+              SHOP_SPEC.headD - 0.02, SHOP_SPEC.headD + SHOP_SPEC.awnD - 0.02,
+              awnIn + dv, awnOut + dv, SHOP_SPEC.awnTh, SHOP_SPEC.awnLip);
+    }
 
     /* ④ 门套柱：从台基顶到门头梁底。顶和底都被盖住，只造 3 个立面 */
     col.copy(C_COL);
@@ -4518,7 +5153,47 @@ const shopBuilt = (()=>{
              yb, headB, { top: true, bot: true });
     }
 
+    /* ⑤ 门洞：柱子之间、台基顶到门头梁底的那一段。
+       实心墙上挖不出洞，但「一块深色玻璃 + 一圈亮框」在视觉上就是洞。
+       这一件是店面能不能被读成「店铺」的关键 —— 只有台基和雨棚、没有洞，
+       整条街看起来只是一圈浅灰金属饰面板（实测沿街 diff 只有 0.15）。 */
+    for(let ci = 0; ci < colN; ci++){
+      const sa = L*ci/colN + hw + 0.10, sb = L*(ci+1)/colN - hw - 0.10;
+      if(sb - sa < 0.5) continue;
+      const mu = (sa + sb) * 0.5;
+      const gy = terrainAt(ax + ux*mu + nx*0.20, az + uz*mu + nz*0.20);
+      /* 底比台基顶低 4cm：被台基挡住的误差一律看不见，露出来的缝才刺眼 */
+      const yb = gy + SHOP_SPEC.base - 0.04;
+      if(headB - yb < 1.3) continue;
+      /* 确定性散列：同一栋同一开间永远同一个结果。绝对不能吃 Math.random ——
+         植被是分帧构建的，这里多吃一个数整片山就会错位。 */
+      const hsh = ((bi * 73856093) ^ (ci * 19349663) ^ 0x5f3759df) >>> 0;
+      const u0 = (hsh & 1023) / 1023, u1 = ((hsh >>> 10) & 1023) / 1023;
+      const shut = u0 < 0.26;                       /* 26% 拉下卷帘门 */
+      if(shut) col.copy(C_SHUT).multiplyScalar(0.80 + 0.30*u1);
+      else     col.copy(C_GLASS).multiplyScalar(0.85 + 0.30*u1);
+      const sn = 0.05;
+      quadG([ax+ux*sa+nx*sn, yb, az+uz*sa+nz*sn],
+            [ax+ux*sb+nx*sn, yb, az+uz*sb+nz*sn],
+            [ax+ux*sb+nx*sn, headB, az+uz*sb+nz*sn],
+            [ax+ux*sa+nx*sn, headB, az+uz*sa+nz*sn],
+            nx, 0, nz, shut ? -(0.15 + 0.85*u1) : (0.15 + 0.85*u1));
+      /* 居中的竖挺。没有它，一个 3.5m 开间就是一块整黑板；
+         一根 11cm 宽的门窗框就能把它读成「两扇玻璃门」。 */
+      if(!shut && sb - sa > 1.6){
+        const sm = (sa + sb) * 0.5, mw = 0.055, sf = sn + 0.012;
+        col.copy(C_COL).multiplyScalar(0.90 + 0.14*u1);
+        quadG([ax+ux*(sm-mw)+nx*sf, yb, az+uz*(sm-mw)+nz*sf],
+              [ax+ux*(sm+mw)+nx*sf, yb, az+uz*(sm+mw)+nz*sf],
+              [ax+ux*(sm+mw)+nx*sf, headB, az+uz*(sm+mw)+nz*sf],
+              [ax+ux*(sm-mw)+nx*sf, headB, az+uz*(sm-mw)+nz*sf],
+              nx, 0, nz, -1.5);
+      }
+    }
+
+    SAMP.push([ax, az, ux, uz, nx, nz, L, y0, b.h, b.func]);
     nb++;
+    }   /* end for(pick of picks) */
   }
 
   if(!nb) return { count: 0 };
@@ -4530,11 +5205,474 @@ const shopBuilt = (()=>{
   const mesh = new THREE.Mesh(geo, shopMat);
   mesh.frustumCulled = false;
   mesh.name = 'shops';
+  /* 必须投影：雨棚出挑 1m、门头梁出挑 28cm，它们落在墙面上的那道影子
+     才是「街道是立体的」的全部证据。不投影的话这些构件看起来像贴纸。 */
+  mesh.castShadow = true;
   world.add(mesh);
-  return { count: nb, quads: G.v / 4, verts: G.v, tris: G.I.length / 3, mesh };
+
+  /* 门洞：不投影（它就是墙面本身），单面朝街 */
+  let meshGlass = null;
+  if(GG.v){
+    const gg = new THREE.BufferGeometry();
+    gg.setAttribute('position', new THREE.Float32BufferAttribute(GG.P, 3));
+    gg.setAttribute('normal', new THREE.Float32BufferAttribute(GG.N, 3));
+    gg.setAttribute('aCol', new THREE.Float32BufferAttribute(GG.C, 3));
+    gg.setAttribute('aSeed', new THREE.Float32BufferAttribute(GG.S, 1));
+    gg.setIndex(GG.I);
+    meshGlass = new THREE.Mesh(gg, shopGlassMat);
+    meshGlass.frustumCulled = false;
+    meshGlass.name = 'shopDoors';
+    world.add(meshGlass);
+  }
+  return { count: nb, quads: G.v / 4, verts: G.v, tris: G.I.length / 3, mesh,
+           doorQuads: GG.v / 4, doorTris: GG.I.length / 3, meshGlass, samples: SAMP };
   } finally {
     Math.random = _rB;
   }
+})();
+
+/* ============================================================
+   4g. 街道家具：护栏 / 垃圾桶 / 配电柜 / 公交站 / 空调外机
+   ------------------------------------------------------------
+   街道层之前只有「招牌 + 店面 + 路灯 + 路边停车」，缺的是人留下的痕迹。
+   这一批几乎都是小方盒，起作用的是**数量与排布**而不是单个精度，
+   所以统一 InstancedMesh + 导数法线（cross(dFdx,dFdy)）：
+   低模家具不需要平滑法线，也就完全绕开了「单面绕序错了整片消失」（坑 #8）。
+
+   放置只用确定性哈希，**一次都不吃 Math.random** —— 植被是分帧构建的，
+   这里多吃几十个随机数，整片山会错位（坑 #7）。
+   ============================================================ */
+const FURN_SPEC = {
+  /* maxCls 必须盖到 cls5：店面/招牌所在的「商业小街」就是 cls5（7m 路 + 1.8m 人行道）。
+     第一版写 2，结果 16 个机位里一个构件都看不见 —— 家具全落在看不见的大路上。 */
+  maxCls: 5, swMin: 1.55,
+  /* 护栏：连续成段。真实护栏不可能 3.3m 一块随机出现又消失（第一版就是败在这） */
+  railMaxCls: 5, railStep: 3.3, railOff: 0.34,
+  /* railUrban 是「附近有楼才算街道」的阈值，必须在**护栏自己的位置**上测。
+     第一版在道路中点测 + 阈值 22，长沙楼普遍退红线 15~22m，整条大道被判成荒野。 */
+  railRun: [24, 72], railGap: [12, 44], railUrban: 30,
+  railCore: 1600,         /* 这个半径内用满细节版（24 tri），以外只留上横杆（6 tri）。
+                             取 1600 而不是按「核心区」直觉取 940：店面/街景机位全在
+                             1.1~1.4km 处，LOD 边界必须盖住它们，否则近景看到的是简化版 */
+  railSmall: 0.45,        /* cls4/5 的小街只做一部分：店面机位全在这种街上，不能没有 */
+  binStep: 46,  binOff: 0.92,  binKeep: 0.60,
+  cabStep: 112, cabOff: 0.66,  cabKeep: 0.44,
+  shelStep: 380, shelOff: 1.30, shelKeep: 0.70, shelMaxCls: 2, shelMinDens: 0.30,
+  /* 空调外机：街道层最有效的「有人住」信号，而且极便宜。店面对应的边本身就在建成区，
+     所以不用硬门，只用软衰减。acMaxH 卡住楼高：玻璃幕墙塔楼没有分体外机，
+     挂在幕墙上只会变成一串黑方块 */
+  acBaseY: 4.30, acRowH: 2.85, acPerM: 8.5, acKeep: 0.60, acMaxRows: 3, acMaxH: 80,
+};
+
+/* 距离衰减：家具是近景内容。1m 高的栏杆在 2.7km 外不到一个像素，
+   却和眼前那条街占用一样多的三角形。按到原点的距离平滑递减，不留硬边。 */
+function furnDensity(x, z){
+  const r = Math.sqrt(x*x + z*z);
+  if(r < 1100) return 1.0;
+  if(r < 2200) return 0.30 + 0.70 * (2200 - r) / 1100;
+  if(r < 3000) return 0.06 + 0.24 * (3000 - r) / 800;
+  return 0.05;
+}
+
+/* 确定性 32 位整数混洗。同一条路/同一条边永远同一个结果 */
+function furnHash32(a, b){
+  let h = Math.imul((a | 0) ^ 0x9e3779b9, 0x85ebca6b) ^ Math.imul((b | 0) + 0x165667b1, 0xc2b2ae35);
+  h ^= h >>> 15; h = Math.imul(h, 0x27d4eb2f); h ^= h >>> 13;
+  return h >>> 0;
+}
+function furnHash(a, b){ return furnHash32(a, b) / 4294967296; }
+/* 段长/空段长要连续取随机数，不能用 Math.random（会扰动植被的分帧构建） */
+function furnSeq(seed){
+  let s = seed >>> 0;
+  return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+}
+
+/* ---------- 几何积木 ---------- */
+function furnGeo(build){
+  const P = [], C = [], A = [];
+  let cc = [1, 1, 1], pp = 0;
+  const tri = (a, b, c) => {
+    P.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2]);
+    for(let i = 0; i < 3; i++){ C.push(cc[0], cc[1], cc[2]); A.push(pp); }
+  };
+  const quad = (a, b, c, d) => { tri(a, b, c); tri(a, c, d); };
+  const color = (r, g, b) => { cc = [r, g, b]; };
+  const part = p => { pp = p; };
+  /* 盒子：底面永远不造；skip.back 再省掉 +Z，skip.minZ 省掉 -Z
+     （贴墙的构件朝墙那一面永远看不见，省下来是纯赚） */
+  const box = (x0, x1, y0, y1, z0, z1, skip) => {
+    quad([x0,y1,z0], [x1,y1,z0], [x1,y1,z1], [x0,y1,z1]);          // 顶
+    quad([x1,y0,z0], [x1,y0,z1], [x1,y1,z1], [x1,y1,z0]);          // +X
+    quad([x0,y0,z1], [x0,y0,z0], [x0,y1,z0], [x0,y1,z1]);          // -X
+    if(!(skip && skip.minZ)) quad([x0,y0,z0], [x1,y0,z0], [x1,y1,z0], [x0,y1,z0]);   // -Z
+    if(!(skip && skip.back)) quad([x0,y0,z1], [x1,y0,z1], [x1,y1,z1], [x0,y1,z1]);   // +Z
+  };
+  /* 长条：只造顶 + 前后两面。3.3m 的横杆两端 8cm 的端面没人看得见 */
+  const bar = (x0, x1, y0, y1, z0, z1) => {
+    quad([x0,y1,z0], [x1,y1,z0], [x1,y1,z1], [x0,y1,z1]);
+    quad([x0,y0,z0], [x1,y0,z0], [x1,y1,z0], [x0,y1,z0]);
+    quad([x0,y0,z1], [x1,y0,z1], [x1,y1,z1], [x0,y1,z1]);
+  };
+  build({ tri, quad, box, bar, color, part });
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(P, 3));
+  g.setAttribute('aCol', new THREE.Float32BufferAttribute(C, 3));
+  g.setAttribute('aPart', new THREE.Float32BufferAttribute(A, 1));
+  g.computeBoundingSphere();
+  return g;
+}
+
+/* 护栏（近版）：3.3m 一个模块，局部 +X 沿路、+Z 朝路。24 三角形 = 7.3/m */
+const furnRailGeo = furnGeo(({ bar, color }) => {
+  color(0.74, 0.755, 0.74);                             // 漆白钢管（不是纯白，纯白会过曝）
+  bar(-1.650, 1.650, 0.965, 1.045, -0.040, 0.040);      // 上横杆
+  bar(-1.650, 1.650, 0.500, 0.560, -0.034, 0.034);      // 中横杆
+  color(0.60, 0.615, 0.60);
+  bar(-1.650,-1.570, 0.020, 1.045, -0.048, 0.048);      // 立柱
+  bar( 1.570, 1.650, 0.020, 1.045, -0.048, 0.048);      // 立柱
+});
+/* 护栏（远版）：940m 以外立柱已经不到一个像素，只留上横杆。
+   6 三角形 = 1.8/m，是近版的 1/4 */
+const furnRailFarGeo = furnGeo(({ bar, color }) => {
+  color(0.74, 0.755, 0.74);
+  bar(-1.650, 1.650, 0.94, 1.05, -0.05, 0.05);
+});
+
+/* 垃圾桶：方桶 + 收口盖 */
+const furnBinGeo = furnGeo(({ box, color, part }) => {
+  part(0);
+  color(0.098, 0.105, 0.100);
+  box(-0.205, 0.205, 0.020, 0.840, -0.205, 0.205);
+  color(0.052, 0.056, 0.052);
+  box(-0.232, 0.232, 0.840, 0.930, -0.232, 0.232);
+});
+
+/* 配电柜：长方体 + 出檐顶盖。局部 -Z 朝路 */
+const furnCabGeo = furnGeo(({ box, color, part }) => {
+  part(0);
+  color(0.176, 0.184, 0.172);
+  box(-0.380, 0.380, 0.020, 1.220, -0.240, 0.020);
+  color(0.128, 0.134, 0.126);
+  box(-0.408, 0.408, 1.220, 1.310, -0.268, 0.048);
+});
+
+/* 公交站：两根柱 + 顶棚 + 背板 + 灯箱 + 坐凳。局部 +X 沿路、+Z 朝路 */
+const furnShelGeo = furnGeo(({ box, bar, color, part }) => {
+  part(0);
+  color(0.118, 0.124, 0.128);
+  bar(-1.640, -1.520, 0.020, 2.520, -0.560, -0.440);   // 立柱
+  bar( 1.520,  1.640, 0.020, 2.520, -0.560, -0.440);
+  color(0.150, 0.156, 0.152);
+  box(-1.960, 1.960, 2.520, 2.660, -0.900, 0.560);     // 顶棚
+  color(0.086, 0.092, 0.094);
+  box(-1.520, 1.520, 0.560, 2.470, -0.620, -0.548);    // 背板
+  /* 灯箱（aPart 1）：夜里是暖白面板，白天也偏亮 */
+  part(1);
+  color(0.300, 0.300, 0.290);
+  box(-1.480, -0.180, 1.050, 2.300, -0.700, -0.616);
+  part(0);
+  color(0.112, 0.116, 0.110);
+  box(-1.420, 1.420, 0.400, 0.470, -0.560, -0.300);    // 坐凳
+  box(-1.420, 1.420, 0.020, 0.400, -0.420, -0.360);    // 凳腿板
+});
+
+/* 空调外机：贴墙盒 + 底托。局部 +Z 朝外（背离墙）。
+   skip.minZ 省掉贴墙那一面 —— 局部 +Z 朝外时，-Z 面就是被墙挡住的那一面 */
+const furnAcGeo = furnGeo(({ box, quad, color, part }) => {
+  color(0.400, 0.396, 0.372);
+  part(2);                                              // 横向百叶靠 vP>1.5 出条纹
+  box(-0.400, 0.400, -0.270, 0.270, 0.020, 0.330, { minZ: 1 });
+  part(0);
+  color(0.132, 0.136, 0.132);
+  /* 底托只留顶面一片：两片之间的厚度在街道尺度上是 0 个像素 */
+  quad([-0.400,-0.350,0.010], [0.400,-0.350,0.010],
+       [0.400,-0.350,0.330], [-0.400,-0.350,0.330]);
+});
+
+/* ---------- 放置 ---------- */
+const furnArr = { rail: [], railL: [], bin: [], cab: [], shel: [], ac: [] };
+/* 逐级过滤的命中数：家具「一个都没有」时必须能一眼看出是哪道闸砍的 */
+const furnDbg = { road: 0, swRej: 0, lenRej: 0, run: 0, densRej: 0,
+                  bdRej: 0, mod: 0, okRej: 0 };
+
+(function placeFurniture(){
+  const R = RNB.roads;
+  const SP = FURN_SPEC;
+  /* 街道家具全部落在人行道上，基准必须是人行道面（terrain + ROAD_H + CURB_H），
+     不是车行道面。按车行道算的话护栏/垃圾桶会埋进铺装 15cm，杆子整体矮一截。 */
+  const GROUND = ROAD_H + CURB_H;
+
+  for(let ri = 0; ri < R.length; ri++){
+    const r = R[ri], n = r.n;
+    if(n < 2) continue;
+    const cls = r.cls;
+    if(cls > SP.maxCls) continue;
+    const w  = (ROAD_W[cls] || 10) * 0.5;
+    const sw = (SW_W[cls] !== undefined ? SW_W[cls] : 2.0) * 0.9;
+    /* 人行道要么够宽（能放下家具），要么干脆不做 */
+    if(sw < SP.swMin){ furnDbg.swRej++; continue; }
+
+    const segs = [];
+    let L = 0;
+    for(let k = 0; k < n - 1; k++){
+      const x1 = r.pts[k*2], z1 = r.pts[k*2+1];
+      const dx = r.pts[(k+1)*2] - x1, dz = r.pts[(k+1)*2+1] - z1;
+      const len = Math.hypot(dx, dz);
+      if(len < 0.2) continue;
+      segs.push({ x1, z1, tx: dx/len, tz: dz/len, nx: -dz/len, nz: dx/len, len, c0: L });
+      L += len;
+    }
+    if(L < 16){ furnDbg.lenRej++; continue; }
+    furnDbg.road++;
+
+    /* 沿弧长走站点。相位按路索引错开，路内间距保持稳定 */
+    function walk(step, phase, fn){
+      let si = 0;
+      for(let d = phase; d < L; d += step){
+        while(si < segs.length - 1 && segs[si].c0 + segs[si].len < d) si++;
+        const s = segs[si];
+        const q = d - s.c0;
+        if(q < 0 || q > s.len) continue;
+        fn(s, s.x1 + s.tx*q, s.z1 + s.tz*q, d, si);
+      }
+    }
+    /* 任意弧长处的切向 + 位置：护栏要「从 d 连续铺到 d+runL」 */
+    function segAt(d){
+      let si = 0;
+      while(si < segs.length - 1 && segs[si].c0 + segs[si].len < d) si++;
+      const s = segs[si];
+      let q = d - s.c0;
+      if(q < 0) q = 0; else if(q > s.len) q = s.len;
+      return { s, x: s.x1 + s.tx*q, z: s.z1 + s.tz*q };
+    }
+    /* 站点是否可用：不在路口里、不进水、不进楼 */
+    function ok(px, pz, s){
+      const nr = RNB.nearest(px, pz, ri, s.tx, s.tz);
+      if(nr[2] && nr[0] < nr[1] + 2.6) return false;      // 最近的路是横交的 → 在路口
+      if(isWater(px, pz)) return false;
+      if(terrainAt(px, pz) < -0.6) return false;
+      return true;
+    }
+    /* 人行道面高：路面条带的顶点高度取的是**中心线**处的地形高度，
+       所以家具也必须用中心线取高，用自己的位置会在坡道上悬空/陷进去 */
+    const yAt = (cx, cz) => terrainAt(cx, cz) + GROUND;
+
+    /* ① 护栏：连续成段。run/gap 由「同一条路同一侧」的确定性序列抽，
+       所以同一条街永远是同一串连续护栏，不会 3.3m 一块闪断（第一版的错误）。 */
+    if(cls <= SP.railMaxCls){
+      for(const sd of [1, -1]){
+        const rnd = furnSeq(furnHash32(ri * 7919 + (sd > 0 ? 1 : 2), 97));
+        let d = rnd() * SP.railStep;
+        while(d < L){
+          const runL = SP.railRun[0] + rnd() * (SP.railRun[1] - SP.railRun[0]);
+          const gapL = SP.railGap[0] + rnd() * (SP.railGap[1] - SP.railGap[0]);
+          const mid = segAt(Math.min(d + runL * 0.5, L - 0.05));
+          const mr = Math.sqrt(mid.x*mid.x + mid.z*mid.z);
+          const den = furnDensity(mid.x, mid.z) * (cls >= 4 ? SP.railSmall : 1);
+          const onDens = rnd() < den;
+          const o = w + SP.railOff;
+          const px0 = mid.x + mid.s.nx*o*sd, pz0 = mid.z + mid.s.nz*o*sd;
+          /* 「有楼」判定放在**护栏自己的位置**上：护栏离中心线 w+0.34，长沙楼普遍
+             退红线 15~22m，在中心线上用 22m 阈值测会把整条大道判成荒野（踩过一次） */
+          if(!onDens){ furnDbg.densRej++; }
+          else if(BD.near(px0, pz0, SP.railUrban) >= SP.railUrban){ furnDbg.bdRej++; }
+          else {
+            furnDbg.run++;
+            const far = mr > SP.railCore;
+            const end = Math.min(d + runL, L);
+            for(let q = d; q < end; q += SP.railStep){
+              furnDbg.mod++;
+              const p = segAt(q);
+              const px = p.x + p.s.nx*o*sd, pz = p.z + p.s.nz*o*sd;
+              if(!ok(px, pz, p.s)){ furnDbg.okRej++; continue; }
+              (far ? furnArr.railL : furnArr.rail)
+                .push(px, yAt(p.x, p.z), pz, Math.atan2(-p.s.tz, p.s.tx));
+            }
+          }
+          d += runL + gapL;
+        }
+      }
+    }
+
+    /* ② 垃圾桶（靠路缘，左右交替）+ ③ 配电柜 */
+    walk(SP.binStep, (ri * 29.13) % SP.binStep, (s, cx, cz, d) => {
+      const sd = ((d / SP.binStep) | 0) % 2 ? 1 : -1;
+      const o = w + SP.binOff;
+      const px = cx + s.nx*o*sd, pz = cz + s.nz*o*sd;
+      if(furnHash(ri * 104729 + ((d / SP.binStep) | 0), 31) >
+         SP.binKeep * furnDensity(cx, cz)) return;
+      if(!ok(px, pz, s)) return;
+      furnArr.bin.push(px, yAt(cx, cz), pz, Math.atan2(-s.tz, s.tx));
+    });
+    walk(SP.cabStep, (ri * 71.77) % SP.cabStep, (s, cx, cz, d) => {
+      const sd = ((d / SP.cabStep) | 0) % 2 ? -1 : 1;
+      const o = w + SP.cabOff;
+      const px = cx + s.nx*o*sd, pz = cz + s.nz*o*sd;
+      if(furnHash(ri * 15485863 + ((d / SP.cabStep) | 0), 37) >
+         SP.cabKeep * furnDensity(cx, cz)) return;
+      if(!ok(px, pz, s)) return;
+      /* 配电柜通常背靠楼、面朝路：局部 -Z 朝路 → 反一下 */
+      furnArr.cab.push(px, yAt(cx, cz), pz, Math.atan2(s.nx*sd, s.nz*sd));
+    });
+
+    /* ④ 公交站：只在主干道，且要退到人行道内侧。站台是地标，不进距离衰减，
+       否则整城只剩个位数（上一版就只剩 5 个） */
+    if(cls <= SP.shelMaxCls){
+      walk(SP.shelStep, (ri * 103.9) % SP.shelStep, (s, cx, cz, d) => {
+        const sd = ((d / SP.shelStep) | 0) % 2 ? 1 : -1;
+        const o = w + SP.shelOff;
+        const px = cx + s.nx*o*sd, pz = cz + s.nz*o*sd;
+        if(furnDensity(cx, cz) < SP.shelMinDens) return;
+        if(furnHash(ri * 32452843 + ((d / SP.shelStep) | 0), 41) > SP.shelKeep) return;
+        if(!ok(px, pz, s)) return;
+        /* 站台要退到人行道里，别压到路缘（顶棚出挑 0.9m） */
+        if(BD.near(px, pz, 2.4) < 2.4) return;
+        furnArr.shel.push(px, yAt(cx, cz), pz, Math.atan2(-s.nx*sd, -s.nz*sd));
+      });
+    }
+  }
+
+  /* ⑤ 空调外机：挂在店面边的墙上，逐层往上排。
+     注意偏航：几何是朝局部 +Z 出挑的，所以 +Z 必须对齐**向外**的墙面法线。
+     第一版写成 atan2(-nx,-nz)，整批外机被推进墙里，只剩机身四边几厘米露在外面。
+     功能过滤：分体机的宿主是住宅/公寓/商业/酒店/其他/工业；
+     办公(3)/公共(6)/在建(8)/历史(9)/校园(10) 是幕墙或整栋统装，不挂分体机。 */
+  const AC_NO = { 3: 1, 6: 1, 8: 1, 9: 1, 10: 1 };
+  const edges = (typeof shopBuilt !== 'undefined' && shopBuilt && shopBuilt.samples) || [];
+  for(let ei = 0; ei < edges.length; ei++){
+    const s = edges[ei];
+    const ax = s[0], az = s[1], ux = s[2], uz = s[3], nx = s[4], nz = s[5];
+    const L = s[6], y0 = s[7], h = s[8], fn = s[9];
+    if(h < 11 || h > SP.acMaxH || AC_NO[fn]) continue;
+    const rows = Math.min(SP.acMaxRows, Math.floor((h - 4.2) / SP.acRowH) + 1);
+    if(rows < 1) continue;
+    const cnt = Math.max(1, Math.round(L / SP.acPerM));
+    const yaw = Math.atan2(nx, nz);                     /* 局部 +Z = 向外法线 */
+    /* 软衰减：店面边本来就在建成区，不需要硬门。远处只少排几层，不少排整栋 */
+    const den = furnDensity(ax + ux*L*0.5, az + uz*L*0.5);
+    const keep = SP.acKeep * (0.30 + 0.70 * den);
+    const rowsMax = den < 0.5 ? Math.min(2, rows) : rows;
+    for(let r = 0; r < rowsMax; r++){
+      const y = y0 + SP.acBaseY + r * SP.acRowH;
+      for(let c = 0; c < cnt; c++){
+        const t = 0.14 + 0.72 * (c + 0.5) / cnt;
+        if(furnHash(ei, r * 97 + c) > keep) continue;
+        furnArr.ac.push(ax + ux*L*t + nx*0.02, y, az + uz*L*t + nz*0.02, yaw);
+      }
+    }
+  }
+})();
+
+/* ---------- 材质：一套 shader 通吃，靠 aPart 分材质族 ---------- */
+const furnUniforms = {
+  uDay:{value:0}, uSunDir:{value:new THREE.Vector3(0,1,0)},
+  uSunCol:{value:new THREE.Color(1,1,1)}, uSkyAmb:{value:new THREE.Color('#0a1018')},
+  uFogColor:{value:PAL.fog.clone()}, uFogDensity:{value:FOG_D},
+  uNight:{value:0}, uLamp:{value:PAL.lamp.clone()}, uGlow:{value:new THREE.Color('#ffd9a0')},
+};
+Object.assign(furnUniforms, SHADOW.uniforms);
+Object.assign(furnUniforms, SKYIRR.uniforms);
+
+const furnMat = new THREE.ShaderMaterial({
+  uniforms: furnUniforms,
+  side: THREE.DoubleSide,
+  vertexShader:`
+    attribute vec3 aCol;
+    attribute float aPart;
+    varying vec3 vW, vC; varying float vP;
+    void main(){
+      vec4 ip = instanceMatrix * vec4(position, 1.0);
+      vec3 wp = (modelMatrix * ip).xyz;
+      vW = wp; vC = aCol; vP = aPart;
+      gl_Position = projectionMatrix * viewMatrix * vec4(wp, 1.0);
+    }`,
+  fragmentShader:`
+    precision highp float;
+    ${SHADOW_GLSL}
+    ${SKY_GLSL}
+    uniform float uDay, uFogDensity, uNight;
+    uniform vec3 uSunDir, uSunCol, uSkyAmb, uFogColor, uLamp, uGlow;
+    varying vec3 vW, vC; varying float vP;
+    void main(){
+      /* 导数法线：低模小构件不需要平滑，一片三角形一个法线反而更「硬」。
+         顺带完全免疫绕序问题（见 ROADMAP 坑 #8） */
+      vec3 n = normalize(cross(dFdx(vW), dFdy(vW)));
+      if(dot(n, cameraPosition - vW) < 0.0) n = -n;
+      float ndl = max(dot(n, uSunDir), 0.0);
+      /* 贴地小物件还是吃阴影，但保底 25% 直射 —— 同店面/桥杆的理由 */
+      float sh = mix(shadowAt(vW, n), 1.0, 0.25);
+      vec3 alb = vC;
+      /* 空调外机的横向百叶：一根 11cm，靠世界 Y 出条纹 */
+      if(vP > 1.5) alb *= 0.84 + 0.16*sin(vW.y*57.0);
+      vec3 ambC = mix(uSkyAmb*(0.62 + 0.38*max(n.y,0.0)), skyIrr(n)*1.02, uDay);
+      vec3 dayC = alb * (uSunCol*ndl*1.08*sh + ambC*1.06);
+      vec3 nightC = alb*(uSkyAmb*0.95) + uLamp*0.085*(1.0 - max(n.y,0.0))*alb;
+      /* aPart 1：公交站灯箱 */
+      if(vP > 0.5 && vP < 1.5){
+        nightC += uGlow * 0.62 * uNight;
+        dayC = mix(dayC, alb*2.4, 0.45);
+      }
+      vec3 col = mix(nightC, dayC, uDay);
+      float d = length(cameraPosition - vW);
+      float f = 1.0 - exp(-uFogDensity*uFogDensity*d*d);
+      gl_FragColor = vec4(mix(col, uFogColor, clamp(f, 0.0, 1.0)), 1.0);
+    }`,
+});
+
+/* ---------- 组装 ---------- */
+function furnMesh(geo, arr, name, shadow){
+  const n = arr.length / 4;
+  if(n < 1) return null;
+  /* 和招牌/店面同一个理由：Object3D 的 generateUUID 吃 Math.random，
+     植被是分帧构建的，这里多吃 4 个数整片山就会错位（ROADMAP 坑 #7）。
+     实测：不屏蔽时场景三角形 7,398,389 → 7,398,551，就是植被被推偏了。 */
+  const _rB = Math.random;
+  Math.random = () => 0.5;
+  try {
+    const mesh = new THREE.InstancedMesh(geo, furnMat, n);
+    mesh.frustumCulled = false;
+    mesh.name = name;
+    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion();
+    const up = new THREE.Vector3(0, 1, 0), sc = new THREE.Vector3(1, 1, 1), p = new THREE.Vector3();
+    for(let i = 0; i < n; i++){
+      const o = i * 4;
+      q.setFromAxisAngle(up, arr[o+3]);
+      p.set(arr[o], arr[o+1], arr[o+2]);
+      m4.compose(p, q, sc);
+      mesh.setMatrixAt(i, m4);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+    if(shadow) mesh.castShadow = true;
+    world.add(mesh);
+    return mesh;
+  } finally {
+    Math.random = _rB;
+  }
+}
+
+const furnBuilt = (()=>{
+  /* ?furn=0 整批关掉：做「有/没有街道家具」的 A/B 对比用 */
+  if(new URLSearchParams(location.search).get('furn') === '0') return { count: 0, meshes: [] };
+  const rail = furnMesh(furnRailGeo,    furnArr.rail,  'furnRail', false);
+  const railL= furnMesh(furnRailFarGeo, furnArr.railL, 'furnRailL', false);
+  const bin  = furnMesh(furnBinGeo,  furnArr.bin,  'furnBin',  true);
+  const cab  = furnMesh(furnCabGeo,  furnArr.cab,  'furnCab',  true);
+  const shel = furnMesh(furnShelGeo, furnArr.shel, 'furnShel', true);
+  const ac   = furnMesh(furnAcGeo,   furnArr.ac,   'furnAc',   true);
+  const items = [rail, railL, bin, cab, shel, ac].filter(Boolean);
+  let tris = 0;
+  for(const m of items) tris += (m.geometry.index ? m.geometry.index.count / 3 : m.geometry.attributes.position.count / 3) * m.count;
+  const nRail = (furnArr.rail.length + furnArr.railL.length) / 4;
+  return {
+    /* nRail 已经是「件数」了，别再除一次 4（第一版就这么错过一次） */
+    count: nRail + furnArr.bin.length / 4 + furnArr.cab.length / 4 +
+           furnArr.shel.length / 4 + furnArr.ac.length / 4,
+    rail: nRail, railM: nRail * FURN_SPEC.railStep, railNear: furnArr.rail.length / 4, railFar: furnArr.railL.length / 4,
+    bin: furnArr.bin.length / 4,
+    cab: furnArr.cab.length / 4, shel: furnArr.shel.length / 4, ac: furnArr.ac.length / 4,
+    tris, meshes: items,
+  };
 })();
 
 /* ============================================================
@@ -4545,12 +5683,12 @@ const shopBuilt = (()=>{
    ============================================================ */
 const WATER_Y = 0;
 const BRIDGE_SPEC = {
-  juzizhou:  { kind:'arch',      width:26, deckMin:14, spanMax:66, railH:1.12, lampEvery:32 },
-  yinpenling:{ kind:'cableStay', width:28, deckMin:24, mainSpan:220, towerH:62, cablePairs:9,
+  juzizhou:  { kind:'arch',      width:BRIDGE_WIDTH.juzizhou,   deckMin:14, spanMax:66, railH:1.12, lampEvery:32 },
+  yinpenling:{ kind:'cableStay', width:BRIDGE_WIDTH.yinpenling, deckMin:24, mainSpan:220, towerH:62, cablePairs:9,
                cableEvery:11, railH:1.15, lampEvery:36 },
-  fuyuanlu:  { kind:'basketArch', width:32, deckMin:26, mainSpan:210, archRise:38,
+  fuyuanlu:  { kind:'basketArch', width:BRIDGE_WIDTH.fuyuanlu,  deckMin:26, mainSpan:210, archRise:38,
                hangerEvery:8, railH:1.15, lampEvery:40 },
-  houzishi:  { kind:'beam', width:28, deckMin:24, th:2.6, pierEvery:56, railH:1.15, lampEvery:36 },
+  houzishi:  { kind:'beam',      width:BRIDGE_WIDTH.houzishi,   deckMin:24, th:2.6, pierEvery:56, railH:1.15, lampEvery:36 },
 };
 
 const bridgeUniforms = {
@@ -4593,9 +5731,14 @@ const bridgeMat = new THREE.ShaderMaterial({
       vec3 dayC = alb * (uSunCol*ndl*1.12*sh + ambC*fill);
       vec3 nightC = alb*uSkyAmb*0.55 + vec3(0.030,0.022,0.014)*uNight;
       vec3 col = mix(nightC, dayC, uDay);
-      /* aGlow=1 灯头/扶手光带；aGlow=2 桥面标线（白天清楚、夜里不发光） */
-      if(vGlow > 2.5)      col = mix(vec3(0.26,0.25,0.24), uLamp*0.85, uNight);
-      else if(vGlow > 1.5) col = mix(vec3(0.20,0.20,0.19), vec3(0.52,0.51,0.47), uDay);
+      /* aGlow=1 灯头/扶手光带；2 白色标线；3 拱背泛光；4 人行道；5 双黄线
+         标线原来是「白天 0.52 灰、夜里 0.20 灰」—— 夜里等于看不见。
+         桥面标线是反光漆，灯下照理最亮，所以夜间改成跟 uLamp 走
+         （0.55 比扶手光带 1.55 低一档，不至于把桥面照爆）。 */
+      if(vGlow > 4.5)      col = mix(vec3(0.52,0.415,0.130), uLamp*vec3(0.92,0.70,0.26), uNight);
+      else if(vGlow > 3.5) col = mix(vec3(0.255,0.250,0.238), vec3(0.034,0.033,0.031), uNight);
+      else if(vGlow > 2.5) col = mix(vec3(0.26,0.25,0.24), uLamp*0.85, uNight);
+      else if(vGlow > 1.5) col = mix(vec3(0.60,0.595,0.570), uLamp*0.55, uNight);
       else if(vGlow > 0.5) col = mix(vec3(0.30,0.29,0.27), uLamp*1.55, uNight);
       float d = length(cameraPosition - vW);
       float f = 1.0 - exp(-uFogDensity*uFogDensity*d*d);
@@ -4671,9 +5814,10 @@ function bar(P, N, G, a, b, w, glow, segs){
   }
 }
 
-/* 桥面 + 侧梁 + 护栏 + 标线 + 灯柱：所有桥型共用 */
+/* 桥面 + 侧梁 + 护栏 + 人行道 + 标线 + 灯柱：所有桥型共用 */
 function bridgeCore(b, spec){
-  const W = spec.width, half = W*0.5, TH = spec.th || 1.6;
+  const S = deckSection(spec.width);
+  const W = S.W, half = S.half, TH = spec.th || 1.6;
   const STEP = 4.0;
   const path = bridgePath(b.pts, STEP);
   const n = path.length;
@@ -4691,6 +5835,20 @@ function bridgeCore(b, spec){
     const ny = ys.slice();
     for(let i=1;i<n-1;i++) ny[i] = ys[i-1]*0.25 + ys[i]*0.5 + ys[i+1]*0.25;
     ys = ny;
+  }
+
+  /* 桥头衔接：OSM 的 bridge 线在岸上就断掉了，而桥面比地面道路高 6m，
+     直接相交就是一道 6m 断崖（从 ridge / all 机位看是「桥悬在岸上」）。
+     用 95m 的起坡把桥面压回地面道路高程 —— 这就是引桥，做成路堤的样子。
+     路面基准降到 ROAD_H 之后这个落差又多了一米，必须补。 */
+  const ARC_T = (n-1) * STEP, RAMP_L = 95;
+  for(let i=0;i<n;i++){
+    const d = Math.min(i*STEP, ARC_T - i*STEP);
+    if(d >= RAMP_L) continue;
+    const q = d / RAMP_L;
+    /* 端点若落在水里（OSM 线没画到岸上），别把桥面压进江里 */
+    const tg = Math.max(terrainAt(path[i].x, path[i].z) + ROAD_H, WATER_Y + 5.0);
+    ys[i] = tg + (ys[i] - tg) * (q*q*(3 - 2*q));
   }
 
   const px = [], pz = [];
@@ -4716,19 +5874,45 @@ function bridgeCore(b, spec){
     pushQuad(D.P, D.N, D.G, L0, L0b, L1b, L1, [px[i], 0, pz[i]], 0);
     pushQuad(D.P, D.N, D.G, R0, R1, R1b, R0b, [-px[i], 0, -pz[i]], 0);
 
-    /* 标线：中间实线 + 两侧虚线（4 车道） */
-    const mark = (off, w, dash) => {
+    /* ---- 人行道：抬 0.14，从护栏内表面往里 sw 米 ----
+       没有它的时候，边线以外那 6~7m 是一片什么都没画的沥青，
+       从俯视看就是「标线偏在桥的一侧、另一侧空着」。
+       抬起来之后桥面读到的是「栏杆 | 人行道 | 路缘 | 车行道」四级断面。 */
+    for(const sgn of [1, -1]){
+      const oOut = sgn * (half - S.rail);            // 贴护栏
+      const oIn  = sgn * (half - S.rail - S.sw);     // 靠车行道
+      const ay0 = ay + 0.140, by0 = by + 0.140;
+      const p0 = [ax + px[i]*oOut, ay0, az + pz[i]*oOut];
+      const p1 = [bx + px[i+1]*oOut, by0, bz + pz[i+1]*oOut];
+      const q0 = [ax + px[i]*oIn,  ay0, az + pz[i]*oIn];
+      const q1 = [bx + px[i+1]*oIn, by0, bz + pz[i+1]*oIn];
+      pushQuad(D.P, D.N, D.G, p0, p1, q1, q0, [0,1,0], 4);
+      /* 路缘立面：朝车行道那一侧，露 0.14 高 */
+      const c0 = [q0[0], ay, q0[2]], c1 = [q1[0], by, q1[2]];
+      pushQuad(D.P, D.N, D.G, q0, q1, c1, c0, [-sgn*px[i], 0, -sgn*pz[i]], 4);
+    }
+
+    /* ---- 标线：双黄中线 + 每方向 (per-1) 条车道虚线 + 两条边线 ---- */
+    const mark = (o, w, dash, glow) => {
       if(dash && (i % 4) >= 2) return;
-      const o = off;
-      const a0 = [ax + px[i]*o - px[i]*w, ay+0.03, az + pz[i]*o - pz[i]*w];
-      const a1 = [bx + px[i+1]*o - px[i+1]*w, by+0.03, bz + pz[i+1]*o - pz[i+1]*w];
-      const b0 = [ax + px[i]*o + px[i]*w, ay+0.03, az + pz[i]*o + pz[i]*w];
-      const b1 = [bx + px[i+1]*o + px[i+1]*w, by+0.03, bz + pz[i+1]*o + pz[i+1]*w];
-      pushQuad(D.P, D.N, D.G, a0, a1, b1, b0, [0,1,0], 2);
+      const a0 = [ax + px[i]*(o-w),  ay+0.030, az + pz[i]*(o-w)];
+      const a1 = [bx + px[i+1]*(o-w), by+0.030, bz + pz[i+1]*(o-w)];
+      const b0 = [ax + px[i]*(o+w),  ay+0.030, az + pz[i]*(o+w)];
+      const b1 = [bx + px[i+1]*(o+w), by+0.030, bz + pz[i+1]*(o+w)];
+      pushQuad(D.P, D.N, D.G, a0, a1, b1, b0, [0,1,0], glow === undefined ? 2 : glow);
     };
-    mark(0, 0.14, false);
-    mark(half*0.54, 0.09, true);
-    mark(-half*0.54, 0.09, true);
+    /* 双黄线：两条 0.14 宽、内侧净距 0.13 → 线心 ±0.145 */
+    mark( 0.145, 0.070, false, 5);
+    mark(-0.145, 0.070, false, 5);
+    /* 车道虚线：第 k 条在 k*laneW。车道数、车道宽都来自 deckSection()，
+       和桥上车流的横向落点同源（TRAFFIC 里也是 rd.laneW / rd.nl）。 */
+    for(let k=1;k<S.per;k++){
+      mark( k*S.laneW, 0.085, true);
+      mark(-k*S.laneW, 0.085, true);
+    }
+    /* 边线：车行道边界往里 0.25 */
+    mark( S.cw - 0.25, 0.085, false);
+    mark(-(S.cw - 0.25), 0.085, false);
 
     /* 护栏 + 外侧扶手光带 */
     const hw = half - 0.35, wallH = spec.railH, wallT = 0.26;
@@ -4761,7 +5945,7 @@ function bridgeCore(b, spec){
     }
   }
 
-  return { path, ys, n, px, pz, half, TH, total, D };
+  return { path, ys, n, px, pz, half, TH, total, D, S };
 }
 
 function finishBridge(D){
@@ -5127,10 +6311,25 @@ function buildDeckGrid(){
 function deckY(x, z){
   const g = DECK_GRID;
   if(!g) return -1e9;
-  const i = Math.floor((x - g.x0) / g.CELL), j = Math.floor((z - g.z0) / g.CELL);
-  if(i < 0 || j < 0 || i >= g.W || j >= g.H) return -1e9;
-  const v = g.y[j * g.W + i];
-  return v === v ? v : -1e9;   // NaN 检查
+  /* 双线性插值。栅格只有 10m，而桥头引道是 6% 的坡（每 10m 差 0.6m）——
+     取最近格会让车每跨一格跳 60cm，远看是「车在桥上打嗝」。
+     NaN 邻居按权重剔除后再归一化，所以栅格边缘也不会突然掉到 -1e9。 */
+  const fx = (x - g.x0) / g.CELL - 0.5, fz = (z - g.z0) / g.CELL - 0.5;
+  const i = Math.floor(fx), j = Math.floor(fz);
+  const tx = fx - i, tz = fz - j;
+  let num = 0, den = 0;
+  for(let dj = 0; dj < 2; dj++){
+    for(let di = 0; di < 2; di++){
+      const ii = i + di, jj = j + dj;
+      if(ii < 0 || jj < 0 || ii >= g.W || jj >= g.H) continue;
+      const v = g.y[jj * g.W + ii];
+      if(v !== v) continue;
+      const w = (di ? tx : 1 - tx) * (dj ? tz : 1 - tz);
+      if(w <= 0) continue;
+      num += v * w; den += w;
+    }
+  }
+  return den > 1e-6 ? num / den : -1e9;
 }
 
 const BRIDGE_STATS = (()=>{
@@ -5265,6 +6464,12 @@ if(WATER_MASK_URL && WATER_MASK_URL.length > 10){
 const trafficGroup = new THREE.Group();
 world.add(trafficGroup);
 if(typeof trafficMeshes !== 'undefined') for(const m of trafficMeshes) trafficGroup.add(m);
+
+/* 首帧前把两组车的初始位置算出来（必须等 trafficGroup 就位后再调：
+   updateTraffic 第一行就读 trafficGroup.visible，早于定义会踩 TDZ）。
+   否则 aPos 全是 0：加载完成那一刻 18000 辆车全挤在原点，
+   要等两帧才散开；回归冻结了时钟，车更是永远看不见。 */
+if(trafficMeshes.length) { updateTraffic(0); updateTraffic(0); }
 
 const fwUniformsShared = { uTime:{value:0} };
 const bursts = [];
@@ -5523,7 +6728,17 @@ function perfFrameStats(){
   if(typeof shopBuilt !== 'undefined' && shopBuilt && shopBuilt.count){
     lines.push('shops ' + (shopBuilt.count / 1000).toFixed(1) + 'k bld  ' +
                (shopBuilt.quads / 1000).toFixed(1) + 'k quad  ' +
-               (shopBuilt.tris / 1e3 | 0) + 'k tri');
+               (shopBuilt.tris / 1e3 | 0) + 'k tri  doors ' +
+               (shopBuilt.doorQuads / 1000).toFixed(1) + 'k');
+  }
+  if(typeof furnBuilt !== 'undefined' && furnBuilt && furnBuilt.count){
+    lines.push('furn ' + (furnBuilt.count / 1000).toFixed(1) + 'k  rail ' +
+               (furnBuilt.rail / 1000).toFixed(1) + 'k(' +
+               (furnBuilt.railNear / 1000).toFixed(1) + 'n+' +
+               (furnBuilt.railFar / 1000).toFixed(1) + 'f)  bin ' + furnBuilt.bin +
+               '  cab ' + furnBuilt.cab + '  shel ' + furnBuilt.shel +
+               '  ac ' + (furnBuilt.ac / 1000).toFixed(1) + 'k  ' +
+               (furnBuilt.tris / 1e3 | 0) + 'k tri');
   }
   lines.push('gpu  ' + (PERF.gpuOk ? (PERF.gpuMs ? PERF.gpuMs.toFixed(2) + 'ms' : 'measuring') : 'n/a (no timer ext)'));
   PERF.el.textContent = lines.join('\n');
@@ -5960,6 +7175,1006 @@ renderer.domElement.addEventListener('wheel', ()=>{ if(mode === 'tour') enterFre
   });
 }
 
+/* ============================================================
+   E1. 建筑检视：单击拾取
+   ------------------------------------------------------------
+   19,524 栋不能逐栋 raycast（每次两万次 AABB + 多边形测试）。
+   复用 BD 的 24m 栅格：沿射线每 1.4m 取一点，只测落点所在格里的楼。
+   命中 = 点在足迹多边形内 且 点高 ≤ 楼顶。
+   单次 0.4~1.2ms，所以 hover 也能跑（70ms 节流）。
+   ============================================================ */
+const PICK = (()=>{
+  const CELL = BD.CELL, GW = BD.GW, GH = BD.GH, MI = BD.mnI, MJ = BD.mnJ;
+  const grid = BD.grid, all = BD.all;
+
+  const FN_ZH = ['其他','住宅','公寓','办公','商业','酒店','公共','工业','在建','历史','校园'];
+  const FN_EN = ['MISC','RESIDENTIAL','APARTMENT','OFFICE','RETAIL','HOTEL','CIVIC','INDUSTRIAL','U/C','HERITAGE','CAMPUS'];
+  const CAMP  = ['湘江东','岳麓山','麓南','潇湘'];
+  /* 与 _data/process.py 的 proj() 严格互逆，卡片上的经纬度才对得上 */
+  const O_LAT = 28.1930, O_LON = 112.9750, MP_LAT = 110540.0;
+  const MP_LON = 111320.0 * Math.cos(O_LAT * Math.PI / 180);
+
+  /* 沿射线步进；返回 {b,t,x,y,z} 或 null（含「先打到地面」） */
+  function march(ox, oy, oz, dx, dy, dz){
+    for(let t = 1.0; t < 2800; t += 1.4){
+      const x = ox + dx*t, y = oy + dy*t, z = oz + dz*t;
+      if(y < terrainAt(x, z)) return null;
+      const ci = Math.floor(x/CELL) - MI, cj = Math.floor(z/CELL) - MJ;
+      if(ci < 0 || cj < 0 || ci >= GW || cj >= GH) continue;
+      const a = grid[cj*GW + ci];
+      if(!a) continue;
+      for(let q=0;q<a.length;q++){
+        const b = all[a[q]];
+        if(y > b.y0 + b.h) continue;
+        if(x < b.x0 || x > b.x1 || z < b.z0 || z > b.z1) continue;
+        if(!BD.insidePoly(b, x, z)) continue;
+        return { b, t, x, y, z };
+      }
+    }
+    return null;
+  }
+
+  const _ndc = new THREE.Vector2(), _rc = new THREE.Raycaster();
+  function at(clientX, clientY){
+    const r = renderer.domElement.getBoundingClientRect();
+    _ndc.set(((clientX - r.left) / r.width) * 2 - 1, -((clientY - r.top) / r.height) * 2 + 1);
+    _rc.setFromCamera(_ndc, camera);
+    const o = _rc.ray.origin, d = _rc.ray.direction;
+    return march(o.x, o.y, o.z, d.x, d.y, d.z);
+  }
+
+  function polyArea(b){
+    const p = b.pts, n = b.n;
+    let s = 0;
+    for(let k=0,c=n-1;k<n;c=k++){
+      s += p[c*2]*p[k*2+1] - p[k*2]*p[c*2+1];
+    }
+    return Math.abs(s) * 0.5;
+  }
+
+  /* ---- 高亮：顶面淡填充 + 楼顶环带 + 1px 线框，三层叠加 ----
+     踩过的坑，全跟「世界坐标里的宽度」和「距离」有关：
+     ① 一开始只做 0.56m 宽的顶面环带 —— 778m 处只有 0.6 像素，等于没画；
+     ② 改成纯 1px 线框后又太淡（浅青压在亮混凝土上），而且大俯角时环带会被压扁；
+     ③ 只有「屋顶一圈」时远看像给屋顶描了个边，在楼堆里认不出是「这栋被选中了」。
+     最终三层：
+       · 顶面淡填充 —— 远距离唯一还认得出的形状（一圈线在 700m 外就是几像素的点）；
+       · 环带按当前距离换算成约 2.7 像素宽，保留深度测试，所以它贴在屋顶上；
+       · 1px 线框恒定像素、关深度测试 —— 选中项被前面的楼挡住时轮廓也要完整，
+         否则「点完看不出是哪一栋」，这个功能就白做了。
+     不画地面那圈：斜视角下它会浮在邻居屋顶上，比没有更糟。 */
+  let hlMesh = null, hlRib = null, hlFill = null, hlMat = null, hlRibMat = null, hlFillMat = null;
+  function ensureHL(){
+    if(hlMesh) return;
+    /* generateUUID 吃 Math.random，初始化期多消费会让分帧构建的植被整体错位（坑 7/16）。
+       物体是首次 hover 才建的，那时植被可能还在分帧构建 —— 必须屏蔽。 */
+    const rnd = Math.random;
+    Math.random = () => 0.5;
+    try{
+      hlFillMat = new THREE.MeshBasicMaterial({ color:0x35d6ff, transparent:true, opacity:0.15,
+        depthWrite:false, side:THREE.DoubleSide, fog:false });
+      hlFill = new THREE.Mesh(new THREE.BufferGeometry(), hlFillMat);
+      hlRibMat = new THREE.MeshBasicMaterial({ color:0x35d6ff, transparent:true, opacity:0.60,
+        depthWrite:false, side:THREE.DoubleSide, fog:false });
+      hlRib = new THREE.Mesh(new THREE.BufferGeometry(), hlRibMat);
+      hlMat = new THREE.LineBasicMaterial({ color:0x35d6ff, transparent:true, opacity:0.95,
+        depthWrite:false, depthTest:false, fog:false });
+      hlMesh = new THREE.LineSegments(new THREE.BufferGeometry(), hlMat);
+      /* renderOrder 从低到高：填充 → 环带 → 线框，后画的压在上面。
+         name 是给探针认的 —— 场景里别的物体也用 renderOrder 3，只按序号筛会抓错。 */
+      const RL = [[hlFill, 3, 'hlFill'], [hlRib, 4, 'hlRib'], [hlMesh, 5, 'hlMesh']];
+      for(const [o, ro, nm] of RL){
+        o.frustumCulled = false; o.renderOrder = ro; o.name = nm;
+        o.visible = false; world.add(o);
+      }
+    } finally { Math.random = rnd; }
+  }
+  function setHL(b, dist){
+    ensureHL();
+    const P = [], Q = [], F = [];
+    if(b){
+      const n = b.n, p = b.pts;
+      const yT = b.y0 + b.h + 0.16;
+      const yF = b.y0 + b.h + 0.05;        // 填充比环带略低，环带才「压」在顶上
+      /* 环带半宽：换算成约 1.35 像素（总宽 2.7px） */
+      const d = Math.max(30, dist || 300);
+      const wpp = 2 * d * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, renderer.domElement.clientHeight);
+      const HW = Math.min(4.0, Math.max(0.16, wpp * 1.35));
+      let cx = 0, cz = 0;
+      for(let k=0;k<n;k++){ cx += p[k*2]; cz += p[k*2+1]; }
+      cx /= n; cz /= n;
+      for(let k=0;k<n;k++){
+        const k2 = (k+1) % n;
+        const x0 = p[k*2], z0 = p[k*2+1], x1 = p[k2*2], z1 = p[k2*2+1];
+        P.push(x0,yT,z0, x1,yT,z1);
+        /* 法线朝外：拿「边中点 - 质心」定向，不猜 OSM 的绕序 */
+        const ex = x1-x0, ez = z1-z0, L = Math.hypot(ex, ez) || 1;
+        let nx = ez/L, nz = -ex/L;
+        if(nx*((x0+x1)*0.5 - cx) + nz*((z0+z1)*0.5 - cz) < 0){ nx = -nx; nz = -nz; }
+        const a0x = x0+nx*HW, a0z = z0+nz*HW, a1x = x1+nx*HW, a1z = z1+nz*HW;
+        const b0x = x0-nx*HW, b0z = z0-nz*HW, b1x = x1-nx*HW, b1z = z1-nz*HW;
+        Q.push(a0x,yT,a0z, a1x,yT,a1z, b1x,yT,b1z,
+               a0x,yT,a0z, b1x,yT,b1z, b0x,yT,b0z);
+      }
+      /* 顶面填充：真三角化，不能用质心扇形 —— L 形/U 形足迹的凹口处扇形三角形会
+         互相重叠，半透明叠两层就是一块更深的色斑（第一版就是这样，屋顶中间一个折角）。
+         ShapeUtils 是 three 自带的 ear-clipping，十来个顶点算一次，可忽略。 */
+      const C = [];
+      for(let k=0;k<n;k++) C.push(new THREE.Vector2(p[k*2], p[k*2+1]));
+      let tri = null;
+      try { tri = THREE.ShapeUtils.triangulateShape(C, []); } catch(err) { tri = null; }
+      if(tri && tri.length){
+        for(let k=0;k<tri.length;k++){
+          const a = C[tri[k][0]], bb2 = C[tri[k][1]], c2 = C[tri[k][2]];
+          F.push(a.x,yF,a.y, bb2.x,yF,bb2.y, c2.x,yF,c2.y);
+        }
+      } else {
+        for(let k=0;k<n;k++){                  // 三角化失败就退回扇形，至少有个形状
+          const k2 = (k+1) % n;
+          F.push(cx,yF,cz, p[k*2],yF,p[k*2+1], p[k2*2],yF,p[k2*2+1]);
+        }
+      }
+    }
+    hlMesh.geometry.setAttribute('position', new THREE.Float32BufferAttribute(P, 3));
+    hlRib.geometry.setAttribute('position', new THREE.Float32BufferAttribute(Q, 3));
+    hlFill.geometry.setAttribute('position', new THREE.Float32BufferAttribute(F, 3));
+    if(P.length){
+      hlMesh.geometry.computeBoundingSphere();
+      hlRib.geometry.computeBoundingSphere();
+      hlFill.geometry.computeBoundingSphere();
+    }
+    hlMesh.visible = P.length > 0;
+    hlRib.visible = Q.length > 0;
+    hlFill.visible = F.length > 0;
+  }
+
+  /* ---- 卡片 ---- */
+  const el = {
+    box: document.getElementById('inspect'),
+    fn:  document.getElementById('insp-fn'),
+    sub: document.getElementById('insp-sub'),
+    h:   document.getElementById('insp-h'),
+    fl:  document.getElementById('insp-fl'),
+    ar:  document.getElementById('insp-ar'),
+    cp:  document.getElementById('insp-cp'),
+    d:   document.getElementById('insp-d'),
+  };
+  let selB = null, hovB = null, hovDist = 0;
+
+  /* 三层的透明度只有「选中 / 悬停」两种状态，集中在一处改，别散在各个事件里。
+     悬停也要给一点顶面填充：远距离时一圈线只有几像素，填充是唯一还认得出的形状。
+     填充浓度按距离补：近距离屋顶占屏面积大，同浓度会糊成一整块青色；远距离只剩
+     一个指头大的面片，得浓一点才认得出来。跟环带的「像素换算」是同一个思路。 */
+  function hlStyle(sel, dist){
+    if(!hlMat) return;
+    hlMat.opacity     = sel ? 0.95 : 0.55;
+    hlRibMat.opacity  = sel ? 0.62 : 0.00;
+    const k = Math.min(1, Math.max(0, ((dist || 300) - 160) / 640));
+    hlFillMat.opacity = sel ? 0.055 + 0.055 * k : 0.028 + 0.022 * k;
+  }
+
+  function open(hit){
+    const b = hit.b;
+    const fi = Math.min(10, Math.max(0, b.func|0));
+    /* 质心 → 经纬度（proj 的逆） */
+    let mx = 0, mz = 0;
+    for(let k=0;k<b.n;k++){ mx += b.pts[k*2]; mz += b.pts[k*2+1]; }
+    mx /= b.n; mz /= b.n;
+    const la = O_LAT - mz / MP_LAT, lo = O_LON + mx / MP_LON;
+    const area = polyArea(b);
+    selB = b;
+    el.fn.textContent = FN_ZH[fi];
+    el.sub.textContent = FN_EN[fi] + ' · ' + la.toFixed(4) + 'N ' + lo.toFixed(4) + 'E';
+    el.h.innerHTML  = b.h.toFixed(1) + '<em>m</em>';
+    el.fl.innerHTML = Math.max(1, Math.round(b.h / 3.2)) + '<em>F</em>';
+    el.ar.innerHTML = area >= 10000 ? (area/10000).toFixed(2) + '<em>ha</em>'
+                                    : Math.round(area) + '<em>m²</em>';
+    el.cp.textContent = CAMP[(b.camp|0) & 3] || CAMP[0];
+    el.d.innerHTML  = hit.t >= 1000 ? (hit.t/1000).toFixed(2) + '<em>km</em>'
+                                    : Math.round(hit.t) + '<em>m</em>';
+    el.box.classList.add('on');
+    document.body.classList.add('insp');   /* 移动端靠它把 panel/nav 收掉 */
+    setHL(b, hit.t);             /* 先建物体再改材质 —— ensureHL 在里面 */
+    hlStyle(true, hit.t);
+  }
+  function close(){
+    if(!selB) return;
+    selB = null;
+    el.box.classList.remove('on');
+    document.body.classList.remove('insp');
+    setHL(hovB, hovDist);
+    hlStyle(false, hovDist);
+  }
+
+  /* 点选之后用户可能滚轮推远/拉近 —— 环带的像素宽度和填充浓度都是按点击那一刻的
+     距离算的，拉远后环带会细成一根线、填充也淡回看不清。距离变化超过 10% 才重建，
+     别每帧 new BufferAttribute（那会产生持续的 GC 压力）。 */
+  let hlLastD = 0;
+  function follow(){
+    if(!selB) return;
+    const p = selB.pts, n = selB.n;
+    let cx = 0, cz = 0;
+    for(let k=0;k<n;k++){ cx += p[k*2]; cz += p[k*2+1]; }
+    cx /= n; cz /= n;
+    const cy = selB.y0 + selB.h * 0.5;
+    const d = Math.hypot(camera.position.x - cx, camera.position.y - cy, camera.position.z - cz);
+    if(hlLastD && Math.abs(d - hlLastD) / hlLastD < 0.10) return;
+    hlLastD = d;
+    setHL(selB, d);
+    hlStyle(true, d);
+  }
+
+  /* ---- 事件：区分「点选」和「环绕拖拽」 ---- */
+  const cv = renderer.domElement;
+  let dX = 0, dY = 0, dT = 0, down = false;
+  cv.addEventListener('pointerdown', (e)=>{
+    if(e.button !== 0){ down = false; return; }
+    down = true; dX = e.clientX; dY = e.clientY; dT = performance.now();
+  });
+  cv.addEventListener('pointerup', (e)=>{
+    if(!down || e.button !== 0) return;
+    down = false;
+    if(Math.hypot(e.clientX - dX, e.clientY - dY) > 6) return;   // 拖过 = 在环绕，不算点选
+    if(performance.now() - dT > 700) return;
+    const hit = at(e.clientX, e.clientY);
+    if(hit) open(hit); else close();
+  });
+
+  let hovT = 0;
+  cv.addEventListener('pointermove', (e)=>{
+    if(down) return;
+    const now = performance.now();
+    if(now - hovT < 70) return;
+    hovT = now;
+    const hit = at(e.clientX, e.clientY);
+    const b = hit ? hit.b : null;
+    if(b === hovB) return;
+    hovB = b;
+    hovDist = hit ? hit.t : 0;
+    if(selB) return;                       // 已选中时高亮归选中项，hover 不抢
+    setHL(b, hovDist);
+    hlStyle(false, hovDist);
+  });
+  cv.addEventListener('pointerleave', ()=>{
+    if(selB) return;
+    hovB = null; hovDist = 0; setHL(null, 0);
+  });
+  addEventListener('keydown', (e)=>{ if(e.code === 'Escape') close(); });
+  document.getElementById('insp-x').addEventListener('click', close);
+
+  return { at, open, close, march, follow, get selected(){ return selB; } };
+})();
+
+/* ============================================================
+   E2. 小地图
+   ------------------------------------------------------------
+   底图一次性用 canvas 2D 画（水域掩膜 + 建筑足迹 + 四座桥），之后每帧只叠标记层。
+   不另开一个 Three.js 相机：场景 8,611,745 三角形，渲两遍不值这个钱，
+   而且正交俯视也看不出什么 —— 小地图要的是「城市形状」，不是「城市外观」。
+   底图等到首帧之后才画：19,524 个多边形的 fill 要 100~300ms，
+   放在关键路径上会把首帧推后，而首帧是「打开就能看」的唯一指标。
+   ============================================================ */
+const MM = (()=>{
+  const cv  = document.getElementById('mm-c');
+  const ctx = cv.getContext('2d');
+  const W = 352, H = 352;                 /* canvas 逻辑像素，CSS 显示 176² */
+  const PX = W / 176;                     /* 1 CSS px = 2 canvas px */
+  /* 世界范围直接借 WATM 那套（正好是整幅底图，且跟 isWater 同一个口径），等比缩放后居中 */
+  const x0 = WATM.x0, z0 = WATM.z0, SW = WATM.sx, SH = WATM.sz;
+  const k  = Math.min(W / SW, H / SH);
+  const ox = (W - SW * k) * 0.5, oz = (H - SH * k) * 0.5;
+  const wx = x  => ox + (x - x0) * k;
+  const wz = z  => oz + (z - z0) * k;
+  const ux = px => x0 + (px - ox) / k;
+  const uz = py => z0 + (py - oz) / k;
+
+  const base = document.createElement('canvas');
+  base.width = W; base.height = H;
+  let built = false;
+
+  /* 四档高度色。层次必须严格是「背景 < 水 < 建1 < 建2 < 建3 < 建4」：
+     第一版水面比建筑还亮，江看起来像发光带、城市像底噪。 */
+  const BG    = [13, 20, 28];
+  const WATER = [22, 41, 59];
+  const TIER_C = ['#26384a', '#334d64', '#4a6d8a', '#79a6ce'];
+  const TIER_H = [12, 30, 70];
+
+  function build(){
+    if(built) return;
+    const b = base.getContext('2d');
+    b.fillStyle = 'rgb(' + BG.join(',') + ')';
+    b.fillRect(0, 0, W, H);
+
+    /* ---- 水：WATM 是 n×n 字节掩膜（>108 = 水）。
+       逐像素写 ImageData，比 12 万次 fillRect 快两个量级。
+       列/行的掩膜下标预先算成表，内层循环只剩一次查表。
+       **背景色必须在这一层一起写** —— putImageData 是直接替换像素、完全忽略
+       alpha 合成，前面 fillRect 的底色会被整片抹成透明（第一版就是这样：
+       72% 的像素 alpha=0，小地图看着像一张只有江和楼的剪纸）。 ---- */
+    if(WATM.ok && WATM.n){
+      const n = WATM.n, d = WATM.d;
+      const img = b.createImageData(W, H);
+      const px = img.data;
+      const colI = new Int32Array(W), rowJ = new Int32Array(H);
+      const cl = v => v < 0 ? 0 : v >= n ? n - 1 : v;
+      for(let i=0;i<W;i++) colI[i] = cl((((((i - ox) / k) / SW) * n) | 0));
+      for(let j=0;j<H;j++) rowJ[j] = cl((((((j - oz) / k) / SH) * n) | 0));
+      for(let j=0;j<H;j++){
+        const rj = rowJ[j] * n;
+        for(let i=0;i<W;i++){
+          const p = (j*W + i) * 4;
+          const c = d[rj + colI[i]] > 108 ? WATER : BG;
+          px[p] = c[0]; px[p+1] = c[1]; px[p+2] = c[2]; px[p+3] = 255;
+        }
+      }
+      b.putImageData(img, 0, 0);
+    }
+
+    /* ---- 建筑 ----
+       352² 铺满 15.2km，1 像素 = 43m，一栋 20m 的住宅只有 0.23 像素。
+       画真实足迹会被抗锯齿摊成一层几乎看不见的灰雾（第一版就是这样，
+       整张图只剩江和桥）。所以低矮建筑改成「每栋一个 1.2px 方点」：
+       密集区自己连成片、稀疏区只剩点 —— 这正是小地图要的密度纹理。
+       高层（>70m）保留真实足迹，CBD 才会显出一块实心。 ---- */
+    if(typeof BD !== 'undefined' && BD && BD.all){
+      const LOW = [[], [], []], TALL = [], XL = [];
+      for(const bd of BD.all){
+        const t = bd.h < TIER_H[0] ? 0 : bd.h < TIER_H[1] ? 1 : bd.h < TIER_H[2] ? 2 : 3;
+        const n = bd.n, p = bd.pts;
+        let mx = 0, mz = 0;
+        for(let i=0;i<n;i++){ mx += p[i*2]; mz += p[i*2+1]; }
+        mx /= n; mz /= n;
+        if(t === 3){
+          TALL.push(bd);
+          /* 超高层（>150m）单独记一个点：真实足迹在 176px 上只有 1~2 像素，
+             跟旁边的写字楼分不开。单独点一个 2.2px 亮点，CBD 才会有一小簇
+             能一眼定位的亮白 —— 这是小地图上唯一「人为放大」的东西。 */
+          if(bd.h >= 150) XL.push(wx(mx), wz(mz));
+          continue;
+        }
+        LOW[t].push(wx(mx), wz(mz));
+      }
+      const S = 1.2 * PX, HS = S * 0.5;
+      for(let t=0;t<3;t++){
+        b.fillStyle = TIER_C[t];
+        const a = LOW[t];
+        for(let i=0;i<a.length;i+=2) b.fillRect(a[i] - HS, a[i+1] - HS, S, S);
+      }
+      if(XL.length){
+        const X2 = 2.2 * PX, XH = X2 * 0.5;
+        b.fillStyle = '#b8dbff';
+        for(let i=0;i<XL.length;i+=2) b.fillRect(XL[i] - XH, XL[i+1] - XH, X2, X2);
+      }
+      /* 高层：一次 fill 画完所有足迹，保证是实心块 */
+      if(TALL.length){
+        b.fillStyle = TIER_C[3];
+        b.beginPath();
+        for(const bd of TALL){
+          const n = bd.n, p = bd.pts;
+          b.moveTo(wx(p[0]), wz(p[1]));
+          for(let i=1;i<n;i++) b.lineTo(wx(p[i*2]), wz(p[i*2+1]));
+          b.closePath();
+        }
+        b.fill();
+      }
+    }
+
+    /* ---- 桥：四座，是小地图上最容易认的城市特征（橘子洲大桥横跨江心岛） ---- */
+    if(typeof BRIDGE_PATHS !== 'undefined' && BRIDGE_PATHS){
+      b.strokeStyle = 'rgba(126,198,236,.98)';
+      b.lineWidth = 1.5 * PX;
+      b.lineCap = 'round';
+      b.lineJoin = 'round';
+      for(const bp of BRIDGE_PATHS){
+        const p = bp.pts;
+        b.beginPath();
+        b.moveTo(wx(p[0][0]), wz(p[0][1]));
+        for(let i=1;i<p.length;i++) b.lineTo(wx(p[i][0]), wz(p[i][1]));
+        b.stroke();
+      }
+    }
+    built = true;
+  }
+
+  /* ---- 标记层 ----
+     两个性能约束，都是实测踩出来的（60fps → 34fps）：
+     ① **不要每帧 createRadialGradient** —— 每次都新分配一个渐变对象，
+        canvas 要重建 paint。改成把扇形预渲染到一张 96² 的小 canvas，之后只 drawImage + rotate。
+     ② **相机不动就不重绘** —— 静止浏览时小地图完全没必要每帧 clear + drawImage 352²。
+        位置差 < 0.6px、朝向差 < 0.01rad、选中项没变，直接 return。 */
+  const fan = document.createElement('canvas');
+  fan.width = fan.height = 96;
+  {
+    const f = fan.getContext('2d');
+    const g = f.createRadialGradient(48, 48, 0, 48, 48, 46);
+    g.addColorStop(0,   'rgba(53,214,255,.55)');
+    g.addColorStop(0.55,'rgba(53,214,255,.20)');
+    g.addColorStop(1,   'rgba(53,214,255,0)');
+    f.beginPath();
+    f.moveTo(48, 48);
+    f.arc(48, 48, 46, -0.40, 0.40);      /* 朝 +x，跟下面 rotate(ang) 配合 */
+    f.closePath();
+    f.fillStyle = g;
+    f.fill();
+  }
+
+  const coEl = document.getElementById('mm-co');
+  const MT = CITY.meta;
+  function fmtLL(x, z){
+    const la = MT.originLat - z / MT.mPerLat;
+    const lo = MT.originLon + x / MT.mPerLon;
+    return la.toFixed(4) + 'N ' + lo.toFixed(4) + 'E';
+  }
+
+  let lcx = 1e9, lcz = 1e9, lang = 1e9, lsel = null, lastCoT = 0;
+  function draw(force){
+    if(!built) return;
+    if(!cv.offsetParent) return;      /* 小地图所在 UI 被 display:none 时不用画 */
+
+    const sb = PICK.selected;
+    const cx = wx(camera.position.x), cz = wz(camera.position.z);
+    const ang = Math.atan2(controls.target.z - camera.position.z,
+                           controls.target.x - camera.position.x);
+    if(!force && Math.abs(cx - lcx) < 0.6 && Math.abs(cz - lcz) < 0.6 &&
+       Math.abs(ang - lang) < 0.010 && sb === lsel) return;
+    lcx = cx; lcz = cz; lang = ang; lsel = sb;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(base, 0, 0);
+
+    /* 选中建筑：小方框，跟相机的圆点区分开（E1 与 E2 的联动就这一笔） */
+    if(sb){
+      let mx = 0, mz = 0;
+      for(let i=0;i<sb.n;i++){ mx += sb.pts[i*2]; mz += sb.pts[i*2+1]; }
+      mx /= sb.n; mz /= sb.n;
+      const px = wx(mx), py = wz(mz);
+      ctx.beginPath();
+      ctx.rect(px - 2.6*PX, py - 2.6*PX, 5.2*PX, 5.2*PX);
+      ctx.strokeStyle = 'rgba(53,214,255,.95)';
+      ctx.lineWidth = 1.2*PX;
+      ctx.stroke();
+    }
+
+    /* 相机：位置圆点 + 朝向扇形。只用水平朝向（相机 → target 的 xz 分量）——
+       俯视图上俯仰角没意义。 */
+    const R = 30 * PX, S = R / 46;
+    ctx.save();
+    ctx.translate(cx, cz);
+    ctx.rotate(ang);
+    ctx.drawImage(fan, -48 * S, -48 * S, 96 * S, 96 * S);
+    ctx.restore();
+
+    /* 没在悬停时，坐标行跟着相机走 —— 否则一直是「—」，看着像坏了。
+       但**不能每帧写 DOM**：巡航时相机一直在动，60fps 的 textContent 写入
+       会让浏览器持续重排这个节点（实测 isle 视角掉到 32fps）。
+       经纬度显示 5Hz 完全够，只有文本真的变了才写。 */
+    if(!hovered){
+      const now = performance.now();
+      if(now - lastCoT > 200){
+        lastCoT = now;
+        const txt = fmtLL(camera.position.x, camera.position.z);
+        if(txt !== coEl.textContent) coEl.textContent = txt;
+      }
+    }
+
+    ctx.beginPath();
+    ctx.arc(cx, cz, 2.3*PX, 0, 6.2832);
+    ctx.fillStyle = '#e6f6ff';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(53,214,255,.85)';
+    ctx.lineWidth = 1.1*PX;
+    ctx.stroke();
+  }
+
+  /* ---- 交互：悬停读经纬度，点击飞过去 ---- */
+  function localPx(e){
+    const r = cv.getBoundingClientRect();
+    return [ (e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * H ];
+  }
+  let hovered = false;
+  let lastJump = null;
+  cv.addEventListener('pointermove', (e)=>{
+    const [px, py] = localPx(e);
+    hovered = true;
+    coEl.textContent = fmtLL(ux(px), uz(py));
+  });
+  cv.addEventListener('pointerleave', ()=> { hovered = false; });
+  cv.addEventListener('click', (e)=>{
+    const [px, py] = localPx(e);
+    const X = ux(px), Z = uz(py);
+    lastJump = { px:+px.toFixed(1), py:+py.toFixed(1), X:+X.toFixed(0), Z:+Z.toFixed(0) };
+    if(X < x0 || X > x0 + SW || Z < z0 || Z > z0 + SH){ lastJump.out = true; return; }
+    const y = terrainAt(X, Z);
+    /* 落点高度沿用当前视角的比例：低空巡航点小地图，不该被弹到平流层 */
+    const d = Math.max(260, Math.min(1100, (controls.getDistance() || 600) * 0.85));
+    lastJump.y = +y.toFixed(0); lastJump.d = +d.toFixed(0);
+    flyTo(new THREE.Vector3(X + d * 0.42, y + d * 0.70, Z + d * 0.62),
+          new THREE.Vector3(X, y, Z), 1.25);
+  });
+
+  /* 底图等首帧（`__paint.first` 渲染完才有值）之后再画；给个帧数上限防止它永远不出现。
+     **还要再等 1.5s**：build() 是一次 300~600ms 的同步长任务，首帧之后紧跟着跑
+     会跟「植被分帧构建 / 阴影首次更新」抢时间 —— 回归表现为 day_old / night_isle
+     这两张远景图冒出 0.03~0.04 的差异（看着像改了什么，其实只是时序）。
+     小地图晚 1.5 秒出现，用户根本看不出来。 */
+  let waitF = 0;
+  (function arm(){
+    if((window.__paint && window.__paint.first) || ++waitF > 900){
+      setTimeout(()=>{ build(); draw(true); }, 1500);
+      return;
+    }
+    requestAnimationFrame(arm);
+  })();
+
+  return { build, draw, get built(){ return built; },
+           get hovered(){ return hovered; }, get lastJump(){ return lastJump; },
+           wx, wz, ux, uz };
+})();
+
+/* ============================================================
+   E3. 分享截图
+   ------------------------------------------------------------
+   WebGL canvas 默认 `preserveDrawingBuffer: false`，所以 `toDataURL` **必须**在
+   `composer.render()` 之后的同一帧内调用 —— 离开这一帧 buffer 就失效，拿到的是空图
+   （这是「截图全黑」唯一的原因，不归因于跨域或缓存）。
+   流程：点按钮 → 藏 UI → 等两帧（DOM 生效 + 下一帧渲染）→ 渲染完立刻抓 → 合成水印 → 弹预览。
+   水印画桌面右下角，只有 CHANGSHA + 经纬度 + 时间，不压主视觉。
+   ============================================================ */
+const SHOT = (()=>{
+  const box   = document.getElementById('shotbox');
+  const img   = document.getElementById('shot-img');
+  const meta  = document.getElementById('shot-meta');
+  const dl    = document.getElementById('shot-dl');
+  const flash = document.getElementById('shot-flash');
+  const MT = CITY.meta;
+
+  let pending = 0, busy = false, saved = [];
+  const p2 = n => String(n).padStart(2, '0');
+
+  /* 藏掉所有 `.ui` 面板。
+     注意：`.label`（地名标签）和 `.vign`（暗角）**本来就不会进截图** ——
+     `toDataURL` 只抓 WebGL canvas，DOM 层完全不参与。所以截图天然是「纯净画面」，
+     不需要为它们做任何处理；想让标签出现在分享图里，得在 watermark 那一层重绘。 */
+  function hideUI(){
+    saved = [];
+    document.querySelectorAll('.ui, #load').forEach(e => {
+      saved.push([e, e.style.display]);
+      e.style.display = 'none';
+    });
+  }
+  function showUI(){
+    for(let i=0;i<saved.length;i++) saved[i][0].style.display = saved[i][1];
+    saved = [];
+  }
+
+  function stamp(){
+    const d = new Date();
+    return d.getFullYear() + p2(d.getMonth()+1) + p2(d.getDate()) + '-'
+         + p2(d.getHours()) + p2(d.getMinutes()) + p2(d.getSeconds());
+  }
+  function tsText(){
+    const d = new Date();
+    return d.getFullYear() + '-' + p2(d.getMonth()+1) + '-' + p2(d.getDate())
+         + ' ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
+  }
+
+  function watermark(g, W, H){
+    const k = Math.max(1, W / 1400);        /* 按分辨率缩放，2x 屏上字号才不会显得很小 */
+    const pad = Math.round(46 * k);
+    const x = W - pad, y = H - pad;
+    const la = (MT.originLat - camera.position.z / MT.mPerLat).toFixed(4);
+    const lo = (MT.originLon + camera.position.x / MT.mPerLon).toFixed(4);
+
+    g.save();
+    g.textAlign = 'right';
+    g.textBaseline = 'alphabetic';
+    /* 投影先铺一层，保证白字压在亮天空上也读得出来 */
+    g.shadowColor = 'rgba(0,0,0,.92)';
+    g.shadowBlur = 16 * k;
+
+    g.fillStyle = 'rgba(236,245,255,.97)';
+    g.font = '600 ' + Math.round(17 * k) + 'px ui-monospace, Menlo, monospace';
+    g.fillText('CHANGSHA', x, y - Math.round(25 * k));
+
+    g.fillStyle = 'rgba(192,212,240,.80)';
+    g.font = Math.round(10.5 * k) + 'px ui-monospace, Menlo, monospace';
+    g.fillText(la + 'N ' + lo + 'E   ' + tsText(), x, y);
+    g.restore();
+  }
+
+  function grab(){
+    const src = renderer.domElement;
+    const W = src.width, H = src.height;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const g = c.getContext('2d');
+    g.drawImage(src, 0, 0);
+    watermark(g, W, H);
+
+    let url = null;
+    try{ url = c.toDataURL('image/png'); } catch(err){ url = null; }
+    showUI();
+    busy = false;
+    if(!url){ console.warn('SHOT: toDataURL failed'); return; }
+
+    img.src = url;
+    dl.href = url;
+    dl.download = 'changsha-' + stamp() + '.png';
+    meta.textContent = W + ' × ' + H + '  ·  ' + (W * H / 1e6).toFixed(1) + ' MPX';
+    box.classList.add('on');
+  }
+
+  function shoot(){
+    if(busy || pending) return;
+    busy = true;
+    flash.classList.remove('go');
+    void flash.offsetWidth;                 /* 强制重排，动画才能重播 */
+    flash.classList.add('go');
+    hideUI();
+    pending = 2;                            /* 两帧：一帧让 display:none 生效，一帧干净渲染 */
+  }
+  function tick(){
+    if(!pending) return;
+    if(--pending > 0) return;
+    grab();
+  }
+  function close(){ box.classList.remove('on'); }
+
+  /* ---- 事件 ---- */
+  document.getElementById('btn-shot').addEventListener('click', shoot);
+  document.getElementById('shot-x').addEventListener('click', close);
+  box.addEventListener('click', (e)=>{ if(e.target === box) close(); });
+  /* Esc 用 capture：预览开着的时候要先关预览，不能直接落到 PICK 的 close 上 */
+  addEventListener('keydown', (e)=>{
+    if(e.code === 'Escape' && box.classList.contains('on')){ close(); e.stopPropagation(); }
+  }, true);
+  addEventListener('keydown', (e)=>{
+    if(e.code === 'KeyP' && !e.metaKey && !e.ctrlKey && !e.altKey) shoot();
+  });
+
+  /* ---- 分享链接：把当前视角编进 URL，别人打开就是同一个机位 ---- */
+  function shareURL(){
+    const p = camera.position, t = controls.target;
+    const q = new URLSearchParams();
+    q.set('hour', curHour.toFixed(2));
+    q.set('cam', [p.x, p.y, p.z].map(v => v.toFixed(1)).join(','));
+    q.set('tgt', [t.x, t.y, t.z].map(v => v.toFixed(1)).join(','));
+    return location.href.split('?')[0] + '?' + q.toString();
+  }
+  document.getElementById('btn-link').addEventListener('click', async ()=>{
+    const btn = document.getElementById('btn-link');
+    const url = shareURL();
+    let ok = false;
+    try{ await navigator.clipboard.writeText(url); ok = true; } catch(err){ ok = false; }
+    const old = btn.textContent;
+    btn.textContent = ok ? '已复制' : '复制失败';
+    btn.classList.add('on');
+    setTimeout(()=>{ btn.textContent = old; btn.classList.remove('on'); }, 1400);
+    if(!ok) console.log('SHARE URL', url);   /* 无剪贴板权限时至少留在控制台 */
+  });
+
+  return { shoot, tick, close, shareURL, get busy(){ return busy; } };
+})();
+
+/* ============================================================
+   E4 环境声：全程序化合成，零外部资源
+   ------------------------------------------------------------
+   单文件双击版不能带 wav/mp3，所以所有声音都是 WebAudio 现场合成的：
+   一条 3 秒白噪 buffer 并联到七八条滤波器链上，滤出哪一段就是哪种声音。
+   这不是妥协 —— 噪声 + 带通本来就是风、雨、江水、车流这类「无音高环境声」
+   的物理本质，比循环采样还省，而且永远不会有循环点的「咯哒」。
+
+   三条硬约束：
+   ① **必须在用户手势里创建 AudioContext**，否则浏览器把它建在 suspended；
+   ② **噪声 buffer 不能吃 `Math.random`** —— 它是三万个数级别的消耗，会跟
+      分帧构建的植被抢同一条随机序列（坑 7/16）。用模块自己的 xorshift32；
+   ③ 关声音只把 master 拉到 0，**不销毁节点** —— 再开是瞬时的，也不用重生成 buffer。
+   ============================================================ */
+const AUD = (()=>{
+  const btn = document.getElementById('btn-snd');
+
+  let ctx = null, master = null, on = false;
+  let city = null, city2 = null, street = null, windH = null, windL = null,
+      water = null, rain = null, rain2 = null, birdOut = null, crkOut = null;
+  let lastT = 0, waterT = 0, nextBird = 0, nTick = 0, nCalc = 0;
+  let wcache = { k: 0, pan: 0 };
+  /* 上一次 tick 算出的**逻辑目标值**。单独记一份纯 JS 数字：
+     `AudioParam.value` 只在音频量子被处理时才更新，而 headless / 高负载下
+     音频线程会被渲染饿死，读到的 `.value` 能滞后一秒以上（实测滞后一整个阶段）。
+     探针要验的是「驱动逻辑对不对」，不是「Chrome 音频线程跑多快」。 */
+  let tgt = { city: 0, street: 0, windH: 0, windL: 0, water: 0, rain: 0, bird: 0, crk: 0 };
+
+  /* 自己的 PRNG（xorshift32）。**绝不能吃 `Math.random`** ——
+     噪声 buffer 要三万多对数，跟植被分帧构建共用一条序列，多消费几十个就整片错位。 */
+  let rs = 0x2f6e2b1;
+  function rnd(){
+    rs ^= rs << 13; rs ^= rs >>> 17; rs ^= rs << 5; rs |= 0;
+    return (rs >>> 0) / 4294967296;
+  }
+
+  function noiseBuf(sec){
+    const sr = ctx.sampleRate;
+    const n = Math.floor(sr * sec);
+    const b = ctx.createBuffer(2, n, sr);
+    for(let ch = 0; ch < 2; ch++){
+      const d = b.getChannelData(ch);
+      /* 两个声道用不同种子 —— 天然就是「宽」的，不用额外做立体声扩展 */
+      let s = (0x9e3779b9 ^ ((ch + 1) * 0x85ebca6b)) | 0;
+      for(let i = 0; i < n; i++){
+        s ^= s << 13; s ^= s >>> 17; s ^= s << 5; s |= 0;
+        d[i] = s / 2147483648;
+      }
+    }
+    return b;
+  }
+
+  function init(){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return;
+    ctx = new AC();
+
+    /* 起手就是 0：第一次点击才淡入，不能让人被一记满音量的风声吓一跳 */
+    master = ctx.createGain();
+    master.gain.value = 0;
+
+    /* 压缩器兜底：风 + 雨 + 车流三层叠起来很容易顶到 0dB，没它一开雨就爆音 */
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -15;
+    comp.knee.value    = 22;
+    comp.ratio.value   = 3.4;
+    comp.attack.value  = 0.006;
+    comp.release.value = 0.30;
+    master.connect(comp);
+    comp.connect(ctx.destination);
+
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuf(3.0);
+    src.loop = true;
+
+    /* 一条 buffer、多条滤波器链并联。
+       voice(stages, pan) —— stages 是 [type, freq, Q] 顺序串联；pan 省略就不做声像。 */
+    function voice(stages, pan){
+      let node = src;
+      for(let i = 0; i < stages.length; i++){
+        const st = stages[i];
+        const bq = ctx.createBiquadFilter();
+        bq.type = st[0]; bq.frequency.value = st[1]; bq.Q.value = st[2];
+        node.connect(bq); node = bq;
+      }
+      const g = ctx.createGain(); g.gain.value = 0;
+      let p = null;
+      if(pan !== undefined && ctx.createStereoPanner){
+        p = ctx.createStereoPanner();
+        g.connect(p); p.connect(master); p.pan.value = pan;
+      } else g.connect(master);
+      return { g: g, p: p };
+    }
+
+    city  = voice([['lowpass', 125, 0.9]]);                              /* 城市远底噪：纯低频「嗡」 */
+    city2 = voice([['bandpass', 250, 0.7], ['lowpass', 540, 0.7]]);      /* 加一点中频，不然像闷在箱子里 */
+    street= voice([['bandpass', 330, 1.1], ['lowpass', 2400, 0.7]]);     /* 近处车流：轮胎压路面那条宽带 */
+    windH = voice([['bandpass', 760, 0.55], ['highpass', 240, 0.7]]);    /* 风主体「呼」 */
+    windL = voice([['highpass', 3700, 0.7]]);                            /* 树叶/电线的高频「沙」 */
+    water = voice([['bandpass', 430, 0.85], ['lowpass', 1500, 0.7]], 0); /* 江水 */
+    rain  = voice([['highpass', 1500, 0.7], ['lowpass', 7800, 0.7]]);    /* 雨幕 */
+    rain2 = voice([['highpass', 3100, 0.7]]);                            /* 雨点打在地面/雨棚上的碎响 */
+
+    birdOut = ctx.createGain(); birdOut.gain.value = 0; birdOut.connect(master);
+
+    /* 虫鸣：极窄带通（Q 13）取一段「金属味」的噪声，再用 26Hz 方波门控成「唧唧唧」。
+       门控和音量必须是两个 gain —— 一个节点同时当门和音量会互相打架（方波会把音量也削成 0/1）。 */
+    const crkBP = ctx.createBiquadFilter();
+    crkBP.type = 'bandpass'; crkBP.frequency.value = 4550; crkBP.Q.value = 13;
+    const crkGate = ctx.createGain(); crkGate.gain.value = 0.5;
+    crkOut = ctx.createGain(); crkOut.gain.value = 0;
+    src.connect(crkBP); crkBP.connect(crkGate);
+    crkGate.connect(crkOut); crkOut.connect(master);
+    const cLFO = ctx.createOscillator(); cLFO.type = 'square'; cLFO.frequency.value = 26;
+    const cDep = ctx.createGain(); cDep.gain.value = 0.5;
+    cLFO.connect(cDep); cDep.connect(crkGate.gain); cLFO.start();
+
+    /* 江面的慢起伏：0.11Hz 正弦 × ±0.018。不加这条，水声就是一条死平的白噪带 */
+    const wLFO = ctx.createOscillator(); wLFO.type = 'sine'; wLFO.frequency.value = 0.11;
+    const wDep = ctx.createGain(); wDep.gain.value = 0.018;
+    wLFO.connect(wDep); wDep.connect(water.g.gain); wLFO.start();
+
+    src.start();
+  }
+
+  function sv(param, v, ct){
+    param.setTargetAtTime(Math.max(0, v), ct, 0.30);
+  }
+
+  /* 到水的「接近度」与方位。12 个方向 × 6 档距离探一次，600ms 一次 ——
+     40 次掩膜查表（`isWater`）成本可以忽略，但足够知道「江在哪边、有多近」。 */
+  const _rv = new THREE.Vector3();
+  function probeWater(p){
+    if(isWater(p.x, p.z)) return { k: 1, pan: 0 };
+    let best = 0, bestAng = 0;
+    for(let a = 0; a < 12; a++){
+      const ang = a * Math.PI / 6;
+      const dx = Math.cos(ang), dz = Math.sin(ang);
+      for(let d = 60; d <= 460; d += 80){
+        if(isWater(p.x + dx * d, p.z + dz * d)){
+          const k = Math.max(0, 1 - (d - 60) / 480);
+          if(k > best){ best = k; bestAng = ang; }
+          break;
+        }
+      }
+    }
+    let pan = 0;
+    if(best > 0){
+      /* 把「水的方向」投影到相机的右向量上 —— 转头时江声会跟着从右耳滑到左耳 */
+      _rv.set(1, 0, 0).applyQuaternion(camera.quaternion);
+      pan = Math.cos(bestAng) * _rv.x + Math.sin(bestAng) * _rv.z;
+      pan = Math.max(-1, Math.min(1, pan));
+    }
+    return { k: best, pan: pan };
+  }
+
+  /* 鸟叫：2~4 个短促的滑音，每次换随机音高和声像。
+     只在白天且不下雨时触发 —— 下雨鸟不出来，这条本身就是「场景在呼吸」的信号。 */
+  function chirp(){
+    const t0 = ctx.currentTime + 0.05;
+    let pan = null, sink = birdOut;
+    if(ctx.createStereoPanner){
+      pan = ctx.createStereoPanner();
+      pan.pan.value = rnd() * 1.7 - 0.85;
+      pan.connect(birdOut);
+      sink = pan;
+    }
+    let t = t0;
+    const n = 2 + ((rnd() * 3) | 0);
+    for(let i = 0; i < n; i++){
+      const o = ctx.createOscillator();
+      const eg = ctx.createGain();
+      const f0 = 1750 + rnd() * 1500;
+      o.type = 'sine';
+      o.frequency.setValueAtTime(f0, t);
+      o.frequency.exponentialRampToValueAtTime(f0 * 1.62, t + 0.042);
+      o.frequency.exponentialRampToValueAtTime(f0 * 0.88, t + 0.108);
+      eg.gain.setValueAtTime(0.0001, t);
+      eg.gain.linearRampToValueAtTime(0.13, t + 0.013);
+      eg.gain.exponentialRampToValueAtTime(0.0006, t + 0.115);
+      o.connect(eg); eg.connect(sink);
+      o.start(t); o.stop(t + 0.13);
+      t += 0.112 + rnd() * 0.075;
+    }
+    /* panner 播完要断开，否则一直挂在 birdOut 上累积 */
+    if(pan){
+      const ms = Math.max(400, (t - t0 + 0.6) * 1000);
+      setTimeout(()=>{ try{ pan.disconnect(); }catch(e){} }, ms);
+    }
+  }
+
+  /* 10Hz 更新目标音量。不用每帧：`setTargetAtTime` 每帧重设一次会让自动化曲线
+     一直在「重新起步」，而且白占 CPU；10Hz 配合 0.30s 的时间常数已经足够平滑。 */
+  function tick(){
+    if(!ctx || !on) return;
+    nTick++;
+    const now = performance.now();
+    if(now - lastT < 100) return;
+    lastT = now;
+    nCalc++;
+    const ct = ctx.currentTime;
+    const p  = camera.position;
+
+    /* 离地高度：一切「你在哪一层」的判断都用它 —— 街面、楼上、还是天上 */
+    const gh = Math.max(0, p.y - walkTop(p.x, p.z));
+
+    /* 城市底噪：贴着街面最厚，700m 以上只剩一层远处的低频 */
+    const kCity = 0.34 + 0.10 * (1 - Math.min(1, gh / 700));
+    tgt.city = 0.52 * kCity;
+    sv(city.g.gain,  tgt.city, ct);
+    sv(city2.g.gain, 0.19 * kCity, ct);
+
+    /* 街面车流：130m 以上基本听不到（真实城市也是这个尺度） */
+    const kSt = Math.pow(1 - Math.min(1, gh / 130), 1.7);
+    tgt.street = 0.62 * kSt;
+    sv(street.g.gain, tgt.street, ct);
+
+    /* 风：25m 以下几乎没有（被楼挡住），400m 起明显 */
+    const rainNow = (weather === 'rain') && !qRainOff;
+    const kW = Math.min(1, Math.max(0, (gh - 25) / 380));
+    tgt.windH = 0.055 + 0.50 * kW + (rainNow ? 0.10 : 0);
+    tgt.windL = 0.018 + 0.19 * kW + (rainNow ? 0.06 : 0);
+    sv(windH.g.gain, tgt.windH, ct);
+    sv(windL.g.gain, tgt.windL, ct);
+
+    /* 江水 */
+    if(now - waterT > 600){ waterT = now; wcache = probeWater(p); }
+    tgt.water = 0.55 * wcache.k;
+    sv(water.g.gain, tgt.water, ct);
+    if(water.p) water.p.pan.setTargetAtTime(wcache.pan * 0.85, ct, 0.5);
+
+    /* 雨 */
+    tgt.rain = rainNow ? 0.46 : 0;
+    sv(rain.g.gain,  tgt.rain, ct);
+    sv(rain2.g.gain, rainNow ? 0.17 : 0, ct);
+
+    /* 昼夜：鸟和虫互斥。雾天鸟少、虫子更少（湿度高但没人愿意叫） */
+    const nightK = skyUniforms.uNight.value;
+    const wet = rainNow || weather === 'fog';
+    tgt.bird = (1 - nightK) * (wet ? 0.15 : 1.0);
+    tgt.crk  = nightK * (wet ? 0.22 : 1.0) * 0.30;
+    sv(birdOut.gain, tgt.bird, ct);
+    sv(crkOut.gain,  tgt.crk, ct);
+
+    if((1 - nightK) > 0.55 && !wet && now > nextBird){
+      nextBird = now + 2400 + rnd() * 5400;
+      chirp();
+    }
+  }
+
+  function toggle(){
+    if(!ctx){ init(); if(!ctx) return; }
+    on = !on;
+    const ct = ctx.currentTime;
+    if(on){
+      if(ctx.state === 'suspended') ctx.resume();
+      /* 线性斜坡会真正落到目标值；`setTargetAtTime` 是指数逼近，永远差一点点。
+         开启 0.55s / 关闭 0.30s —— 关闭要快，否则点了静音还在响。 */
+      master.gain.cancelScheduledValues(ct);
+      master.gain.setValueAtTime(master.gain.value, ct);
+      master.gain.linearRampToValueAtTime(0.50, ct + 0.55);
+      tick();
+    } else {
+      master.gain.cancelScheduledValues(ct);
+      master.gain.setValueAtTime(master.gain.value, ct);
+      master.gain.linearRampToValueAtTime(0.0, ct + 0.30);
+    }
+    btn.textContent = on ? '静音' : '开声';
+    btn.classList.toggle('on', on);
+  }
+
+  btn.addEventListener('click', toggle);
+  addEventListener('keydown', (e)=>{
+    if(e.code === 'KeyM' && !e.metaKey && !e.ctrlKey && !e.altKey) toggle();
+  });
+
+  /* 标签页切走就挂起：环境声没人听，没必要让音频线程一直跑 */
+  document.addEventListener('visibilitychange', ()=>{
+    if(!ctx) return;
+    if(document.hidden){ if(ctx.state === 'running') ctx.suspend(); }
+    else if(on && ctx.state === 'suspended') ctx.resume();
+  });
+
+  function dbg(){
+    if(!ctx) return { on: on, ctx: null };
+    const g = {
+      city:   +city.g.gain.value.toFixed(3),
+      city2:  +city2.g.gain.value.toFixed(3),
+      street: +street.g.gain.value.toFixed(3),
+      windH:  +windH.g.gain.value.toFixed(3),
+      windL:  +windL.g.gain.value.toFixed(3),
+      water:  +water.g.gain.value.toFixed(3),
+      rain:   +rain.g.gain.value.toFixed(3),
+      rain2:  +rain2.g.gain.value.toFixed(3),
+      bird:   +birdOut.gain.value.toFixed(3),
+      crk:    +crkOut.gain.value.toFixed(3)
+    };
+    return {
+      on: on, state: ctx.state, sr: ctx.sampleRate, nTick: nTick, nCalc: nCalc,
+      master: +master.gain.value.toFixed(4),
+      gh: +Math.max(0, camera.position.y - walkTop(camera.position.x, camera.position.z)).toFixed(1),
+      water: { k: +wcache.k.toFixed(3), pan: +wcache.pan.toFixed(2) },
+      tgt: {
+        city:   +tgt.city.toFixed(3),
+        street: +tgt.street.toFixed(3),
+        windH:  +tgt.windH.toFixed(3),
+        windL:  +tgt.windL.toFixed(3),
+        water:  +tgt.water.toFixed(3),
+        rain:   +tgt.rain.toFixed(3),
+        bird:   +tgt.bird.toFixed(3),
+        crk:    +tgt.crk.toFixed(3)
+      },
+      g: g
+    };
+  }
+
+  return { toggle: toggle, tick: tick, dbg: dbg, get on(){ return on; }, get ctx(){ return ctx; } };
+})();
+
 addEventListener('keydown', (e)=>{
   if(['KeyW','KeyA','KeyS','KeyD','KeyQ','KeyE','ShiftLeft','ShiftRight'].includes(e.code)){
     keys[e.code] = true;
@@ -6252,14 +8467,18 @@ function applyTime(hour){
   signUniforms.uNight.value = night;
   signUniforms.uFogColor.value.copy(fog);
   signUniforms.uFogDensity.value = fogD;
-  shopUniforms.uDay.value = day;
-  shopUniforms.uSunDir.value.copy(_sunDir);
-  shopUniforms.uSunCol.value.copy(sun).multiplyScalar(sunI);
-  shopUniforms.uSkyAmb.value.copy(amb);
-  shopUniforms.uFogColor.value.copy(fog);
-  shopUniforms.uFogDensity.value = fogD;
-  shopUniforms.uNight.value = night;
-  shopUniforms.uLamp.value.copy(PAL.lamp);
+  /* 店面主体 + 门洞 + 街道家具共用同一套环境参数
+     （SHADOW / SKYIRR 的 uniform 对象本来就是同一份引用） */
+  for(const su of [shopUniforms, shopGlassMat.uniforms, furnUniforms]){
+    su.uDay.value = day;
+    su.uSunDir.value.copy(_sunDir);
+    su.uSunCol.value.copy(sun).multiplyScalar(sunI);
+    su.uSkyAmb.value.copy(amb);
+    su.uFogColor.value.copy(fog);
+    su.uFogDensity.value = fogD;
+    su.uNight.value = night;
+    su.uLamp.value.copy(PAL.lamp);
+  }
   bridgeUniforms.uLamp.value.copy(PAL.lamp);
   const wu = water.material.uniforms;
   wu.uHour.value = cityUniforms.uHour.value;
@@ -6380,6 +8599,17 @@ function applyQuality(mode){
   /* 店面真几何：low 回退到纯着色器店面（着色器那套本来就还在，只是少了凸出件） */
   if(typeof shopBuilt !== 'undefined' && shopBuilt && shopBuilt.mesh){
     shopBuilt.mesh.visible = mode !== 'low';
+    if(shopBuilt.meshGlass) shopBuilt.meshGlass.visible = mode !== 'low';
+  }
+  /* 街道家具：low 只留「构成街道边界」的三类（护栏/垃圾桶/配电柜），
+     公交站和空调外机是纯细节，mid 以上才给。护栏本身很便宜（7.3 tri/m）。 */
+  if(typeof furnBuilt !== 'undefined' && furnBuilt && furnBuilt.meshes){
+    for(const m of furnBuilt.meshes){
+      const nm = m.name;
+      m.visible = (mode === 'low')
+        ? (nm === 'furnRail' || nm === 'furnRailL' || nm === 'furnBin' || nm === 'furnCab')
+        : true;
+    }
   }
   const shadowsOn = mode !== 'low';
   SHADOW.setEnabled(shadowsOn);
@@ -6397,7 +8627,7 @@ document.querySelectorAll('.chip.q').forEach(b=>{
 performance.mark('B:done');
 applyTime(21);
 
-/* ---------- URL 参数：?hour=21&view=cbd&wx=rain&q=low ---------- */
+/* ---------- URL 参数：?hour=21&view=cbd&wx=rain&q=low&cam=x,y,z&tgt=x,y,z ---------- */
 (function urlParams(){
   const Q = new URLSearchParams(location.search);
   if(Q.has('wx')){ const w = Q.get('wx'); if(WX[w]) weather = w; }
@@ -6405,6 +8635,17 @@ applyTime(21);
   if(Q.has('view')){
     const v = HOME[Q.get('view')];
     if(v){ camera.position.copy(v.p); controls.target.copy(v.t); controls.update(); }
+  }
+  /* ?cam=x,y,z&tgt=x,y,z —— 「分享链接」用这两个把机位钉死。
+     放在 view 之后：分享链接里不会带 view，但万一带了，cam 应该赢。 */
+  {
+    const num = s => { const a = String(s).split(',').map(Number);
+      return a.length === 3 && a.every(Number.isFinite) ? a : null; };
+    const cp = Q.has('cam') ? num(Q.get('cam')) : null;
+    const ct = Q.has('tgt') ? num(Q.get('tgt')) : null;
+    if(cp) camera.position.set(cp[0], cp[1], cp[2]);
+    if(ct) controls.target.set(ct[0], ct[1], ct[2]);
+    if(cp || ct) controls.update();
   }
   if(Q.has('q')){ const m = Q.get('q'); if(['auto','high','mid','low'].includes(m)) applyQuality(m); }
   /* ?signs=core|deco|all —— 钉死招牌等级，用来 A/B 对比帧率与观感 */
@@ -6459,6 +8700,9 @@ function tick(){
   updateFireworks(elapsed, dt);
   updateRain(elapsed);
   updateLabels();
+  PICK.follow();          /* 相机推拉后按新距离重算高亮的环带宽度与填充浓度 */
+  MM.draw();              /* 小地图标记层（底图只在首帧后画一次） */
+  AUD.tick();             /* 环境声：10Hz 更新各声源目标音量（含水的方位探测） */
 
   cityUniforms.uTime.value = elapsed;
   roadUniforms.uTime.value = elapsed;
@@ -6480,6 +8724,7 @@ function tick(){
   else composer.render();
   if(PERF_ON){ perfGpuEnd(); perfGpuPoll(); }
   perfFrameStats();
+  SHOT.tick();            /* 截图必须在 composer.render() 之后、同一帧内抓 */
 
   /* fps 要用未裁剪的 dt 累加：dt 被 clamp 到 50ms 时，20fps 以下会一律报成 20 */
   frames++; fpsT += Math.min(_raw, 0.5);
@@ -6525,10 +8770,12 @@ function tick(){
 setTimeout(tick, 200);
 window.__dbg = { scene, camera, water, cityMesh, roadMesh, flyTo, HOME, setTour, enterFree, C, THREE,
   getFly: ()=> (fly ? {k:fly.k, p1:fly.p1.toArray().map(v=>Math.round(v)), dur:fly.dur} : null),
-  getMode: ()=> mode, applyTime, getHour: ()=> curHour, setWeather: (w)=>{ weather = w; applyTime(curHour); }, bloom, terrainAt, TERR, controls, now:()=>elapsed,
+  getMode: ()=> mode, applyTime, getHour: ()=> curHour, setWeather: (w)=>{ weather = w; applyTime(curHour); }, bloom, terrainAt, walkTop, roadTop, TERR, controls, now:()=>elapsed,
   setTime:(t)=>{ elapsed = t; },   /* 仅供回归截图：冻结时钟后把 elapsed 钉到固定值 */
   veg: ()=> vegBuilt, vegUniforms, vegShadowUniforms, VP, RNB, roadsBuilt, roofMesh, getRoofV: ()=> roofVCount, roofOverflow, carMesh, lampMesh, carArr, lampArr, trafficMesh, trafficMeshes, trafficGroup, TRAFFIC, pedMesh, bikeMesh, WALK,
-  renderer, composer, OCC, BD, isWater, addV, WATM, SHADOW, SKYIRR, BRIDGE_STATS, BRIDGE_DEBUG, SIGNS: signBuilt, SHOPS: shopBuilt, getBankLights: ()=> BANK_LIGHTS,
+  renderer, composer, OCC, BD, PICK, MM, SHOT, AUD, isWater, get fly(){ return fly; }, get mode(){ return mode; }, addV, WATM, SHADOW, SKYIRR, BRIDGE_STATS, BRIDGE_DEBUG, BRIDGES: BRIDGE_PATHS, deckY, deckSection, BRIDGE_WIDTH, SIGNS: signBuilt, SHOPS: shopBuilt, FURN: furnBuilt, FURNDBG: furnDbg, getBankLights: ()=> BANK_LIGHTS,
+  /* 诊断：AUD 的闭包到底读到了什么（排查「切天气/切时间声音不跟随」） */
+  get wxNow(){ return weather; }, get nightNow(){ return skyUniforms.uNight.value; }, get rainOnNow(){ return rainOn; },
   stats: ()=> ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles,
                  programs: renderer.info.programs.length, textures: renderer.info.memory.textures,
                  geometries: renderer.info.memory.geometries,

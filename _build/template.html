@@ -50,6 +50,61 @@
   #stats{right:40px;top:36px;text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:8px;
     letter-spacing:.18em;color:rgba(170,190,220,.28);line-height:1.9;}
   #stats b{color:rgba(206,220,240,.55);font-weight:400;}
+  /* ---- E1 建筑检视卡片 ---- */
+  #inspect{right:40px;top:106px;width:238px;opacity:0;transform:translateX(10px);visibility:hidden;
+    transition:opacity .40s ease,transform .46s cubic-bezier(.2,.8,.2,1),visibility 0s linear .46s;}
+  #inspect.on{opacity:1;transform:none;visibility:visible;transition:opacity .40s ease,transform .46s cubic-bezier(.2,.8,.2,1),visibility 0s;}
+  #inspect .card{position:relative;background:linear-gradient(180deg,rgba(11,17,28,.84),rgba(7,11,19,.78));
+    border:1px solid rgba(160,190,230,.20);border-radius:2px;padding:15px 16px 13px;
+    backdrop-filter:blur(12px) saturate(1.12);-webkit-backdrop-filter:blur(12px) saturate(1.12);
+    box-shadow:0 22px 56px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);}
+  /* 8px 的等宽小字用在英文标签上没问题，但中文项名（高度/层数/占地…）在这个尺寸下
+     几乎读不出来，所以 .n 单独提到 9px；.k / .sub / 单位也跟着提了一档不透明度。 */
+  #inspect .k{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.26em;color:rgba(176,198,230,.58);}
+  #inspect .ttl{margin-top:9px;font-size:14px;letter-spacing:.13em;color:rgba(240,246,255,.96);line-height:1.15;}
+  #inspect .sub{margin-top:7px;font-family:ui-monospace,Menlo,monospace;font-size:8px;
+    letter-spacing:.16em;color:rgba(150,202,255,.72);white-space:nowrap;}
+  #inspect .hr{height:1px;background:linear-gradient(90deg,rgba(160,190,230,.24),rgba(160,190,230,0));margin:13px 0 11px;}
+  #inspect .rows{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;align-items:baseline;}
+  #inspect .rows .n{font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.13em;color:rgba(178,198,228,.62);}
+  #inspect .rows .v{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.05em;
+    color:rgba(230,240,254,.94);text-align:right;}
+  #inspect .rows .v em{font-style:normal;font-size:8.5px;letter-spacing:0;color:rgba(178,200,232,.70);margin-left:3px;}
+  #inspect .x{position:absolute;right:8px;top:7px;width:20px;height:20px;padding:0;border:0;background:none;
+    color:rgba(178,198,228,.56);cursor:pointer;font-size:12px;line-height:1;font-family:inherit;transition:color .3s;}
+  #inspect .x:hover{color:rgba(232,242,255,.95);}
+  /* ---- E2 小地图 ---- */
+  #mm{left:40px;top:118px;width:176px;}
+  #mm .box{position:relative;width:176px;height:176px;border-radius:2px;overflow:hidden;
+    border:1px solid rgba(160,190,230,.24);background:#0d141c;
+    box-shadow:0 20px 48px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.05);}
+  #mm canvas{display:block;width:176px;height:176px;cursor:crosshair;}
+  #mm .cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:7px;
+    font-family:ui-monospace,Menlo,monospace;font-size:8px;letter-spacing:.15em;color:rgba(176,198,228,.70);}
+  #mm .cap b{color:rgba(216,234,255,.88);font-weight:400;}
+  /* ---- E3 分享截图 ---- */
+  #shotbox{inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(3,6,11,.84);backdrop-filter:blur(7px) saturate(.9);-webkit-backdrop-filter:blur(7px) saturate(.9);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .34s ease,visibility 0s linear .34s;}
+  #shotbox.on{opacity:1;visibility:visible;pointer-events:auto;
+    transition:opacity .30s ease,visibility 0s;}
+  #shotbox .wrap{display:flex;flex-direction:column;gap:15px;max-width:86vw;}
+  #shotbox img{display:block;max-width:86vw;max-height:73vh;border:1px solid rgba(160,190,230,.22);
+    box-shadow:0 34px 90px rgba(0,0,0,.72);background:#05080e;}
+  #shotbox .bar{display:flex;justify-content:space-between;align-items:center;gap:22px;}
+  #shotbox .meta{font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.16em;
+    color:rgba(186,206,234,.72);white-space:nowrap;}
+  #shotbox .acts{display:flex;gap:8px;}
+  #shotbox a.chip{text-decoration:none;display:inline-flex;align-items:center;}
+  /* 遮罩是深色，.chip 默认的 --ink-3 在上面几乎看不见 —— 这里单独提亮 */
+  #shotbox .acts .chip{color:rgba(216,234,255,.90);border-color:rgba(160,190,230,.34);background:rgba(255,255,255,.05);}
+  #shotbox .acts .chip:hover{color:#fff;border-color:rgba(160,190,230,.62);background:rgba(255,255,255,.10);}
+  #shotbox #shot-dl{color:#0a0f18;background:rgba(196,224,255,.94);border-color:rgba(196,224,255,.94);}
+  #shotbox #shot-dl:hover{color:#0a0f18;background:#e4f1ff;border-color:#e4f1ff;}
+  #shot-flash{position:fixed;inset:0;z-index:40;background:#eaf4ff;opacity:0;pointer-events:none;}
+  #shot-flash.go{animation:flash .42s ease-out;}
+  @keyframes flash{0%{opacity:.55}100%{opacity:0}}
   .label{position:fixed;z-index:9;pointer-events:none;transform:translate(-50%,-50%);transition:opacity .4s ease;}
   .label .en{font-family:ui-monospace,Menlo,monospace;font-size:8px;letter-spacing:.22em;color:rgba(216,230,250,.72);white-space:nowrap;}
   .label .zh{font-size:10px;letter-spacing:.18em;color:rgba(238,244,255,.9);margin-top:3px;white-space:nowrap;}
@@ -75,6 +130,16 @@
   @media (max-width:820px){
     #brand{left:22px;top:24px;} #nav{left:22px;bottom:26px;} #panel{right:22px;bottom:26px;gap:12px;}
     #stats{display:none;} #hint{display:none;} #hour{width:92px;} #brand h1{font-size:12px;letter-spacing:.3em;}
+    /* 小地图在 390px 宽的屏幕上如果保持 176px 会占掉 45% 画面，
+       缩到 124（底图分辨率仍是 352²，只是显示更小，反而更清楚）。 */
+    #mm{left:22px;top:88px;width:124px;}
+    #mm .box,#mm canvas{width:124px;height:124px;}
+    #mm .cap{font-size:7px;letter-spacing:.10em;}
+    /* 检视卡片在手机上贴底、占满宽度，别让 238px 固定宽挡住大半个画面。
+       卡片一出现，右下那堆 chip 和左下导航必然被压住 —— 直接收掉，别让它们
+       半透明地浮在卡片上面（黑底叠黑底，看着像坏掉）。 */
+    #inspect{left:12px;right:12px;top:auto;bottom:14px;width:auto;}
+    body.insp #panel, body.insp #nav{opacity:0;pointer-events:none;transition:opacity .3s ease;}
   }
 </style>
 </head>
@@ -93,6 +158,13 @@
   </div>
 </div>
 
+<div class="ui" id="mm">
+  <div class="box">
+    <canvas id="mm-c" width="352" height="352"></canvas>
+  </div>
+  <div class="cap"><span id="mm-co">—</span><b id="mm-sc">15.2km</b></div>
+</div>
+
 <div class="ui" id="nav">
   <button data-mode="free" class="on"><span class="n">01</span><span class="ln"></span>FREE</button>
   <button data-mode="tour"><span class="n">02</span><span class="ln"></span>TOUR</button>
@@ -100,6 +172,15 @@
 </div>
 
 <div class="ui" id="panel">
+  <div class="grp">
+    <span class="lbl">SHARE</span>
+    <button class="chip" id="btn-shot">拍照</button>
+    <button class="chip" id="btn-link">链接</button>
+  </div>
+  <div class="grp">
+    <span class="lbl">SOUND</span>
+    <button class="chip" id="btn-snd" title="环境声：风 / 江水 / 车流 / 雨 / 鸟虫（P 拍照 · M 静音）">开声</button>
+  </div>
   <div class="grp">
     <span class="lbl">CSU</span>
     <button class="chip camp" data-camp="1">岳麓山</button>
@@ -142,13 +223,44 @@
   </div>
 </div>
 
-<div class="ui" id="hint">左键环绕 · 右键平移 · 滚轮推拉 · WASD 移动 · QE 升降 · 双击定位 · WALK 下拖拽转头</div>
+<div class="ui" id="hint">左键环绕 · 单击检视 · 右键平移 · 滚轮缩放 · WASD 移动 · 空格巡航</div>
 <div class="ui" id="stats">
   <div><b id="s-build">0</b> BUILDINGS</div>
   <div><b id="s-road">0</b> ROADS</div>
   <div><b id="s-tree">0</b> TREES</div>
   <div><b id="s-fps">60</b> FPS</div>
 </div>
+
+<div class="ui" id="inspect">
+  <div class="card">
+    <button class="x" id="insp-x" title="关闭 (Esc)">✕</button>
+    <div class="k">INSPECT · 建筑检视</div>
+    <div class="ttl" id="insp-fn">—</div>
+    <div class="sub" id="insp-sub">—</div>
+    <div class="hr"></div>
+    <div class="rows">
+      <div class="n">高度</div><div class="v" id="insp-h">—</div>
+      <div class="n">层数</div><div class="v" id="insp-fl">—</div>
+      <div class="n">占地</div><div class="v" id="insp-ar">—</div>
+      <div class="n">片区</div><div class="v" id="insp-cp">—</div>
+      <div class="n">距离</div><div class="v" id="insp-d">—</div>
+    </div>
+  </div>
+</div>
+
+<div class="ui" id="shotbox">
+  <div class="wrap">
+    <img id="shot-img" alt="长沙 · 截图预览">
+    <div class="bar">
+      <span class="meta" id="shot-meta">—</span>
+      <div class="acts">
+        <a class="chip" id="shot-dl" href="#" download="changsha.png">下载 PNG</a>
+        <button class="chip" id="shot-x">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="shot-flash"></div>
 
 <div id="load">
   <div class="t">
