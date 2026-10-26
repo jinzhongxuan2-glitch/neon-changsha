@@ -7097,6 +7097,7 @@ const PICK = (()=>{
                                     : Math.round(hit.t) + '<em>m</em>';
     el.box.classList.add('on');
     document.body.classList.add('insp');   /* 移动端靠它把 panel/nav 收掉 */
+    document.body.classList.remove('ctrl'); /* 卡片和面板都是贴底的，别同时开 */
     setHL(b, hit.t);             /* 先建物体再改材质 —— ensureHL 在里面 */
     hlStyle(true, hit.t);
   }
@@ -8268,6 +8269,27 @@ function applyTime(hour){
 hourEl.addEventListener('input', e=> applyTime(parseFloat(e.target.value)/60));
 document.querySelectorAll('.chip.wx').forEach(b=>{
   b.addEventListener('click', ()=>{ weather = b.dataset.wx; applyTime(curHour); });
+});
+
+/* ---------- 移动端控制面板的开合 ----------
+   桌面上 #ctrl 是 display:none，这段逻辑点不到，也不会改变 #panel 的桌面布局
+   （body.ctrl 只在 media query 里被引用）。 */
+const ctrlBtn = document.getElementById('ctrl');
+if(ctrlBtn){
+  ctrlBtn.addEventListener('click', (e)=>{
+    e.stopPropagation();          /* 别让这次点击冒到画布、顺手又把面板关掉 */
+    document.body.classList.toggle('ctrl');
+  });
+}
+/* 顶部的把手：同样能收起（圆钮展开后是隐藏的，见 CSS） */
+document.getElementById('panel-grab').addEventListener('click', (e)=>{
+  e.stopPropagation();
+  document.body.classList.remove('ctrl');
+});
+/* 点画面就把面板收起来：手机上开面板是为了调参数，调完要能立刻回到「看城市」。
+   不挂在 window 上是因为画布外的空白（比如遮罩）不该触发。 */
+document.getElementById('app').addEventListener('pointerdown', ()=>{
+  document.body.classList.remove('ctrl');
 });
 /* ---------- 贴图异步载入（data URI，几乎瞬时） ---------- */
 (function loadTextures(){

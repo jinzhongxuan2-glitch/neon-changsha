@@ -35,6 +35,12 @@
   #nav button.on .ln{width:26px;}
   #nav button:hover{color:var(--ink-2);}
   #panel{right:40px;bottom:44px;display:flex;flex-direction:column;align-items:flex-end;gap:18px;}
+  /* 控制面板的开合钮只在移动端出现（桌面屏幕够大，面板常驻不碍事） */
+  #ctrl{display:none;}
+  /* 触屏手势提示：只在移动端显示，5 秒后自己淡掉 */
+  #touchhint{display:none;}
+  /* 面板顶部的「把手」：展开后点它收起。桌面端不需要，隐藏 */
+  #panel .grab{display:none;}
   #panel .grp{display:flex;gap:8px;align-items:center;}
   #panel .lbl{font-family:ui-monospace,Menlo,monospace;font-size:8px;letter-spacing:.22em;color:var(--ink-3);margin-right:6px;}
   .chip{background:rgba(255,255,255,.03);border:1px solid rgba(160,190,230,.16);color:var(--ink-3);cursor:pointer;
@@ -127,14 +133,80 @@
   @keyframes lbar{from{width:1%}to{width:92%}}
   .vign{position:fixed;inset:0;z-index:5;pointer-events:none;background:radial-gradient(ellipse at 50% 46%,rgba(0,0,0,0) 42%,rgba(0,0,0,.38) 100%);}
   .topline{position:fixed;top:0;left:0;right:0;height:1px;z-index:6;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(180,210,255,.16),rgba(255,255,255,0));pointer-events:none;}
-  @media (max-width:820px){
-    #brand{left:22px;top:24px;} #nav{left:22px;bottom:26px;} #panel{right:22px;bottom:26px;gap:12px;}
-    #stats{display:none;} #hint{display:none;} #hour{width:92px;} #brand h1{font-size:12px;letter-spacing:.3em;}
+  /* 移动端断点。**不能只按宽度判**：iPhone 横屏是 844×390，宽度超过 820 就会掉进
+     桌面布局 —— 那时右下角常驻面板（280×332）在 390 高的屏上占掉 85%。
+     加上 `pointer:coarse` 之后，触屏设备不管横竖屏都走这一套。 */
+  @media (max-width:820px), (pointer:coarse){
+    #brand{left:22px;top:24px;} #stats{display:none;} #hint{display:none;}
+    #brand h1{font-size:12px;letter-spacing:.3em;}
+    /* 桌面那行操作提示是「左键/右键/滚轮/WASD」，手机上一条都不成立，
+       所以窄屏直接换一句触屏版，5.4 秒后淡掉，不长期占画面。 */
+    #touchhint{
+      display:block; left:50%; bottom:84px; transform:translateX(-50%);
+      font-family:ui-monospace,Menlo,monospace; font-size:8px; letter-spacing:.18em;
+      color:rgba(184,206,236,.60); white-space:nowrap;
+      animation:touchhint 5.4s ease forwards; pointer-events:none;
+    }
+    @keyframes touchhint{0%{opacity:0}10%{opacity:1}74%{opacity:1}100%{opacity:0;visibility:hidden}}
+    body.ctrl #touchhint, body.insp #touchhint{opacity:0;transition:opacity .2s;}
     /* 小地图在 390px 宽的屏幕上如果保持 176px 会占掉 45% 画面，
        缩到 124（底图分辨率仍是 352²，只是显示更小，反而更清楚）。 */
     #mm{left:22px;top:88px;width:124px;}
     #mm .box,#mm canvas{width:124px;height:124px;}
     #mm .cap{font-size:7px;letter-spacing:.10em;}
+
+    /* ---- 控制面板：默认收起 ----
+       之前是「右下角固定 280×290」——在 390px 的屏上占掉 72% 宽 × 34% 高，
+       而且左边缘（x=89）压着左下导航（x 22~114），两块控件叠在一起。
+       手机上打开这个页面的第一诉求是「看城市」，不是「调参数」，
+       所以面板默认收在屏幕外，右下角留一个圆钮，要用才升起。 */
+    #ctrl{
+      display:flex; right:16px; bottom:18px; z-index:13;
+      width:46px; height:46px; align-items:center; justify-content:center;
+      border-radius:50%; border:1px solid rgba(160,190,230,.26);
+      background:rgba(10,16,26,.74); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      color:rgba(216,234,255,.82); font-family:ui-monospace,Menlo,monospace;
+      font-size:8px; letter-spacing:.14em; cursor:pointer; pointer-events:auto;
+      transition:background .28s ease,color .28s ease,transform .18s ease,opacity .3s ease;
+      box-shadow:0 10px 30px rgba(0,0,0,.5);
+    }
+    #ctrl:active{transform:scale(.94);}
+    body.ctrl #ctrl{color:#0a0f18;background:rgba(196,224,255,.92);border-color:rgba(196,224,255,.92);}
+    body.insp #ctrl{opacity:0;pointer-events:none;}
+
+    #panel{
+      left:0; right:0; bottom:0; top:auto; width:auto;
+      max-height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;
+      padding:14px 18px calc(16px + env(safe-area-inset-bottom,0px));
+      gap:11px; align-items:stretch;
+      background:linear-gradient(180deg,rgba(6,10,17,.90),rgba(4,7,12,.97));
+      backdrop-filter:blur(14px) saturate(1.05); -webkit-backdrop-filter:blur(14px) saturate(1.05);
+      border-top:1px solid rgba(160,190,230,.18); border-radius:14px 14px 0 0;
+      transform:translateY(101%); pointer-events:none; z-index:12;
+      transition:transform .34s cubic-bezier(.22,.9,.28,1);
+    }
+    body.ctrl #panel{transform:none;pointer-events:auto;}
+    /* 展开时圆钮必须让开 —— 它在右下角，正好压在「LOW」上。
+       收起改由面板顶部的把手（和「点画面」）承担，两条路都留。 */
+    body.ctrl #ctrl{opacity:0;pointer-events:none;transform:scale(.9);}
+    #panel .grab{
+      display:block; flex:0 0 auto;
+      width:46px; height:4px; border-radius:2px; margin:-4px auto 5px;
+      background:rgba(180,205,240,.34); cursor:pointer;
+    }
+    /* 组内：标签靠左、按钮整组靠右，占满一行 —— 比原来「整组挤在右边」好读 */
+    #panel .grp{justify-content:space-between;gap:10px;}
+    #panel .lbl{margin-right:auto;}
+    #hourwrap{gap:12px;}
+    #hour{width:auto;flex:1;}
+    /* 28px 高的 chip 是鼠标尺寸，手指点不准（Apple/Google 都建议 ≥ 44pt，这里折中到 36） */
+    #panel .chip{padding:10px 12px;font-size:10px;}
+    #panel{scrollbar-width:none;}
+    #panel::-webkit-scrollbar{display:none;}
+    #nav button{padding:13px 0;}
+    #nav{left:16px;bottom:18px;}
+    body.ctrl #nav{opacity:0;pointer-events:none;transition:opacity .25s ease;}
+
     /* 检视卡片在手机上贴底、占满宽度，别让 238px 固定宽挡住大半个画面。
        卡片一出现，右下那堆 chip 和左下导航必然被压住 —— 直接收掉，别让它们
        半透明地浮在卡片上面（黑底叠黑底，看着像坏掉）。 */
@@ -172,6 +244,7 @@
 </div>
 
 <div class="ui" id="panel">
+  <div class="grab" id="panel-grab" title="收起"></div>
   <div class="grp">
     <span class="lbl">SHARE</span>
     <button class="chip" id="btn-shot">拍照</button>
@@ -223,7 +296,11 @@
   </div>
 </div>
 
+<!-- 移动端的面板开合钮。桌面端 display:none，纯 CSS 控制，不占 DOM 成本 -->
+<button class="ui" id="ctrl" aria-label="控制面板">CTRL</button>
+
 <div class="ui" id="hint">左键环绕 · 单击检视 · 右键平移 · 滚轮缩放 · WASD 移动 · 空格巡航</div>
+<div class="ui" id="touchhint">单指环绕 · 双指缩放 · 点按检视</div>
 <div class="ui" id="stats">
   <div><b id="s-build">0</b> BUILDINGS</div>
   <div><b id="s-road">0</b> ROADS</div>
