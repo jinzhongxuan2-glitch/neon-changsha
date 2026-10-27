@@ -63,6 +63,31 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   });
   const page = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 1 });
 
+  /* 等两个真实 rAF 再截图。
+     原来固定 `sleep(500)`：相机转 90° 的机位（side / near）会让一整个新视锥进画面，
+     LOD 重建 + shader 编译在慢机器上远超 500ms，拍到的是**还没画完的帧**
+     （纯黑 6KB PNG，而正常图 0.5~1.9MB）。`tick` 是无条件 `requestAnimationFrame`，
+     跟冻结的 performance.now 无关，所以冻时钟之后等 rAF 依然有效，而且慢机器自动变长。 */
+  const settle = async () => {
+    await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+    await sleep(MODE === 'diff' ? 160 : 360);
+  };
+
+  /* 截图守卫：撞到纯黑 / 整片平就重新等帧再拍，最多 3 次；3 次还坏就照写，
+     让 gate 的 EMPTY 报出来 —— 工装的静默失败比代码的静默失败更危险。 */
+  const shoot = async (file) => {
+    let sz = 0;
+    for (let i = 0; i < 3; i++) {
+      await page.screenshot({ path: file, timeout: 120000 });
+      sz = fs.statSync(file).size;
+      if (sz > 40000) return sz;
+      process.stdout.write('    ! ' + path.basename(file) + ' 只有 ' + sz + 'B，重拍 ' + (i + 1) + '\n');
+      await settle();
+      await sleep(400);
+    }
+    return sz;
+  };
+
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text().slice(0, 200)); });
@@ -216,9 +241,9 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
       }
       d.controls.update();
     }, s);
-    await sleep(MODE === 'diff' ? 500 : 1100);
+    await settle();
     const file = path.join(OUT, s.name + '.png');
-    await page.screenshot({ path: file, timeout: 120000 });
+    await shoot(file);
     /* 把实际相机写进 meta：后处理探针 / 局部放大可以直接复用这个视角，
        不必再猜坐标（猜坐标是这个项目最耗时的一类返工） */
     const cv = await page.evaluate(() => ({
