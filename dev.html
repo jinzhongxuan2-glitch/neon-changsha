@@ -5847,15 +5847,26 @@ const bridgeMat = new THREE.ShaderMaterial({
       float fill = 1.0 + 0.45 * (1.0 - sh);
       vec3 ambC = mix(uSkyAmb*(0.62 + 0.38*max(n.y, 0.0)), skyIrr(n)*1.02, uDay);
       vec3 dayC = alb * (uSunCol*ndl*1.12*sh + ambC*fill);
-      vec3 nightC = alb*uSkyAmb*0.55 + vec3(0.030,0.022,0.014)*uNight;
+      /* 路灯池（§35）：桥面自己那排灯柱照下来的光，按沿桥弧长烘进 aGlow 的小数位。
+         以前只有常量底光 vec3(0.030,0.022,0.014)*uNight —— 夜里是「亮标线 + 死黑桥面」，
+         而路面 shader 有真实光池，所以从引桥开上桥面那一下，明暗是断的。
+         用 fract(vGlow) 取灯池：aGlow 的整数部分仍是原来的材质分档（0~5），
+         小数位是 0~0.4 的池强，**不会顶到 0.5 那一档**（下面那串 if 的余量就是为这个留的）。 */
+      float lampAt = fract(vGlow);
+      vec3 nightC = alb*uSkyAmb*0.55 + vec3(0.030,0.022,0.014)*uNight
+                  + uLamp * (0.06 + lampAt * 0.85) * (0.22 + 0.78*max(n.y, 0.0));
       vec3 col = mix(nightC, dayC, uDay);
       /* aGlow=1 灯头/扶手光带；2 白色标线；3 拱背泛光；4 人行道；5 双黄线
          标线原来是「白天 0.52 灰、夜里 0.20 灰」—— 夜里等于看不见。
          桥面标线是反光漆，灯下照理最亮，所以夜间改成跟 uLamp 走
-         （0.55 比扶手光带 1.55 低一档，不至于把桥面照爆）。 */
-      if(vGlow > 4.5)      col = mix(vec3(0.52,0.415,0.130), uLamp*vec3(0.92,0.70,0.26), uNight);
+         （0.55 比扶手光带 1.55 低一档，不至于把桥面照爆）。
+         2 / 5 两档再乘 lampK：反光漆在灯柱正下方最亮、两灯之间留 0.35 的底，
+         否则桥面灯池一亮，黄线就被淹进光斑里（第一版就是这样）。
+         1 / 3 是自发光构件（扶手光带、拱背泛光），不吃 lampK。 */
+      float lampK = 0.35 + 1.50 * lampAt;
+      if(vGlow > 4.5)      col = mix(vec3(0.52,0.415,0.130), uLamp*vec3(0.92,0.70,0.26)*lampK, uNight);
       else if(vGlow > 3.5) col = mix(vec3(0.255,0.250,0.238), vec3(0.034,0.033,0.031), uNight);
-      else if(vGlow > 2.5) col = mix(vec3(0.26,0.25,0.24), uLamp*0.85, uNight);
+      else if(vGlow > 2.5) col = mix(vec3(0.26,0.25,0.24), uLamp*0.85*lampK, uNight);
       else if(vGlow > 1.5) col = mix(vec3(0.60,0.595,0.570), uLamp*0.55, uNight);
       else if(vGlow > 0.5) col = mix(vec3(0.30,0.29,0.27), uLamp*1.55, uNight);
       float d = length(cameraPosition - vW);
@@ -5893,6 +5904,17 @@ function pushQuad(P, N, G, a, b, c, d, n, glow){
   P.push(a[0],a[1],a[2], b[0],b[1],b[2], c[0],c[1],c[2],
          a[0],a[1],a[2], c[0],c[1],c[2], d[0],d[1],d[2]);
   for(let k=0;k<6;k++){ N.push(n[0],n[1],n[2]); G.push(glow || 0); }
+}
+/* 四角各给一个 aGlow 的版本（§35 桥面灯池专用）。
+   桥面是整幅宽、4m 长的一个 quad，用 `pushQuad` 的话整段是一个常量池强，
+   相邻段之间就是硬边 —— 俯视看是一排方块。这里让两端按各自节点的池强插值，
+   沿桥方向就成了连续的衰减。
+   顶点展开顺序和 `pushQuad` 一致：a b c / a c d。 */
+function pushQuadG(P, N, G, a, b, c, d, n, ga, gb, gc, gd){
+  P.push(a[0],a[1],a[2], b[0],b[1],b[2], c[0],c[1],c[2],
+         a[0],a[1],a[2], c[0],c[1],c[2], d[0],d[1],d[2]);
+  const g6 = [ga, gb, gc, ga, gc, gd];
+  for(let k=0;k<6;k++){ N.push(n[0],n[1],n[2]); G.push(g6[k]); }
 }
 function boxAt(P, N, G, cx, cy, cz, sx, sy, sz, glow){
   const x0=cx-sx*0.5, x1=cx+sx*0.5, y0=cy-sy*0.5, y1=cy+sy*0.5, z0=cz-sz*0.5, z1=cz+sz*0.5;
@@ -6122,6 +6144,25 @@ function bridgeCore(b, spec){
   const D = { P:[], N:[], G:[] };
   const total = (n-1) * STEP;
 
+  /* ---- 桥面路灯池（§35）----
+     灯柱在 `bridgeCore` 末尾按 `k*(n-1)/lampN` 均匀排布，也就是沿桥等距
+     `lampSp = total / lampN`（32~40m 一盏，两侧对齐）。
+     路面 shader 的池是逐像素算的；桥面每个 quad 有 4m 长、整幅宽，
+     做不到逐像素，所以**沿桥方向**按段中点烘成 0~1 的池强，
+     再编码进 `aGlow` 的小数位（`glow + pool*0.4`）。
+     横向不细分：桥面 32m 宽、灯在两侧，中间偏暗的那条带在屏幕上通常只有几十像素，
+     为它把桥面拆成 5 条纵向带要多花 1.2 万三角形，不值得。 */
+  const lampN = Math.max(2, Math.floor(total / spec.lampEvery));
+  const lampSp = total / lampN;
+  /* 衰减半径 9m：路面是 76m 间距 / 15.5m 半径（比值 4.9），桥面 32~40m 间距 / 9m（4.4）。
+     第一版用 16m，两灯中点还有 0.21，「一串光斑」变成「整条桥面泛白」。 */
+  const lampOf = (i2) => {
+    const sA = i2 * STEP;
+    const k = Math.round(sA / lampSp);
+    const dA = (sA - k * lampSp) / 9.0;
+    return Math.exp(-dA * dA);
+  };
+
   /* 标线的横向基准（§34）：桥走线 → 最近 OSM 路中线的偏移，逐节点。
      以及每个节点「离地多少」—— 引桥落地段（< 0.6m）不画桥面标线。 */
   const ownRoads = bridgeOwnRoads(b, half);
@@ -6132,9 +6173,12 @@ function bridgeCore(b, spec){
   for(let i=0;i<n-1;i++){
     const ax = path[i].x, az = path[i].z, ay = ys[i];
     const bx = path[i+1].x, bz = path[i+1].z, by = ys[i+1];
+    /* 这一段两端的池强（0~1），沿桥方向在顶点上插值。
+       灯距 32~40m、段长 4m，灯下那几段的峰值能拿到 0.95 以上。 */
+    const lpA = lampOf(i), lpB = lampOf(i+1);
     const L0 = [ax + px[i]*half, ay, az + pz[i]*half], R0 = [ax - px[i]*half, ay, az - pz[i]*half];
     const L1 = [bx + px[i+1]*half, by, bz + pz[i+1]*half], R1 = [bx - px[i+1]*half, by, bz - pz[i+1]*half];
-    pushQuad(D.P, D.N, D.G, L0, L1, R1, R0, [0,1,0], 0);
+    pushQuadG(D.P, D.N, D.G, L0, L1, R1, R0, [0,1,0], lpA*0.4, lpB*0.4, lpB*0.4, lpA*0.4);
     const L0b=[L0[0],ay-TH,L0[2]], R0b=[R0[0],ay-TH,R0[2]];
     const L1b=[L1[0],by-TH,L1[2]], R1b=[R1[0],by-TH,R1[2]];
     pushQuad(D.P, D.N, D.G, L0b, R0b, R1b, L1b, [0,-1,0], 0);
@@ -6153,7 +6197,8 @@ function bridgeCore(b, spec){
       const p1 = [bx + px[i+1]*oOut, by0, bz + pz[i+1]*oOut];
       const q0 = [ax + px[i]*oIn,  ay0, az + pz[i]*oIn];
       const q1 = [bx + px[i+1]*oIn, by0, bz + pz[i+1]*oIn];
-      pushQuad(D.P, D.N, D.G, p0, p1, q1, q0, [0,1,0], 4);
+      pushQuadG(D.P, D.N, D.G, p0, p1, q1, q0, [0,1,0],
+        4 + lpA*0.4, 4 + lpB*0.4, 4 + lpB*0.4, 4 + lpA*0.4);
       /* 路缘立面：朝车行道那一侧，露 0.14 高 */
       const c0 = [q0[0], ay, q0[2]], c1 = [q1[0], by, q1[2]];
       pushQuad(D.P, D.N, D.G, q0, q1, c1, c0, [-sgn*px[i], 0, -sgn*pz[i]], 4);
@@ -6184,7 +6229,11 @@ function bridgeCore(b, spec){
       const a1 = [bx + px[i+1]*(oo-w), by+0.030, bz + pz[i+1]*(oo-w)];
       const b0 = [ax + px[i]*(oo+w),  ay+0.030, az + pz[i]*(oo+w)];
       const b1 = [bx + px[i+1]*(oo+w), by+0.030, bz + pz[i+1]*(oo+w)];
-      pushQuad(D.P, D.N, D.G, a0, a1, b1, b0, [0,1,0], glow === undefined ? 2 : glow);
+      const g = glow === undefined ? 2 : glow;
+      /* 标线同样把池强编进小数位（2 白线 / 5 双黄线），shader 里乘 lampK ——
+         反光漆在灯下最亮，两灯之间留底，否则灯池一亮黄线就没了。 */
+      pushQuadG(D.P, D.N, D.G, a0, a1, b1, b0, [0,1,0],
+        g + lpA*0.4, g + lpB*0.4, g + lpB*0.4, g + lpA*0.4);
     };
     /* 双黄线：两条 0.14 宽、内侧净距 0.13 → 线心 ±0.145 */
     mark( 0.145, 0.070, false, 5);
@@ -6218,8 +6267,7 @@ function bridgeCore(b, spec){
     }
   }
 
-  /* 灯柱 */
-  const lampN = Math.max(2, Math.floor(total / spec.lampEvery));
+  /* 灯柱：灯位与上面的灯池共用同一组灯距（`lampN` / `lampSp`），别再算一遍 */
   for(let k=0;k<=lampN;k++){
     const idx = Math.min(n-1, Math.round(k * (n-1) / lampN));
     const p0 = path[idx], y0 = ys[idx];

@@ -20,13 +20,15 @@ const ONLY = arg ? arg.slice(5) : null;
    渲染又按 OSM 中线加回来），标线却是直接按世界坐标 push 的 ——
    两者基准不同，带车一眼就能看出标线偏没偏。 */
 const CARS = process.argv.includes('--cars');
+const hArg = process.argv.find(s => s.startsWith('--hour='));
+const HOUR = hArg ? hArg.slice(7) : '13';
 
 (async () => {
   const b = await chromium.launch({ executablePath: EXE, headless: true,
     args: ['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist', '--allow-file-access-from-files'] });
   const p = await b.newPage({ viewport: { width: 900, height: 700 } });
   p.on('pageerror', e => console.log('ERR', e.message));
-  await p.goto('file:///' + ROOT + '/index.html?t=2&q=high&hour=13', { waitUntil: 'load', timeout: 240000 });
+  await p.goto('file:///' + ROOT + '/index.html?t=2&q=high&hour=' + HOUR, { waitUntil: 'load', timeout: 240000 });
   await p.waitForFunction("performance.getEntriesByName('B:done').length > 0", null, { timeout: 240000 });
   await p.waitForTimeout(1800);
   await p.evaluate((cars) => {
