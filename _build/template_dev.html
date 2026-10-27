@@ -8281,14 +8281,17 @@ const AUD = (()=>{
     src.loop = true;
 
     /* 一条 buffer、多条滤波器链并联。
-       voice(stages, pan) —— stages 是 [type, freq, Q] 顺序串联；pan 省略就不做声像。 */
+       voice(stages, pan) —— stages 是 [type, freq, Q] 顺序串联；pan 省略就不做声像。
+       返回 `f` 是各级 BiquadFilter 的引用数组 —— 遮挡衰减要回头改江水的 lowpass。 */
     function voice(stages, pan){
       let node = src;
+      const f = [];
       for(let i = 0; i < stages.length; i++){
         const st = stages[i];
         const bq = ctx.createBiquadFilter();
         bq.type = st[0]; bq.frequency.value = st[1]; bq.Q.value = st[2];
         node.connect(bq); node = bq;
+        f.push(bq);
       }
       const g = ctx.createGain(); g.gain.value = 0;
       let p = null;
@@ -8296,7 +8299,7 @@ const AUD = (()=>{
         p = ctx.createStereoPanner();
         g.connect(p); p.connect(master); p.pan.value = pan;
       } else g.connect(master);
-      return { g: g, p: p };
+      return { g: g, p: p, f: f };
     }
 
     city  = voice([['lowpass', 125, 0.9]]);                              /* 城市远底噪：纯低频「嗡」 */
@@ -8360,19 +8363,42 @@ const AUD = (()=>{
     param.setTargetAtTime(Math.max(0, v), ct, tc || 0.10);
   }
 
+  /* 建筑遮挡：沿**水平**视线步进，撞到楼就把高频压掉一档。
+     在这之前所有声源都是「无论中间隔着几栋楼，音色一样亮」—— 这是最不像真实城市的一处：
+     站在楼后面，江声和街上的车应该同时变闷，而不是从墙里透过来。
+
+     **只对地面声源做**。烟花在 160~310m 高空，射线大部分在楼顶以上，算了反而错；
+     风/雨/城市底噪本来就没有明确的点声源，也无从判遮挡。
+
+     18m 步长 / 16 点上限（≈288m）：长沙的楼 15~40m 进深，26m 步长会整栋漏掉。
+     `BD.near` 在建筑内返回 0，所以 `< 0.6` 就是「撞上了或贴墙」。 */
+  function occlK(ax, az, bx, bz){
+    const dx = bx - ax, dz = bz - az;
+    const L = Math.hypot(dx, dz);
+    if(L < 26) return 1;                     /* 26m 内不判：贴脸的距离不会有楼 */
+    const n = Math.min(16, Math.max(2, Math.ceil(L / 18)));
+    let hit = 0;
+    for(let i = 1; i < n; i++){
+      const t = i / n;
+      if(BD.near(ax + dx * t, az + dz * t, 0.6) < 0.6) hit++;
+    }
+    /* 撞两格就到底：再撞也只是「更闷」，没必要线性掉到 0 */
+    return 1 - 0.62 * Math.min(1, hit / 2);
+  }
+
   /* 到水的「接近度」与方位。12 个方向 × 6 档距离探一次，600ms 一次 ——
      40 次掩膜查表（`isWater`）成本可以忽略，但足够知道「江在哪边、有多近」。 */
   const _rv = new THREE.Vector3();
   function probeWater(p){
-    if(isWater(p.x, p.z)) return { k: 1, pan: 0 };
-    let best = 0, bestAng = 0;
+    if(isWater(p.x, p.z)) return { k: 1, pan: 0, occ: 1 };
+    let best = 0, bestAng = 0, bestD = 0;
     for(let a = 0; a < 12; a++){
       const ang = a * Math.PI / 6;
       const dx = Math.cos(ang), dz = Math.sin(ang);
       for(let d = 60; d <= 460; d += 80){
         if(isWater(p.x + dx * d, p.z + dz * d)){
           const k = Math.max(0, 1 - (d - 60) / 480);
-          if(k > best){ best = k; bestAng = ang; }
+          if(k > best){ best = k; bestAng = ang; bestD = d; }
           break;
         }
       }
@@ -8384,7 +8410,11 @@ const AUD = (()=>{
       pan = Math.cos(bestAng) * _rv.x + Math.sin(bestAng) * _rv.z;
       pan = Math.max(-1, Math.min(1, pan));
     }
-    return { k: best, pan: pan };
+    /* 江在 60~460m 外，中间隔几排楼就听不到 —— 遮挡同时压音量和高频 */
+    const occ = best > 0
+      ? occlK(p.x, p.z, p.x + Math.cos(bestAng) * bestD, p.z + Math.sin(bestAng) * bestD)
+      : 1;
+    return { k: best, pan: pan, occ: occ };
   }
 
   /* 鸟叫：2~4 个短促的滑音，每次换随机音高和声像。
@@ -8556,7 +8586,7 @@ const AUD = (()=>{
      （指望靠多普勒做 pass-by 是本末倒置：它给的是「音高」，pass-by 给的是「掠过」）。 */
   const _cand = [];
   let nCarScan = 0;
-  const carDbg = { n: 0, live: 0, d0: 0, g0: 0, pan0: 0, dop0: 0, cut0: 0, vr0: 0 };
+  const carDbg = { n: 0, live: 0, d0: 0, g0: 0, pan0: 0, dop0: 0, cut0: 0, vr0: 0, occ0: 1, raw0: 0 };
 
   function updateCarVoices(ct, gh){
     if(!carVoices.length) return;
@@ -8574,6 +8604,7 @@ const AUD = (()=>{
       }
       carDbg.n = nCarScan; carDbg.live = 0;
       carDbg.d0 = 0; carDbg.g0 = 0; carDbg.pan0 = 0; carDbg.dop0 = 1; carDbg.cut0 = 0; carDbg.vr0 = 0;
+      carDbg.occ0 = 1; carDbg.raw0 = 0;
       return;
     }
     const p = camera.position;
@@ -8633,7 +8664,11 @@ const AUD = (()=>{
       slot.dop = dop;
       svf(slot.bp.frequency, base * dop, ct, 0.10);
       /* 远处只剩低频 —— 这是「在屋里听到的」，不是「贴脸听到的」 */
-      slot.cut = 900 + 4200 * Math.exp(-d / 80);
+      /* 遮挡：中间隔着楼的车，高频先被吃掉 —— 「听到街上有车但看不见」就靠这一下。
+         occ=1 时系数正好 1.0，回到原来的值。 */
+      slot.occ = occlK(p.x, p.z, c.x, c.z);
+      slot.raw = 900 + 4200 * Math.exp(-d / 80);   /* 只按距离算的那部分，探针拿来分离两个因子 */
+      slot.cut = slot.raw * (0.42 + 0.58 * slot.occ);
       svf(slot.lp.frequency, slot.cut, ct, 0.12);
 
       /* 声像只投影水平分量：抬头看天不该把左右压扁（烟花 §36 同一条） */
@@ -8662,6 +8697,8 @@ const AUD = (()=>{
       carDbg.d0 = Math.round(s0.d); carDbg.g0 = +s0.tgt.toFixed(4);
       carDbg.pan0 = +(s0.pan || 0).toFixed(2); carDbg.dop0 = +(s0.dop || 1).toFixed(3);
       carDbg.cut0 = Math.round(s0.cut || 0); carDbg.vr0 = +(s0.vr || 0).toFixed(1);
+      carDbg.occ0 = +((s0.occ === undefined) ? 1 : s0.occ).toFixed(3);
+      carDbg.raw0 = Math.round(s0.raw || 0);
     }
   }
 
@@ -8702,11 +8739,14 @@ const AUD = (()=>{
     sv(windH.g.gain, tgt.windH, ct);
     sv(windL.g.gain, tgt.windL, ct);
 
-    /* 江水 */
+    /* 江水。遮挡同时压音量和高频 —— 站到楼后面，江声要「变远变闷」，
+       而不是无论隔几排楼都从墙里透过来一样亮。wOcc=1 时退回原来的值。 */
     if(now - waterT > 600){ waterT = now; wcache = probeWater(p); }
-    tgt.water = 0.55 * wcache.k;
+    const wOcc = (wcache.occ === undefined) ? 1 : wcache.occ;
+    tgt.water = 0.55 * wcache.k * (0.28 + 0.72 * wOcc);
     sv(water.g.gain, tgt.water, ct);
     if(water.p) water.p.pan.setTargetAtTime(wcache.pan * 0.85, ct, 0.5);
+    if(water.f && water.f[1]) svf(water.f[1].frequency, 1500 * (0.30 + 0.70 * wOcc), ct, 0.6);
 
     /* 雨 */
     tgt.rain = rainNow ? 0.46 : 0;
@@ -8764,7 +8804,9 @@ const AUD = (()=>{
     /* 冷启动也要给 `fw` 的形状：探针第一步就要读它，字段缺失会让探针崩在
        「有没有开声」这一层，而不是它真正要验的那层。 */
     if(!ctx) return { on: on, ctx: null, fw: fwDbg,
-                      cars: { n: 0, live: 0, d: 0, g: 0, pan: 0, dop: 0, cut: 0, vr: 0, slots: [] } };
+                      water: { k: 1, pan: 0, occ: 1 },
+                      cars: { n: 0, live: 0, d: 0, g: 0, pan: 0, dop: 0, cut: 0, raw: 0,
+                              vr: 0, occ: 1, slots: [] } };
     const g = {
       city:   +city.g.gain.value.toFixed(3),
       city2:  +city2.g.gain.value.toFixed(3),
@@ -8781,7 +8823,9 @@ const AUD = (()=>{
       on: on, state: ctx.state, sr: ctx.sampleRate, nTick: nTick, nCalc: nCalc,
       master: +master.gain.value.toFixed(4),
       gh: +Math.max(0, camera.position.y - walkTop(camera.position.x, camera.position.z)).toFixed(1),
-      water: { k: +wcache.k.toFixed(3), pan: +wcache.pan.toFixed(2) },
+      water: { k: +wcache.k.toFixed(3), pan: +wcache.pan.toFixed(2),
+               occ: +((wcache.occ === undefined) ? 1 : wcache.occ).toFixed(3),
+               cut: Math.round(1500 * (0.30 + 0.70 * ((wcache.occ === undefined) ? 1 : wcache.occ))) },
       tgt: {
         city:   +tgt.city.toFixed(3),
         street: +tgt.street.toFixed(3),
@@ -8798,13 +8842,20 @@ const AUD = (()=>{
       /* 车流 pass-by：最近一条声源的逻辑值（距离 / 包络 / 声像 / 多普勒比 / 低通） */
       cars: { n: carDbg.n, live: carDbg.live, d: carDbg.d0, g: carDbg.g0,
               pan: carDbg.pan0, dop: carDbg.dop0, cut: carDbg.cut0, vr: carDbg.vr0,
+              occ: carDbg.occ0, raw: carDbg.raw0,
               slots: carVoices.map(v => ({ key: v.key, d: Math.round(v.d),
-                                           g: +v.tgt.toFixed(4), pan: +(v.pan || 0).toFixed(2) })) },
+                                           g: +v.tgt.toFixed(4), pan: +(v.pan || 0).toFixed(2),
+                                           occ: +((v.occ === undefined) ? 1 : v.occ).toFixed(3),
+                                           cut: Math.round(v.cut || 0), raw: Math.round(v.raw || 0),
+                                           vr: +(v.vr || 0).toFixed(1) })) },
       g: g
     };
   }
 
   return { toggle: toggle, tick: tick, dbg: dbg, boom: boom,
+           /* 探针要能脱离 `tick` 的 10Hz/600ms 节流单独判这两个纯函数：
+              遮挡是几何量，跟相机朝向无关，直接喂两端点最干净。 */
+           occlK: occlK, probeWater: probeWater,
            get on(){ return on; }, get ctx(){ return ctx; } };
 })();
 
