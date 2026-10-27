@@ -8177,12 +8177,32 @@ const SHOT = (()=>{
   });
 
   /* ---- 分享链接：把当前视角编进 URL，别人打开就是同一个机位 ---- */
+  /* 只写 cam/tgt/hour 是不够的：这三样只决定「站在哪、几点」，
+     真正决定**这幅画长什么样**的还有四个轴 —— 天气、画质档、招牌密度、内容开关。
+     以前手机打开分享链接会被「移动端默认 low」接住：没车流、没阴影、招牌只剩骨架，
+     跟分享者拍的完全不是一张画。现在四个轴全部写进 URL。 */
   function shareURL(){
     const p = camera.position, t = controls.target;
     const q = new URLSearchParams();
     q.set('hour', curHour.toFixed(2));
     q.set('cam', [p.x, p.y, p.z].map(v => v.toFixed(1)).join(','));
     q.set('tgt', [t.x, t.y, t.z].map(v => v.toFixed(1)).join(','));
+    q.set('wx', weather);
+    /* `q=auto` 照写。auto 的语义是「按我这台机器自适应」，钉成 high 会让手机打开就卡死；
+       而它一旦出现在 URL 里，「移动端默认低档」那条分支（`!Q.has('q')`）就不再接管了。 */
+    q.set('q', qMode);
+    /* 招牌读**实际可见性**，不重算公式：档位 + `signs=` + auto 掉档三条路径都会改它，
+       再用公式推一遍就是第二份真相（§38 的老坑）。 */
+    const tier = !signBuilt ? (qMode === 'low' ? 0 : (qMode === 'mid' ? 1 : 2))
+      : (signBuilt.meshExtra && signBuilt.meshExtra.visible) ? 2
+      : (signBuilt.meshDeco && signBuilt.meshDeco.visible) ? 1 : 0;
+    q.set('signs', ['core', 'deco', 'all'][tier]);
+    /* 内容开关只写「关掉」的。写「开着」会跟 `q=low` 打架 —— low 本来就没有车流，
+       强行打开反而不是对方看到的那张画。 */
+    const off = [];
+    for(const k in toggles) if(!toggles[k]) off.push(k);
+    if(off.length) q.set('off', off.join(','));
+    if(new URLSearchParams(location.search).get('furn') === '0') q.set('furn', '0');
     return location.href.split('?')[0] + '?' + q.toString();
   }
   document.getElementById('btn-link').addEventListener('click', async ()=>{
@@ -9006,20 +9026,26 @@ function updateLabels(){
    10. UI
    ============================================================ */
 const toggles = { fire:true, rain:true, traffic:true, veg:true, ped:true };
+/* 内容开关的唯一入口：面板点击和「分享链接里的 off=」都走这里。
+   以前只有点击路径，URL 要还原内容状态就得「假装点一下按钮」—— 那是探针才干的事，
+   而且 `.chip.on` 的类名和真实状态会分家。 */
+function setToggle(k, on){
+  if(!(k in toggles)) return;
+  toggles[k] = on;
+  const c = document.querySelector('.chip[data-t="' + k + '"]');
+  if(c) c.classList.toggle('on', on);
+  if(k === 'fire') fwOn = on;
+  if(k === 'rain') rainOn = on;
+  if(k === 'traffic') trafficGroup.visible = on;
+  if(k === 'ped') crowdOn = on;
+  if(k === 'veg' && vegBuilt){
+    for(const m of vegBuilt.nearMeshes) m.visible = on;
+    for(const m of vegBuilt.farMeshes) m.visible = on;
+    vegBuilt.shMesh.visible = on;
+  }
+}
 document.querySelectorAll('.chip[data-t]').forEach(c=>{
-  c.addEventListener('click', ()=>{
-    const k = c.dataset.t; toggles[k] = !toggles[k];
-    c.classList.toggle('on', toggles[k]);
-    if(k==='fire') fwOn = toggles.fire;
-    if(k==='rain') rainOn = toggles.rain;
-    if(k==='traffic') trafficGroup.visible = toggles.traffic;
-    if(k==='ped') crowdOn = toggles.ped;
-    if(k==='veg' && vegBuilt){
-      for(const m of vegBuilt.nearMeshes) m.visible = toggles.veg;
-      for(const m of vegBuilt.farMeshes) m.visible = toggles.veg;
-      vegBuilt.shMesh.visible = toggles.veg;
-    }
-  });
+  c.addEventListener('click', ()=> setToggle(c.dataset.t, !toggles[c.dataset.t]));
 });
 
 const hourEl = document.getElementById('hour');
@@ -9219,7 +9245,9 @@ function applyTime(hour){
 
   if(typeof groundMat !== 'undefined' && groundMat.color) groundMat.color.copy(C('#0d131c')).lerp(C('#7d8288'), day);
 
-  rainOn = wx.rain && !qRainOff;
+  /* `toggles.rain` 也进来了：以前点掉「雨」之后一拖时间滑块，雨就自己回来了，
+     而按钮还亮着 off —— 开关和状态分家。 */
+  rainOn = wx.rain && !qRainOff && toggles.rain;
   const rchip = document.querySelector('.chip[data-t="rain"]');
   if(rchip) rchip.classList.toggle('on', rainOn);
 
@@ -9326,13 +9354,15 @@ function applyQuality(mode){
   applyTime(curHour);
 }
 document.querySelectorAll('.chip.q').forEach(b=>{
-  b.addEventListener('click', ()=> applyQuality(b.dataset.q));
+  /* 分享链接里的 `signs=` 是「打开时这张画」，用户亲手点档位就交还给档位推导 ——
+     否则点了 LOW 还留着 12.9 万块招牌，比预期的 LOW 更卡，等于按钮失灵。 */
+  b.addEventListener('click', ()=>{ qSignForce = -1; applyQuality(b.dataset.q); });
 });
 
 performance.mark('B:done');
 applyTime(21);
 
-/* ---------- URL 参数：?hour=21&view=cbd&wx=rain&q=low&cam=x,y,z&tgt=x,y,z ---------- */
+/* ---------- URL 参数：?hour=21&view=cbd&wx=rain&q=low&signs=all&off=traffic&cam=x,y,z&tgt=x,y,z ---------- */
 (function urlParams(){
   const Q = new URLSearchParams(location.search);
   if(Q.has('wx')){ const w = Q.get('wx'); if(WX[w]) weather = w; }
@@ -9359,9 +9389,17 @@ applyTime(21);
     const map = { core: 0, deco: 1, all: 2 };
     if(s in map){ qSignForce = map[s]; applyQuality(qMode); }
   }
-  // 移动端默认降到低档
+  // 移动端默认降到低档 —— **只在 URL 没写 q 的时候**。分享链接一定带 q，
+  // 所以「桌面端 4K 拍的图，手机打开变成 LOW」这条路被堵死了。
   const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || innerWidth < 820;
   if(mobile && !Q.has('q')) applyQuality('low');
+
+  /* ?off=traffic,veg —— 分享链接里「被关掉的内容」。
+     只关不开：写「开着」会和 `q=low` 打架（low 本来就没有车流）。
+     放在最后，因为 `applyQuality` 会按档位重设 `trafficGroup.visible`。 */
+  if(Q.has('off')){
+    for(const k of Q.get('off').split(',')) if(k) setToggle(k, false);
+  }
 })();
 
 addEventListener('resize', ()=>{
@@ -9482,6 +9520,17 @@ window.__dbg = { scene, camera, water, cityMesh, roadMesh, flyTo, HOME, setTour,
   /* 烟花：探针要能「手动放一发」验声学调度，不能等 6~16s 的随机节奏 */
   FW: { spawn: spawnFirework, bursts, origin: FW_ORIGIN, colors: fwColors,
         get on(){ return fwOn; }, setOn: (v)=>{ fwOn = v; } },
+  /* 「当前这幅画由哪几个旋钮决定」—— 分享链接要锁的就是这几个。
+     `signTier` 读实际可见性，不重算公式（档位 / signs= / auto 掉档三条路径都会改它）。 */
+  STATE: { toggles, setToggle,
+           get qMode(){ return qMode; }, get qSignForce(){ return qSignForce; },
+           get weather(){ return weather; }, get hour(){ return curHour; },
+           get signTier(){
+             if(!signBuilt) return -1;
+             if(signBuilt.meshExtra && signBuilt.meshExtra.visible) return 2;
+             if(signBuilt.meshDeco && signBuilt.meshDeco.visible) return 1;
+             return 0;
+           } },
   /* 车流位置是分帧算的（每帧只更一个 mesh），headless 空闲时 rAF 会停 ——
      探针必须能手动把每个 mesh 都推一遍，否则读到的 aPos 全是 0。 */
   updateTraffic,
