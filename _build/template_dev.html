@@ -8221,6 +8221,9 @@ const AUD = (()=>{
   let nbuf = null;   /* 3s 白噪母带。烟花爆炸声再抽一条 buffer source 从随机位置起播，不额外分配 */
   let city = null, city2 = null, street = null, windH = null, windL = null,
       water = null, rain = null, rain2 = null, birdOut = null, crkOut = null;
+  /* 车流 pass-by：5 条独立声源，各自跟随最近的一辆车（见 updateCarVoices） */
+  const carVoices = [];
+  const CAR_VOICES = 5;
   let lastT = 0, waterT = 0, nextBird = 0, nTick = 0, nCalc = 0;
   let wcache = { k: 0, pan: 0 };
   /* 上一次 tick 算出的**逻辑目标值**。单独记一份纯 JS 数字：
@@ -8324,11 +8327,37 @@ const AUD = (()=>{
     const wDep = ctx.createGain(); wDep.gain.value = 0.018;
     wLFO.connect(wDep); wDep.connect(water.g.gain); wLFO.start();
 
+    /* 车流 pass-by：每辆车一条独立 source。
+       共用 `src` 的话 5 个副本完全同相，听起来是「同一个声音的 5 个 EQ」而不是 5 辆车；
+       从 buffer 不同位置起播就能拆开。3s 的 buffer 够长，绕回点听不出来。 */
+    for(let i = 0; i < CAR_VOICES; i++){
+      const s = ctx.createBufferSource();
+      s.buffer = nbuf; s.loop = true;
+      /* 轮胎噪声主体在 300~900Hz，Q 别太高：太窄会变成「哨音」而不是「车」 */
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass'; bp.frequency.value = 480; bp.Q.value = 0.85;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass'; lp.frequency.value = 3200; lp.Q.value = 0.7;
+      const g = ctx.createGain(); g.gain.value = 0;
+      let p = null;
+      if(ctx.createStereoPanner){
+        p = ctx.createStereoPanner();
+        g.connect(p); p.connect(master);
+      } else g.connect(master);
+      s.connect(bp); bp.connect(lp); lp.connect(g);
+      s.start(0, rnd() * 2.9);
+      carVoices.push({ s: s, bp: bp, lp: lp, g: g, p: p, key: -1, tgt: 0, d: 1e9, vr: 0, pan: 0 });
+    }
+
     src.start();
   }
 
   function sv(param, v, ct){
     param.setTargetAtTime(Math.max(0, v), ct, 0.30);
+  }
+  /* 快版：pass-by 的包络要跟得上 15m/s 的车 —— 0.30s 会拖到尾音盖住「车已经过去了」 */
+  function svf(param, v, ct, tc){
+    param.setTargetAtTime(Math.max(0, v), ct, tc || 0.10);
   }
 
   /* 到水的「接近度」与方位。12 个方向 × 6 档距离探一次，600ms 一次 ——
@@ -8517,6 +8546,125 @@ const AUD = (()=>{
     }, ms);
   }
 
+  /* 车流 pass-by：找最近 6 辆，绑到 5 条声源上逐条跟随。
+     在这之前「车流」只是**一层连续噪声**（`street`），听不出「一辆车从身边开过去」。
+     真正的 pass-by 靠三件事叠起来：
+       ① 音量包络 —— 近处掠过时突然响一下（`0.22/(1+d/14)`）
+       ② 声像 —— 只在水平方向投影，车从左边扫到右边
+       ③ 高频随距离衰减 —— 远车是闷的，近车才有「嘶」
+     多普勒在 15m/s 只有 ±4.6%，对宽带轮胎噪声几乎听不出来，所以只当细调、不当主角
+     （指望靠多普勒做 pass-by 是本末倒置：它给的是「音高」，pass-by 给的是「掠过」）。 */
+  const _cand = [];
+  let nCarScan = 0;
+  const carDbg = { n: 0, live: 0, d0: 0, g0: 0, pan0: 0, dop0: 0, cut0: 0, vr0: 0 };
+
+  function updateCarVoices(ct, gh){
+    if(!carVoices.length) return;
+    if(typeof trafficGroup !== 'undefined' && !trafficGroup.visible) return;
+    nCarScan++;
+    /* 90m 以上基本听不到街道 pass-by（那一层已经被风盖住了）。
+       **早退也要更新 carDbg** —— 不更新的话探针读到的是上一轮的 live，
+       高空明明全静音却报 live=5（和 `dbg()` 冷启动不给 `fw` 同一个坑）。 */
+    const kH = Math.max(0, 1 - gh / 90);
+    if(kH <= 0.001){
+      for(const v of carVoices){
+        svf(v.g.gain, 0, ct, 0.25); v.tgt = 0; v.hit = false;
+        v.miss = (v.miss || 0) + 1;
+        if(v.miss > 8) v.key = -1;
+      }
+      carDbg.n = nCarScan; carDbg.live = 0;
+      carDbg.d0 = 0; carDbg.g0 = 0; carDbg.pan0 = 0; carDbg.dop0 = 1; carDbg.cut0 = 0; carDbg.vr0 = 0;
+      return;
+    }
+    const p = camera.position;
+    _cand.length = 0;
+    /* 220m 而不是 110m：18,000 辆撒在整个长沙路网（~34 辆/km²），
+       110m 圆内的期望只有 1.3 辆 —— 固定站街心经常一辆都没有，pass-by 就永远不响。
+       220m 处包络只剩 0.03，很轻但可闻，「远处有车」本来就是街道底噪的一部分。 */
+    const R2 = 220 * 220;
+
+    for(let m = 0; m < trafficMeshes.length; m++){
+      const mesh = trafficMeshes[m];
+      if(!mesh || !mesh.visible) continue;
+      const at = mesh.geometry.attributes;
+      const P = at.aPos.array, Y = at.aYaw.array;
+      const n = at.aPos.count;
+      const cars = TRAFFIC.groups[m];
+      for(let i = 0; i < n; i++){
+        const dx = P[i * 3] - p.x, dz = P[i * 3 + 2] - p.z;
+        const d2 = dx * dx + dz * dz;
+        if(d2 > R2) continue;
+        const item = { d2: d2, x: P[i * 3], z: P[i * 3 + 2], yaw: Y[i],
+                       v: (cars && cars[i]) ? cars[i].v : 0, key: m * 100000 + i };
+        if(_cand.length < 6){
+          _cand.push(item);
+          if(_cand.length === 6) _cand.sort((a, b) => a.d2 - b.d2);
+        } else if(d2 < _cand[5].d2){
+          _cand[5] = item;
+          _cand.sort((a, b) => a.d2 - b.d2);
+        }
+      }
+    }
+
+    for(const v of carVoices) v.hit = false;
+
+    for(let ci = 0; ci < _cand.length; ci++){
+      const c = _cand[ci];
+      let slot = null;
+      for(const v of carVoices) if(v.key === c.key){ slot = v; break; }
+      /* 没有就抢一个「已经淡到听不见」的 slot —— 抢正在响的那个会爆音 */
+      if(!slot) for(const v of carVoices) if(v.key < 0 || v.tgt < 0.003){ slot = v; break; }
+      if(!slot) continue;
+
+      const d = Math.sqrt(c.d2) || 1;
+      /* 车头方向：yaw = atan2(-tz, tx)，所以前向 = (cos yaw, -sin yaw) */
+      const vx = Math.cos(c.yaw) * c.v, vz = -Math.sin(c.yaw) * c.v;
+      const ux = (c.x - p.x) / d, uz = (c.z - p.z) / d;
+      const vr = -(vx * ux + vz * uz);          /* 朝相机开来为正 */
+      slot.key = c.key; slot.hit = true; slot.d = d; slot.vr = vr; slot.miss = 0;
+
+      const g = 0.30 * kH / (1 + d / 20);
+      slot.tgt = g;
+      svf(slot.g.gain, g, ct, 0.10);
+
+      /* 多普勒：只当细调。真正让「快车」听起来快的是车速对带宽的贡献 */
+      const dop = 340 / (340 - Math.max(-40, Math.min(40, vr)));
+      const base = 300 + Math.min(22, c.v) * 26;
+      slot.dop = dop;
+      svf(slot.bp.frequency, base * dop, ct, 0.10);
+      /* 远处只剩低频 —— 这是「在屋里听到的」，不是「贴脸听到的」 */
+      slot.cut = 900 + 4200 * Math.exp(-d / 80);
+      svf(slot.lp.frequency, slot.cut, ct, 0.12);
+
+      /* 声像只投影水平分量：抬头看天不该把左右压扁（烟花 §36 同一条） */
+      _fwv.set(1, 0, 0).applyQuaternion(camera.quaternion);
+      slot.pan = Math.max(-1, Math.min(1,
+        ((c.x - p.x) * _fwv.x + (c.z - p.z) * _fwv.z) / d));
+      if(slot.p) slot.p.pan.setTargetAtTime(slot.pan * 0.9, ct, 0.08);
+    }
+
+    /* 没命中的淡出。**不读 `gain.value` 判释放**：那个值在 headless 里滞后（§31），
+       改成数「连续几次没被选中」—— 10Hz × 8 = 0.8s，比音频线程可靠。 */
+    for(const v of carVoices){
+      if(v.hit) continue;
+      v.tgt = 0;
+      v.miss = (v.miss || 0) + 1;
+      svf(v.g.gain, 0, ct, 0.16);
+      if(v.miss > 8) v.key = -1;
+    }
+
+    /* 探针用：最近一条声源的逻辑值 */
+    const s0 = carVoices[0];
+    let live = 0;
+    for(const v of carVoices) if(v.tgt > 0.003) live++;
+    carDbg.n = nCarScan; carDbg.live = live;
+    if(s0){
+      carDbg.d0 = Math.round(s0.d); carDbg.g0 = +s0.tgt.toFixed(4);
+      carDbg.pan0 = +(s0.pan || 0).toFixed(2); carDbg.dop0 = +(s0.dop || 1).toFixed(3);
+      carDbg.cut0 = Math.round(s0.cut || 0); carDbg.vr0 = +(s0.vr || 0).toFixed(1);
+    }
+  }
+
   /* 10Hz 更新目标音量。不用每帧：`setTargetAtTime` 每帧重设一次会让自动化曲线
      一直在「重新起步」，而且白占 CPU；10Hz 配合 0.30s 的时间常数已经足够平滑。 */
   function tick(){
@@ -8542,6 +8690,9 @@ const AUD = (()=>{
     const kSt = Math.pow(1 - Math.min(1, gh / 130), 1.7);
     tgt.street = 0.62 * kSt;
     sv(street.g.gain, tgt.street, ct);
+
+    /* 近处那几辆的 pass-by：远处那一层由上面的 street 底噪承担，两者叠加不重复 */
+    updateCarVoices(ct, gh);
 
     /* 风：25m 以下几乎没有（被楼挡住），400m 起明显 */
     const rainNow = (weather === 'rain') && !qRainOff;
@@ -8612,7 +8763,8 @@ const AUD = (()=>{
   function dbg(){
     /* 冷启动也要给 `fw` 的形状：探针第一步就要读它，字段缺失会让探针崩在
        「有没有开声」这一层，而不是它真正要验的那层。 */
-    if(!ctx) return { on: on, ctx: null, fw: fwDbg };
+    if(!ctx) return { on: on, ctx: null, fw: fwDbg,
+                      cars: { n: 0, live: 0, d: 0, g: 0, pan: 0, dop: 0, cut: 0, vr: 0, slots: [] } };
     const g = {
       city:   +city.g.gain.value.toFixed(3),
       city2:  +city2.g.gain.value.toFixed(3),
@@ -8643,6 +8795,11 @@ const AUD = (()=>{
       /* 烟花：最近一发的**逻辑调度值**。AudioParam 在 headless 里会被饿死，
          所以延时不读 delayTime、声像不读 pan.value —— 读的是算出来那一刻的数。 */
       fw: { n: fwDbg.n, d: fwDbg.d, delay: fwDbg.delay, k: fwDbg.k, pan: fwDbg.pan, cut: fwDbg.cut },
+      /* 车流 pass-by：最近一条声源的逻辑值（距离 / 包络 / 声像 / 多普勒比 / 低通） */
+      cars: { n: carDbg.n, live: carDbg.live, d: carDbg.d0, g: carDbg.g0,
+              pan: carDbg.pan0, dop: carDbg.dop0, cut: carDbg.cut0, vr: carDbg.vr0,
+              slots: carVoices.map(v => ({ key: v.key, d: Math.round(v.d),
+                                           g: +v.tgt.toFixed(4), pan: +(v.pan || 0).toFixed(2) })) },
       g: g
     };
   }
@@ -9274,6 +9431,9 @@ window.__dbg = { scene, camera, water, cityMesh, roadMesh, flyTo, HOME, setTour,
   /* 烟花：探针要能「手动放一发」验声学调度，不能等 6~16s 的随机节奏 */
   FW: { spawn: spawnFirework, bursts, origin: FW_ORIGIN, colors: fwColors,
         get on(){ return fwOn; }, setOn: (v)=>{ fwOn = v; } },
+  /* 车流位置是分帧算的（每帧只更一个 mesh），headless 空闲时 rAF 会停 ——
+     探针必须能手动把每个 mesh 都推一遍，否则读到的 aPos 全是 0。 */
+  updateTraffic,
   /* 诊断：AUD 的闭包到底读到了什么（排查「切天气/切时间声音不跟随」） */
   get wxNow(){ return weather; }, get nightNow(){ return skyUniforms.uNight.value; }, get rainOnNow(){ return rainOn; },
   stats: ()=> ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles,
