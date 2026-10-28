@@ -3401,6 +3401,46 @@ cut = min(12000, (3400 + 8600*e^(-d/60)) * (0.55 + 0.45*occ));
 
 ---
 
+## 44. 清掉历史提交里的本机路径（**已完成 2026-10-28**）
+
+`5447478`（原 `bec5999`）只把**工作树**里的 `C:/Users/<user>/...` 换成了相对路径，
+但 `38eff1f`（原 `c897f90`，13 个文件）和 `1a97d2f`（原 `173c343`，30 个文件）里的
+绝对路径还留在历史里 —— 公开仓库 `git log -p` 就能翻出来。**下面出现的旧哈希一律作废**，
+保留只为对照。
+
+### 做法
+
+1. `git bundle create ../neon-changsha-<日期>.bundle --all` + `git bundle verify`
+   （35MB，「records a complete history」）—— 重写不可逆，先留一份能整库还原的。
+2. `pip install git-filter-repo`；脚本装在 `…\python\versions\3.13.12\Scripts`，
+   **不在 PATH 上**，要么加 PATH 要么直接调脚本。
+3. 规则只有一行 `<本机用户名>==><user>`（`--replace-text` 默认按字面量），
+   和 `_depath.py` 注释里已有的 `<u>` / `<用户名>` 占位风格一致。
+4. `git filter-repo --replace-text … --force`（8.3s）→ 14 个提交全部换哈希。
+5. **`origin` 会被摘掉**（filter-repo 的既定行为），要手动 `git remote add` 再
+   `--force -u` 推。
+
+### 容易漏的一步：第二个分支
+
+远端还有 `perf-quality-tiers`（旧 `55aec6e` → 新 `ef0d561`），它的**树**里已经没有
+真实用户名（那时已经修过），但**祖先**里还是有 —— 只重写 `main` 等于没清。用
+`.git/filter-repo/commit-map` 查旧→新哈希，把那个提交 `git rebase --onto`
+到重写后的历史上再强推。
+
+最后 `git reflog expire --expire=now --all` + `git gc --prune=now`：
+本地 `git cat-file -t` 查旧哈希 `c897f90` 已经 `Not a valid object name`。
+
+### 判据
+
+```bash
+for c in $(git rev-list --all); do git grep -I -l -e "<本机用户名>" $c; done   # 必须为空
+git ls-remote origin                                                          # 所有 ref 都在新历史上
+```
+
+注意：GitHub 侧的不可达对象要等它自己的 GC，ref 干净之后 `git clone` 已经拿不到了。
+
+---
+
 ## 7. 命令速查
 
 ```bat
@@ -3698,6 +3738,9 @@ URL 参数：`?t=&hour=&view=cbd|isle|ridge|all&wx=rain&q=high|mid|low`
 | 2026-10-28 | **一棵候选树都没有就不叫**（`blocked='notree'`） | 以前无条件随机 pan，鸟能在江面正中间叫 |
 | 2026-10-28 | 探针必须**四个朝向各验一遍** pan | 只验正北的话，「pan 写死不跟相机转」也能过 |
 | 2026-10-28 | 探针的落脚点要过两道筛：不在墙里 + 试叫出现过 `occ<1` | 站墙里 `BD.near<0.6` 会假命中；乡道树旁一栋楼都没有，遮挡那一支等于没接上 |
+| 2026-10-28 | 重写历史前先 `git bundle create … --all` 并 `verify` | 重写不可逆，且 `--replace-text` 会把 14 个提交的哈希全换掉，没有 bundle 就没法整库回滚 |
+| 2026-10-28 | 用户名统一换成 `<user>`，与 `_depath.py` 里已有的 `<u>` 风格对齐 | 保持同一套占位符；换别的写法会让以后 `grep` 自查时漏掉一类 |
+| 2026-10-28 | 重写后**逐个 `rev-list` 全分支再 grep 一遍**，不只查 main | `perf-quality-tiers` 的树里干净、祖先里不干净 —— 只重写主线等于没清 |
 
 ---
 
