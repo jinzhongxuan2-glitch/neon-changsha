@@ -125,14 +125,43 @@ const SHADOW = (()=>{
   }
 
   let ready = false;
+  let nShadow = 0;                       /* 实际重画阴影的次数（探针用） */
+
+  /* ---- 阴影隔帧（§45）----
+     每帧的工作量 = 主场景 1 遍 + 阴影深度 **2** 遍（两张 2048² 级联都要重画），
+     阴影占了三角形工作量的 2/3。而投影体全是**静态**的：
+     楼（cityMesh）/ 树（veg）/ 店面（shops）/ 街道家具（furn）——
+     车和行人都不投影（grep castShadow 只有这 4 处 + 灯光本身）。
+     唯一随时间变的是树冠风摆：深度材质里有同一份 sin，冠顶摆幅约 1m，
+     30Hz 更新肉眼看不出影缘在动。
+
+     所以：相机或太阳动了 → 逐帧（级联要跟着视锥重新 fit，覆盖范围不能落后）；
+     静止 → 每 2 帧画一次，平均省掉 1 遍全场景 ≈ 三角形工作量 -33%。
+     时机判定用 matrixWorld 的 16 个元素：位置 + 朝向一起覆盖，
+     不用再去碰 controls（它在这个闭包之后才定义）。 */
+  const _lastMat = new Float32Array(16), _lastSun = new THREE.Vector3();
+  let _matOk = false, _shadowFrame = 0;
 
   function update(){
     /* 太阳落到地平线以下就没有阴影可投 */
     if(_sunDir.y < 0.03 || !shadowsWanted){
       uniforms.uShadowOn.value = 0.0;
+      _matOk = false;                        /* 太阳重新出来时强制画一次 */
       return;
     }
     camera.updateMatrixWorld();
+
+    const _e = camera.matrixWorld.elements;
+    let moved = !_matOk;
+    for(let i = 0; i < 16; i++) if(Math.abs(_e[i] - _lastMat[i]) > 1e-5){ moved = true; break; }
+    const sunMoved = Math.abs(_sunDir.x - _lastSun.x) +
+                     Math.abs(_sunDir.y - _lastSun.y) +
+                     Math.abs(_sunDir.z - _lastSun.z) > 1e-7;
+    _lastMat.set(_e); _lastSun.copy(_sunDir); _matOk = true;
+    _shadowFrame++;
+    /* 静止（且太阳没动）→ 隔帧；动了 → 逐帧 */
+    if(!moved && !sunMoved && (_shadowFrame & 1)) return;
+
     const t0 = fit(lights[0], 1, SPLIT);
     const t1 = fit(lights[1], SPLIT*0.7, FAR);
     uniforms.uShadowTexel0.value = t0;
@@ -150,10 +179,12 @@ const SHADOW = (()=>{
       uniforms.uShadowOn.value = 1.0;
     }
     renderer.shadowMap.needsUpdate = true;
+    nShadow++;
   }
 
   return { uniforms, update, lights,
     isReady: ()=> ready,
+    get renders(){ return nShadow; },
     setEnabled: (v)=>{ shadowsWanted = v; if(!v) uniforms.uShadowOn.value = 0.0; } };
 })();
 
@@ -9107,6 +9138,25 @@ function lerpKey(elDeg, key){
 let qMode = 'auto', qBloomMul = 1, qRainOff = false, qualityTier = 0;
 /* 招牌等级强制值：-1 = 跟画质档走，0/1/2 = 被 ?signs= 钉死 */
 let qSignForce = -1;
+
+/* ---- 自适应像素比（§45）----
+   状态与设置。`autoPr < 0` = 还没初始化，第一次用到时取 min(dpr, 1.75)。
+   下限是 **min(1, cap)**：永远不低于 CSS 像素 —— dpr=1 的屏幕一步都不会降
+   （回归就是在 dpr=1 下拍的，行为不变）；HiDPI 屏幕最多降到 1.0，
+   即「最多丢掉超采样，不丢 CSS 分辨率」。 */
+let autoPr = -1;
+const prEl = document.getElementById('s-pr');
+const prLabel = () => {
+  const pr = renderer.getPixelRatio();
+  return pr > 1.01 ? ' · ' + pr.toFixed(2).replace(/0$/, '') + '×' : '';
+};
+function setAutoPR(){
+  renderer.setPixelRatio(autoPr);
+  composer.setPixelRatio(autoPr);
+  /* composer.setSize 会逐 pass 调 setSize，aoPass 的半分辨率链跟着缩 */
+  composer.setSize(innerWidth, innerHeight);
+  if(prEl) prEl.textContent = prLabel();
+}
 function applyTime(hour){
   curHour = ((hour % 24) + 24) % 24;
   const rad = Math.PI / 180;
@@ -9369,6 +9419,9 @@ function applyQuality(mode){
   if(typeof shadowMesh !== 'undefined') shadowMesh.visible = !shadowsOn;
   if(typeof crowdOn !== 'undefined') crowdOn = crowd;
   if(typeof trafficGroup !== 'undefined') trafficGroup.visible = crowd;
+  /* 换档 = 交还自适应：autoPr 重新从该档的像素比起步 */
+  autoPr = -1;
+  if(prEl) prEl.textContent = prLabel();
   document.querySelectorAll('.chip.q').forEach(b=>b.classList.toggle('on', b.dataset.q === mode));
   applyTime(curHour);
 }
@@ -9440,6 +9493,31 @@ let elapsed = startT, frames = 0, fpsT = 0, rawDt = 0.016;
 document.getElementById('s-build').textContent = CITY.meta.buildings.toLocaleString();
 document.getElementById('s-road').textContent = CITY.meta.roads.toLocaleString();
 
+/* ---------- 启动期 shader 预编译（§45）----------
+   实测（CDP Profiler，1600×900/dpr1）：打开页面后 elapsed≈2s 有一段 1.4~3.1s 的
+   同步长任务，热点是 `getProgramInfoLog` —— three 在某个材质**第一次被画到**时
+   才惰性编译 GLSL 程序。首帧视锥没扫到的材质（烟花 shell、雨、被档位隐藏的
+   变体）都会掉进这个坑，表现就是「页面出来一两秒后猛卡一下」，且 FW=off 也卡
+   （之前误记成「烟花冻结」，其实是惰性编译恰好撞上烟花档的那一轮）。
+   修法两步，全部发生在加载画面还没摘掉的时候：
+   ① 烟花 shell 提前创建。**必须用沙盒 RNG**：这些建构造 consume `Math.random`
+      （generateUUID 每个 geometry/材质/物体 4 次），直接提前会把整条全局随机序列
+      往前推、植被整片平移（§42 的坑）。沙盒里换成 xorshift32，全局流一次都不碰。
+   ② `renderer.compile(scene, camera)` 把场景里所有材质（含 `visible:false`，
+      three 内部用 `traverse` 不用 `traverseVisible`）的 GLSL 程序全部建出来。 */
+function fwShellsEarly(){
+  if(FW_SHELLS.length) return;
+  const saved = Math.random;
+  let s = 0x9e3779b9 >>> 0;
+  Math.random = () => {
+    s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0;
+    return s / 4294967296;
+  };
+  try { fwShellsInit(); } finally { Math.random = saved; }
+}
+fwShellsEarly();
+try { renderer.compile(scene, camera); } catch(e) {}
+
 const loadEl = document.getElementById('load');
 const lbarEl = document.getElementById('lbar');
 const fpsEl = document.getElementById('s-fps');
@@ -9494,12 +9572,29 @@ function tick(){
     const f = frames/fpsT;
     fpsEl.textContent = Math.round(f);
     frames = 0; fpsT = 0;
-    // 三档自适应：像素比 → 反射分辨率 → 关雨
+    /* 分辨率跟着实测帧率走 */
+    prEl.textContent = prLabel();
+    // 自适应：分辨率细步走 + 三档重活（反射分辨率 → 植被 → 关雨）
     if(qMode === 'auto' && elapsed > 4){
-      if(qualityTier === 0 && f < 34){
+      /* ① 像素比细步走（§45）：旧版从 1.75 一步跳到 1.0 ——
+            中间那些「1.45 就够」的机器被白白降了画质，而且突跳本身就是
+            一次可见的卡顿（整条后期链的渲染目标都要重建）。
+            现在每个统计窗最多动 0.15：掉帧就往下走，富余就往上走，
+            停在「当前机器能撑住的最高档」。下限是 min(1, cap)，
+            所以 dpr=1 的屏幕行为完全不变（回归也是在这个条件下拍的）。 */
+      const cap = Math.min(window.devicePixelRatio || 1, 1.75);
+      const FLOOR = Math.min(1, cap);
+      if(autoPr < 0) autoPr = cap;
+      if(f < 32 && autoPr > FLOOR + 1e-6){
+        autoPr = Math.max(FLOOR, autoPr - 0.15);
+        setAutoPR();
+      } else if(f >= 57 && autoPr < cap - 1e-6){
+        autoPr = Math.min(cap, autoPr + 0.15);
+        setAutoPR();
+      }
+      /* ② 重活三档：只有分辨率已经到底还在掉帧才会触发 */
+      if(qualityTier === 0 && f < 30 && autoPr <= FLOOR + 1e-6){
         qualityTier = 1;
-        renderer.setPixelRatio(1); composer.setPixelRatio(1);
-        composer.setSize(innerWidth, innerHeight);
       } else if(qualityTier === 1 && f < 26){
         qualityTier = 2;
         water.getRenderTarget().setSize(
