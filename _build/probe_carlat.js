@@ -33,7 +33,7 @@ const { chromium, ROOT, EXE } = require('./_pw');
     const paths = d.BRIDGES.map(B => {
       const bp = [];
       for (const q of B.pts) bp.push(q[0], q[1]);
-      const S = d.deckSection(d.BRIDGE_WIDTH[B.id] || 26);
+      const S = d.deckSection(d.BRIDGE_WIDTH[B.id] || 26, d.BRIDGE_MEDIAN[B.id] || 0);
       return { id: B.id, bp, bn: B.pts.length, half: S.half, S };
     });
 
@@ -56,7 +56,7 @@ const { chromium, ROOT, EXE } = require('./_pw');
       const dx = bx-ax, dz = bz-az, len = Math.hypot(dx,dz) || 1;
       const t = Math.min(1, Math.max(0, (c.s - cum[i]) / len));
       const tx = dx/len, tz = dz/len, nx = -tz, nz = tx;
-      const off = ((c.lane + 0.5) * e.laneW) * c.dir;
+      const off = ((e.m2 || 0) + (c.lane + 0.5) * e.laneW) * c.dir;
       let px, pz;
       if (e.dof) {
         const dofv = e.dof[i] + (e.dof[i+1] - e.dof[i]) * t;
@@ -90,10 +90,11 @@ const { chromium, ROOT, EXE } = require('./_pw');
         const tot = arr.reduce((s, x) => s + x[1], 0);
         let mx = 0;
         for (const [k, v] of arr) mx = Math.max(mx, Math.abs(k));
-        /* 期望的车道中心：±(k+0.5)*laneW */
+        /* 期望的车道中心：±(m2 + (k+0.5)*laneW)，有中央锚固带时从带边起算 */
         const want = [];
-        for (let k = 0; k < P.S.per; k++) want.push(+(((k + 0.5) * P.S.laneW).toFixed(2)));
+        for (let k = 0; k < P.S.per; k++) want.push(+((P.S.m2 + (k + 0.5) * P.S.laneW).toFixed(2)));
         return { id: P.id, half: P.half, per: P.S.per, laneW: +P.S.laneW.toFixed(3),
+                 mw: P.S.mw, m2: +P.S.m2.toFixed(2),
                  cw: +P.S.cw.toFixed(2), sw: P.S.sw, want,
                  total: tot, maxAbs: +mx.toFixed(2),
                  lanes: arr.filter(x => x[1] >= Math.max(2, tot * 0.02)) };

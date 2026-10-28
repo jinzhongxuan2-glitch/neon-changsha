@@ -63,21 +63,28 @@ const ID = process.argv[2] || 'fuyuanlu';
     const keys = Object.keys(H).map(Number).sort((a, b) => a - b);
 
     /* 标线现在画在哪（template 里 mark() 的 oo 值） */
-    const S = window.__dbg.deckSection(d.half * 2);
+    const S = window.__dbg.deckSection(d.half * 2, d.mw);
     const mi = n >> 1;
     const dof = d.dof[mi];
     const mk = (o) => +(o - dof).toFixed(2);      // 当前公式（含 -dof）
     const mk0 = (o) => +o.toFixed(2);             // 纯桥坐标系
+    const yo = S.m2 + (S.mw > 0 ? 0.22 : 0.145);  // 双黄线：有中央锚固带时贴带边
     const marks = [];
-    marks.push({ what: 'doubleYellow', now: [mk(0.145), mk(-0.145)], plain: [mk0(0.145), mk0(-0.145)] });
+    marks.push({ what: 'doubleYellow', now: [mk(yo), mk(-yo)], plain: [mk0(yo), mk0(-yo)] });
     for (let k = 1; k < S.per; k++) {
-      marks.push({ what: 'dash' + k, now: [mk(k * S.laneW), mk(-k * S.laneW)], plain: [mk0(k * S.laneW), mk0(-k * S.laneW)] });
+      const kd = S.m2 + k * S.laneW;
+      marks.push({ what: 'dash' + k, now: [mk(kd), mk(-kd)], plain: [mk0(kd), mk0(-kd)] });
     }
     marks.push({ what: 'edge', now: [mk(S.cw - 0.25), mk(-(S.cw - 0.25))], plain: [mk0(S.cw - 0.25), mk0(-(S.cw - 0.25))] });
+    /* 期望：车落在 ±(m2 + (lane+0.5)*laneW) */
+    const wantLanes = [];
+    for (let k = 0; k < S.per; k++) wantLanes.push(+(S.m2 + (k + 0.5) * S.laneW).toFixed(2));
 
     return {
       id, half: d.half, dof: +dof.toFixed(2),
-      section: { cw: +S.cw.toFixed(2), per: S.per, laneW: +S.laneW.toFixed(2) },
+      section: { cw: +S.cw.toFixed(2), mw: S.mw, m2: +S.m2.toFixed(2),
+                 per: S.per, laneW: +S.laneW.toFixed(2) },
+      wantLanes,
       carsTotal: total, carsOnBridge: lats.length,
       hist: keys.map(k => [k, H[k.toFixed(1)]]),
       marks,

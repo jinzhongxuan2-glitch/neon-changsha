@@ -1701,6 +1701,44 @@ function bridgeIndexAt(x, z, r){
 }
 function onBridgeDeck(x, z, r){ return bridgeIndexAt(x, z, r) >= 0; }
 
+/* 桥面**足迹**判定 —— 路面下沉只认这一条，不要用 `onBridgeDeck`。
+   `bridgeIndexAt` 的 `_segDist` 把投影参数钳到 [0,1]，于是「端点之外」16m 内
+   也算在桥上：桥端外侧那半圆里的岸边路面被一起沉到地下 600m，而那里没有桥面盖着
+   —— 一段既无桥面又无路面的空洞（福元路 end0 最明显）。
+
+   两条修正：
+   ① 半径取**该桥真实半宽**。默认 16m 会把 26m 宽桥面旁边那 3m 也沉掉，
+      同样是「沉了但没盖住」。
+   ② **只拒整条走线的两端**，分段端点不能单独拒 —— 拐角外侧那一小片确实在桥面下，
+      拒了会露出「一条贴着水面的路」，那是 §26 之前的老 bug。
+      判据是「最近点落在走线的首/末端」，不是「某一小段的 t 越界」。 */
+function bridgeDeckAt(x, z){
+  for(let i=0;i<BRIDGE_PATHS.length;i++){
+    const b = BRIDGE_PATHS[i], bx = b.box;
+    if(x < bx[0] || x > bx[2] || z < bx[1] || z > bx[3]) continue;
+    const pts = b.pts, ns = pts.length - 1;
+    /* 半径 = 真实半宽 **减 0.3**：桥面顶到 `half` 为止，多沉出去的每一厘米都是
+       「沉了但没盖住」。第一版加了 +0.6 的余量想「宁可多沉一点」，实测在 8 个端点
+       周围留下 43 个格子（约 0.6m 宽的一圈）—— 正是这条 bug 的缩小版。 */
+    const rr = (BRIDGE_WIDTH[b.id] || 28) * 0.5 - 0.3;
+    let best = rr * rr, seg = -1, bt = 0;
+    for(let k=0;k<ns;k++){
+      const ax = pts[k][0], az = pts[k][1];
+      const dx = pts[k+1][0] - ax, dz = pts[k+1][1] - az;
+      const L2 = dx*dx + dz*dz;
+      let t = L2 > 1e-9 ? ((x-ax)*dx + (z-az)*dz) / L2 : 0;
+      t = t < 0 ? 0 : (t > 1 ? 1 : t);
+      const qx = ax + dx*t - x, qz = az + dz*t - z;
+      const d2 = qx*qx + qz*qz;
+      if(d2 < best){ best = d2; seg = k; bt = t; }
+    }
+    if(seg < 0) continue;
+    if((seg === 0 && bt <= 1e-6) || (seg === ns - 1 && bt >= 1 - 1e-6)) continue;
+    return i;
+  }
+  return -1;
+}
+
 /* ============================================================
    桥面横断面：唯一真源
    ------------------------------------------------------------
@@ -1714,13 +1752,30 @@ function onBridgeDeck(x, z, r){ return bridgeIndexAt(x, z, r) >= 0; }
 const BRIDGE_WIDTH = { juzizhou:26, yinpenling:28, fuyuanlu:32, houzishi:28 };
 /* rail: 护栏内表面到桥面边缘（= 半宽 - hw - wallT/2，见 bridgeCore 的护栏段） */
 const DECK_RAIL = 0.48;
-function deckSection(W){
+/* ---- 中央锚固带（§41）----
+   **只有单索面桥有**，也就是只有银盆岭：它是「双塔单索面预应力混凝土斜拉桥」
+   （桥宽 25m / 4×3.75 机动车道 / 每塔 15 对索），全桥的索落在一条中线上。
+   现实里那一条中线是**锚固区**，机动车道在它两侧 —— 从来没有「双黄线从索底穿过」
+   这回事。我们以前把双黄线画在 ±0.145，38 根索的投影正好把它切成碎段，
+   俯视图上就是一条灰带压着黄线（`_audit/bridge/v3_yinpenling_mid.png`）。
+   现在给它一条 1.6m 宽的矮带：索落进带里，双黄线移到带的两侧，中线不再有别的构件。
+
+   `BRIDGE_MEDIAN` 和 `BRIDGE_WIDTH` 并列，同样**只有一处**：桥面断面（标线 / 带身）
+   和桥上车流的车道落点（TRAFFIC）都从这里取，别再各算一套。 */
+const BRIDGE_MEDIAN = { juzizhou:0, yinpenling:1.6, fuyuanlu:0, houzishi:0 };
+const MEDIAN_H = 0.06;                          // 带身高度：只做 6cm 的矮台，够读出来，不挡黄线
+const MEDIAN_LINE = 0.22;                       // 双黄线线心到带边的净距
+function deckSection(W, mw){
   const half = W * 0.5;
   /* 人行道：桥越宽越宽。26m→1.40 / 28m→1.60 / 32m→2.40 */
   const sw = Math.min(2.6, Math.max(1.4, (W - 20) * 0.20));
-  const cw = half - DECK_RAIL - sw;             // 车行道半宽
-  const per = Math.max(2, Math.round(cw / 3.5)); // 每方向车道数
-  return { W, half, rail: DECK_RAIL, sw, cw, per, laneW: cw / per };
+  const cw = half - DECK_RAIL - sw;             // 车行道外缘到中线的距离（含中央带的一半）
+  /* 有带的时候，单向车行道宽是 `cw - mw/2`，车道数和车道宽都按它算 ——
+     否则标线和车流会各按一套宽度落点。`mw` 缺省 0，其余三座桥的断面一个字节都不变。 */
+  const m2 = Math.max(0, (mw || 0) * 0.5);
+  const halfCw = cw - m2;                       // 单向车行道宽度
+  const per = Math.max(2, Math.round(halfCw / 3.5)); // 每方向车道数
+  return { W, half, rail: DECK_RAIL, sw, cw, mw: (mw || 0), m2, halfCw, per, laneW: halfCw / per };
 }
 
 function buildRoads(){
@@ -1848,9 +1903,11 @@ function buildRoads(){
         const axl = Math.sqrt(ax0*ax0 + az0*az0) || 1;
         const ax = ax0/axl, az = az0/axl;
         const x = x1 + ex*t, z = z1 + ez*t;
-        /* 只在“水面上的桥段”把重复路面沉掉；陆上引桥下方本来就该有地面道路 */
+        /* 只在“水面上的桥段”把重复路面沉掉；陆上引桥下方本来就该有地面道路。
+           `bridgeDeckAt` 而不是 `onBridgeDeck`：端点之外不算、半径取真实半宽，
+           否则桥端外侧会沉出一段「既无桥面又无路面」的空洞（风险 25）。 */
         const tC = terrainAt(x, z);
-        const sink = (tC < 3 && onBridgeDeck(x, z)) ? 600 : 0;
+        const sink = (tC < 3 && bridgeDeckAt(x, z) >= 0) ? 600 : 0;
 
         let vL0 = 1, vR0 = 1;
         if(nearL){
@@ -3592,9 +3649,10 @@ const TRAFFIC = (()=>{
        每帧只多两次数组读，成本可以忽略。 */
     if(e.isBridge){
       const B = BRIDGE_PATHS[bridgeRoad[i] - 1];
-      const S = deckSection(BRIDGE_WIDTH[B.id] || 26);
+      const S = deckSection(BRIDGE_WIDTH[B.id] || 26, BRIDGE_MEDIAN[B.id] || 0);
       e.laneW = S.laneW;
       e.nl = S.per;
+      e.m2 = S.m2;              // 中央锚固带半宽：车道从带边往外排，别从桥中线排
       const bp = B.pts, bn = bp.length;
       const dnx = new Float32Array(r.n), dnz = new Float32Array(r.n), dof = new Float32Array(r.n);
       for(let k=0;k<r.n;k++){
@@ -3877,7 +3935,9 @@ function updateTraffic(dt){
     const len = Math.sqrt(dx*dx + dz*dz) || 1;
     const tx = dx/len, tz = dz/len;
     const nx = -tz, nz = tx;
-    const off = ((c.lane + 0.5) * rd.laneW) * c.dir;   // 车道中心，与路面标线同源
+    /* 车道中心，与路面标线同源。有中央锚固带时从带边起算（`rd.m2`），
+       否则银盆岭内侧那条车道会有一半压在带上。`|| 0` 是给地面路用的 —— 它们没有 m2。 */
+    const off = ((rd.m2 || 0) + (c.lane + 0.5) * rd.laneW) * c.dir;
     let px, pz;
     if(rd.dof){
       /* 桥面路：`off` 是从**桥中线**量起的，而节点本身相对桥中线还偏了 dof，
@@ -5744,7 +5804,7 @@ function bridgeLateralDof(path, px, pz, own, half){
 
 /* 桥面 + 侧梁 + 护栏 + 人行道 + 标线 + 灯柱：所有桥型共用 */
 function bridgeCore(b, spec){
-  const S = deckSection(spec.width);
+  const S = deckSection(spec.width, BRIDGE_MEDIAN[b.id] || 0);
   const W = S.W, half = S.half, TH = spec.th || 1.6;
   const STEP = 4.0;
   const path = bridgePath(b.pts, STEP);
@@ -5850,6 +5910,25 @@ function bridgeCore(b, spec){
       pushQuad(D.P, D.N, D.G, q0, q1, c1, c0, [-sgn*px[i], 0, -sgn*pz[i]], 4);
     }
 
+    /* ---- 中央锚固带（§41）----
+       单索面桥的索全落在桥中线上，那一条在现实里是**锚固区**，机动车道在它两侧。
+       做成 6cm 高的矮带：带顶接索根（索根在 `ys+0.5`、宽 0.42，正好落进带里），
+       两侧立面朝车道，把「双黄线从中线穿过」这件事从根上去掉。
+       颜色走 aGlow=4（混凝土，和人行道同材质）—— 用 0（沥青）的话在桥面上完全看不出来。
+       高度只给 6cm：0.14 的路缘在 45° 视线下会遮住带边 0.14m，把刚挪出来的黄线又压掉一半。 */
+    if(S.mw > 0){
+      const tA0 = [ax + px[i]*S.m2, ay, az + pz[i]*S.m2];
+      const tA1 = [bx + px[i+1]*S.m2, by, bz + pz[i+1]*S.m2];
+      const tB0 = [ax - px[i]*S.m2, ay, az - pz[i]*S.m2];
+      const tB1 = [bx - px[i+1]*S.m2, by, bz - pz[i+1]*S.m2];
+      const tA0t=[tA0[0],ay+MEDIAN_H,tA0[2]], tA1t=[tA1[0],by+MEDIAN_H,tA1[2]];
+      const tB0t=[tB0[0],ay+MEDIAN_H,tB0[2]], tB1t=[tB1[0],by+MEDIAN_H,tB1[2]];
+      pushQuadG(D.P, D.N, D.G, tA0t, tA1t, tB1t, tB0t, [0,1,0],
+        4 + lpA*0.4, 4 + lpB*0.4, 4 + lpB*0.4, 4 + lpA*0.4);
+      pushQuad(D.P, D.N, D.G, tA0, tA0t, tA1t, tA1, [px[i], 0, pz[i]], 4);
+      pushQuad(D.P, D.N, D.G, tB0, tB1, tB1t, tB0t, [-px[i], 0, -pz[i]], 4);
+    }
+
     /* ---- 标线：双黄中线 + 每方向 (per-1) 条车道虚线 + 两条边线 ----
        **横向基准是桥走线本身，不是 OSM 路中线**（§34）。
        桥体几何（护栏 / 人行道 / 车行道 / 桥上车流的车道落点）全按桥走线建 ——
@@ -5881,14 +5960,18 @@ function bridgeCore(b, spec){
       pushQuadG(D.P, D.N, D.G, a0, a1, b1, b0, [0,1,0],
         g + lpA*0.4, g + lpB*0.4, g + lpB*0.4, g + lpA*0.4);
     };
-    /* 双黄线：两条 0.14 宽、内侧净距 0.13 → 线心 ±0.145 */
-    mark( 0.145, 0.070, false, 5);
-    mark(-0.145, 0.070, false, 5);
-    /* 车道虚线：第 k 条在 k*laneW。车道数、车道宽都来自 deckSection()，
-       和桥上车流的横向落点同源（TRAFFIC 里也是 rd.laneW / rd.nl）。 */
+    /* 双黄线：两条 0.14 宽、内侧净距 0.13 → 线心 ±0.145。
+       有中央锚固带（银盆岭）时贴到带的**两侧**：索的投影 0.42 宽正好压死 ±0.145，
+       而 38 根索在中跨几乎沿着桥轴线叠成一条连续带（风险 27）。 */
+    const yo = S.m2 + (S.mw > 0 ? MEDIAN_LINE : 0.145);
+    mark( yo, 0.070, false, 5);
+    mark(-yo, 0.070, false, 5);
+    /* 车道虚线：第 k 条在 m2 + k*laneW。车道数、车道宽都来自 deckSection()，
+       和桥上车流的横向落点同源（TRAFFIC 里也是 rd.m2 / rd.laneW / rd.nl）。 */
     for(let k=1;k<S.per;k++){
-      mark( k*S.laneW, 0.085, true);
-      mark(-k*S.laneW, 0.085, true);
+      const kd = S.m2 + k*S.laneW;
+      mark( kd, 0.085, true);
+      mark(-kd, 0.085, true);
     }
     /* 边线：车行道边界往里 0.25 */
     mark( S.cw - 0.25, 0.085, false);
@@ -5943,7 +6026,9 @@ function buildArchBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
   BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
-    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz,
+    /* 断面快照：探针复算标线落点、判断车与标线是否同源都靠这几个值 */
+    W: core.S.W, cw: core.S.cw, mw: core.S.mw, m2: core.S.m2, laneW: core.S.laneW, per: core.S.per });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
   const W = spec.width;
 
@@ -6014,7 +6099,9 @@ function buildCableBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
   BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
-    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz,
+    /* 断面快照：探针复算标线落点、判断车与标线是否同源都靠这几个值 */
+    W: core.S.W, cw: core.S.cw, mw: core.S.mw, m2: core.S.m2, laneW: core.S.laneW, per: core.S.per });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
 
   /* 主跨：以河心为中心。不能取「最低点」——江面在 DEM 里是一整片 0，
@@ -6119,7 +6206,9 @@ function buildBasketArchBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
   BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
-    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz,
+    /* 断面快照：探针复算标线落点、判断车与标线是否同源都靠这几个值 */
+    W: core.S.W, cw: core.S.cw, mw: core.S.mw, m2: core.S.m2, laneW: core.S.laneW, per: core.S.per });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
   const step = total / (n - 1);
 
@@ -6209,7 +6298,9 @@ function buildBeamBridge(b){
   const spec = BRIDGE_SPEC[b.id];
   const core = bridgeCore(b, spec);
   BRIDGE_DECKS.push({ path: core.path, ys: core.ys, half: core.half, dof: core.dof, id: b.id,
-    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz });
+    dofOwn: core.dofOwn, dLand: core.dLand, px: core.px, pz: core.pz,
+    /* 断面快照：探针复算标线落点、判断车与标线是否同源都靠这几个值 */
+    W: core.S.W, cw: core.S.cw, mw: core.S.mw, m2: core.S.m2, laneW: core.S.laneW, per: core.S.per });
   const { path, ys, n, px, pz, half, TH, total, D } = core;
 
   /* 桥墩：等间距，从地面/水面一直到梁底，顶部带盖梁 */
@@ -9162,7 +9253,7 @@ window.__dbg = { scene, camera, water, cityMesh, roadMesh, flyTo, HOME, setTour,
   getMode: ()=> mode, applyTime, getHour: ()=> curHour, setWeather: (w)=>{ weather = w; applyTime(curHour); }, bloom, terrainAt, walkTop, roadTop, TERR, controls, now:()=>elapsed,
   setTime:(t)=>{ elapsed = t; },   /* 仅供回归截图：冻结时钟后把 elapsed 钉到固定值 */
   veg: ()=> vegBuilt, vegUniforms, vegShadowUniforms, VP, RNB, roadsBuilt, roofMesh, getRoofV: ()=> roofVCount, roofOverflow, carMesh, lampMesh, carArr, lampArr, trafficMesh, trafficMeshes, trafficGroup, TRAFFIC, pedMesh, bikeMesh, WALK,
-  renderer, composer, OCC, BD, PICK, MM, SHOT, AUD, isWater, get fly(){ return fly; }, get mode(){ return mode; }, addV, WATM, SHADOW, SKYIRR, BRIDGE_STATS, BRIDGE_DEBUG, BRIDGE_DECKS, BRIDGES: BRIDGE_PATHS, deckY, deckSection, BRIDGE_WIDTH, SIGNS: signBuilt, SHOPS: shopBuilt, FURN: furnBuilt, FURNDBG: furnDbg, getBankLights: ()=> BANK_LIGHTS,
+  renderer, composer, OCC, BD, PICK, MM, SHOT, AUD, isWater, get fly(){ return fly; }, get mode(){ return mode; }, addV, WATM, SHADOW, SKYIRR, BRIDGE_STATS, BRIDGE_DEBUG, BRIDGE_DECKS, BRIDGES: BRIDGE_PATHS, deckY, deckSection, BRIDGE_WIDTH, BRIDGE_MEDIAN, bridgeDeckAt, bridgeGroup, SIGNS: signBuilt, SHOPS: shopBuilt, FURN: furnBuilt, FURNDBG: furnDbg, getBankLights: ()=> BANK_LIGHTS,
   /* 烟花：探针要能「手动放一发」验声学调度，不能等 6~16s 的随机节奏 */
   FW: { spawn: spawnFirework, bursts, origin: FW_ORIGIN, colors: fwColors,
         get on(){ return fwOn; }, setOn: (v)=>{ fwOn = v; } },
