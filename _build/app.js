@@ -3075,8 +3075,10 @@ function assembleVeg(){
   }
   shMesh.count = sIdx;
 
+  /* `nearArr` 也跟着留下：环境声要靠它找「鸟站在哪棵树上」。
+     11 float/棵：x, z, y, sx, sy, sz, rotY, r, g, b, seed。 */
   vegBuilt = { nearMeshes, farMeshes, total: nNear, farTotal: farArr.length/11,
-               shMesh, shCount: sIdx };
+               shMesh, shCount: sIdx, nearArr };
   vegMesh = nearMeshes[0] || null;
 
   for(const m of nearMeshes) world.add(m);
@@ -6601,22 +6603,120 @@ const fwColors = ['#ffcb7a','#fff0d2','#ff5f45','#8fe6ff','#ffd27a','#ff8a5c'];
 }
 let fwOn = true, fwTimer = 6, fwIdx = 0;
 const FW_ORIGIN = new THREE.Vector3(-1780, 200, 0);
+
+/* ---- 升空段（§42）----
+   以前烟花是「凭空在 200m 高空炸开」：从 1.6km 外看就是一颗亮点突然出现，
+   没有「有东西从地上窜上去」这件事，爆点再响也像贴图。
+   现在每发先升 `FW_ASC` 秒：地面一颗火星从静止加速、末段变慢地爬到爆心，
+   拖一条 2 顶点的尾迹，同时一声哨音（`AUD.whistle`）。
+   **不多消费一次 Math.random**：升空点由爆心确定性派生（角度按黄金角轮转），
+   尾迹用线段而不是粒子系统 —— 2km 外它只有 1~2px。 */
+const FW_ASC = 1.5;
+/* 4 个升空槽位 —— **必须延迟创建**。
+   每个 `BufferGeometry` / `BufferAttribute` / `PointsMaterial` / `Points` / `Line` /
+   `CanvasTexture` 在构造时都调 `generateUUID()`，各吃 4 次 `Math.random`；而植被
+   （`VP.road/camp/bank/hill`）是在模块求值**之后**才生成的。放在顶层就等于把整条
+   随机序列往前推 —— §42 第一版实测 `VP.road` 20,063→20,120、最近一棵树 48.7m→63.6m，
+   16 机位里 `day_old` 直接飙到 4.13（其余机位只看得到远处的树，所以几乎没动）。
+   推迟到第一次真正放烟花时才建，那时城市早建完了。 */
+const FW_SHELLS = [];
+let fwSparkTex = null, fwShellIdx = 0;
+
+function fwShellsInit(){
+  if(FW_SHELLS.length) return;
+  /* 火星贴图：半径渐变的白点。`PointsMaterial` 不给贴图就是**方块**，
+     3px 的方块在 3× 放大下一眼能看出是像素块；加一张 32px 的径向渐变就当磨圆了。 */
+  const cv = document.createElement('canvas'); cv.width = cv.height = 32;
+  const c2 = cv.getContext('2d');
+  const gr = c2.createRadialGradient(16, 16, 0, 16, 16, 16);
+  gr.addColorStop(0, 'rgba(255,255,255,1)');
+  gr.addColorStop(0.35, 'rgba(255,255,255,0.55)');
+  gr.addColorStop(1, 'rgba(255,255,255,0)');
+  c2.fillStyle = gr; c2.fillRect(0, 0, 32, 32);
+  fwSparkTex = new THREE.CanvasTexture(cv);
+
+  for(let i=0;i<4;i++){
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3), 3));
+    /* `sizeAttenuation:false` + 固定 5.4px：透视缩放算下来是 `size * 320/1600 = 0.68px`，
+       亚像素 → 火星整个消失（第一版就是这样，只剩一条尾迹没有头）。
+       烟花永远在 1.6~6km 外，不需要透视缩放。 */
+    const m = new THREE.PointsMaterial({ color: 0xffe2b0, size: 5.4, sizeAttenuation: false,
+      map: fwSparkTex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+    const pts = new THREE.Points(g, m);
+    pts.visible = false; pts.frustumCulled = false;
+    world.add(pts);
+    const tg = new THREE.BufferGeometry();
+    tg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+    /* 尾迹用顶点色做淡出：加色混合下「暗 = 看不见」，尾端给 0 就等于渐隐，
+       不需要第二层几何或自定义 shader。 */
+    tg.setAttribute('color', new THREE.BufferAttribute(new Float32Array([
+      0.30, 0.11, 0.02,  1.00, 0.74, 0.42]), 3));
+    const tl = new THREE.Line(tg, new THREE.LineBasicMaterial({ vertexColors: true,
+      transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+    tl.visible = false; tl.frustumCulled = false;
+    world.add(tl);
+    FW_SHELLS.push({ pts, tl, mat: m, tmat: tl.material, t0: -1e9, live: false,
+                     a: new THREE.Vector3(), b: new THREE.Vector3() });
+  }
+}
+
 function spawnFirework(t){
+  fwShellsInit();
   const b = bursts[fwIdx % bursts.length]; fwIdx++;
-  b.mat.uniforms.uBirth.value = t;
   const o = b.mat.uniforms.uOrigin.value;
   /* 五处 Math.random 的**次数与顺序不能变** —— 全局随机序列是契约，多消费一次
      植被分帧构建就整片平移。这里只是把 uOrigin 提成局部变量，别的一个字没动。 */
   o.set(FW_ORIGIN.x + (Math.random()-0.5)*260, 160+Math.random()*150, FW_ORIGIN.z + (Math.random()-0.5)*700);
   b.mat.uniforms.uColor.value = C(fwColors[(Math.random()*fwColors.length)|0]);
   b.mat.uniforms.uScale.value = 0.85+Math.random()*0.65;
-  b.pts.visible = true; b.birth = t;
+  /* 爆点推到升空之后：`uBirth` 就是爆点时刻，shader 里 `t-uBirth < 0` 时 vA = 0
+     （`smoothstep(0.0,0.10,t)` 把负时间钳到 0），所以在升空段它一直是隐形的。 */
+  b.mat.uniforms.uBirth.value = t + FW_ASC;
+  b.pts.visible = true; b.birth = t + FW_ASC;
+
+  /* 升空点：由爆心确定性派生（黄金角轮转，连续几发不会同一方向），斜着飞比垂直好看。
+     落点取地面/水面之上 6m —— 江面 terrainAt = 0，不取 max 会从水里冒出来。 */
+  const s = FW_SHELLS[fwShellIdx % FW_SHELLS.length]; fwShellIdx++;
+  const ang = fwIdx * 2.3999632;
+  const rr = 70 + (fwIdx % 4) * 26;
+  s.a.set(o.x + Math.cos(ang) * rr, Math.max(6, terrainAt(o.x + Math.cos(ang) * rr, o.z + Math.sin(ang) * rr) + 6),
+          o.z + Math.sin(ang) * rr);
+  s.b.copy(o);
+  s.t0 = t; s.live = true;
+  s.pts.visible = true; s.tl.visible = true;
+
   /* 爆炸声：爆心就是这一发的 uOrigin。AUD 在 8.2k 行，晚于本函数定义但早于第一次
-     spawn（首帧后 6s 的 rAF），所以运行时一定已初始化 —— 不是 TDZ 陷阱。 */
-  AUD.boom(o.x, o.y, o.z);
+     spawn（首帧后 6s 的 rAF），所以运行时一定已初始化 —— 不是 TDZ 陷阱。
+     `FW_ASC` 作为「已经过去的升空时间」传给 boom：声音必须在**炸开那一下**到，
+     不是发射那一下。 */
+  AUD.whistle(o.x, o.y, o.z, FW_ASC);
+  AUD.boom(o.x, o.y, o.z, FW_ASC);
 }
 function updateFireworks(t, dt){
   for(const b of bursts) if(b.pts.visible && t-b.birth > 3.5) b.pts.visible = false;
+  /* 升空段：位置按 `1-(1-q)²`（出膛快、末段慢 —— 火箭在重力下减速），
+     尾迹从早 0.14 个进度的位置连过来。放在 `fwOn` 之前判：中途关掉开关，
+     已经在飞的那几发要飞完，不能冻在半空。 */
+  for(const s of FW_SHELLS){
+    if(!s.live) continue;
+    const q = (t - s.t0) / FW_ASC;
+    if(q >= 1 || q < 0){
+      if(q >= 1){ s.live = false; s.pts.visible = false; s.tl.visible = false; }
+      continue;
+    }
+    const e = (k) => 1 - (1 - Math.min(1, Math.max(0, k))) * (1 - Math.min(1, Math.max(0, k)));
+    const u = e(q), u0 = e(q - 0.20);      /* 尾迹取 0.20 个进度：2km 外约 8~15px */
+    const x = s.a.x + (s.b.x - s.a.x) * u, y = s.a.y + (s.b.y - s.a.y) * u, z = s.a.z + (s.b.z - s.a.z) * u;
+    const x0 = s.a.x + (s.b.x - s.a.x) * u0, y0 = s.a.y + (s.b.y - s.a.y) * u0, z0 = s.a.z + (s.b.z - s.a.z) * u0;
+    s.pts.geometry.attributes.position.array.set([x, y, z]);
+    s.pts.geometry.attributes.position.needsUpdate = true;
+    s.tl.geometry.attributes.position.array.set([x0, y0, z0, x, y, z]);
+    s.tl.geometry.attributes.position.needsUpdate = true;
+    /* 出膛闪一下再收一点：`q*8` 让前 0.12s 淡入，末段略暗（火星在烧完） */
+    s.mat.opacity = Math.min(1, q * 8) * (1 - 0.35 * q);
+    s.tmat.opacity = Math.min(1, q * 8) * 0.55 * (1 - 0.5 * q);
+  }
   if(!fwOn) return;
   fwTimer -= dt;
   if(fwTimer <= 0){ spawnFirework(t); fwTimer = 9+Math.random()*7; }
@@ -8174,17 +8274,93 @@ const AUD = (()=>{
     return { k: best, pan: pan, occ: occ };
   }
 
-  /* 鸟叫：2~4 个短促的滑音，每次换随机音高和声像。
+  /* ---- 鸟叫方位（§43）----
+     以前是 `pan = rnd()*1.7 - 0.85`：鸟永远在相机**正前方**左右某个随机位置叫，
+     转身 180° 它还在原地，跟场景里那 3.6 万棵树完全无关。
+     现在从离相机最近的一丛真树出发（`vegBuilt.nearArr`，11 float/棵）：
+     方位投影到相机右向量（跟江水同一条公式）、距离定音量和低通、`occlK` 再压一档。
+
+     为什么要取最近 **6** 棵再抽：只取最近那一棵的话，同一个机位永远是同一丛灌木在叫，
+     听起来像循环采样。按 1/(30+d) 加权抽，近的更容易中但不机械。
+
+     `BIRD_MIN=14` 内不选：那是相机脚边的树冠，「耳朵贴树叶」不像鸟。
+     `BIRD_MAX=170` 外增益掉到 0.29×0.42，再远白建一条 panner。 */
+  const BIRD_MIN = 14, BIRD_MAX = 170, BIRD_PICK = 6;
+  let nChirp = 0;
+  let bDbg = { n: 0, d: 0, pan: 0, k: 0, cut: 0, x: 0, y: 0, z: 0, occ: 1, cand: 0, ms: 0, blocked: '' };
+
+  function birdSpot(){
+    const p = camera.position;
+    const arr = (vegBuilt && vegBuilt.nearArr) || null;
+    if(!arr || !arr.length) return null;
+    const K = BIRD_PICK;
+    const cx = [0,0,0,0,0,0], cz = [0,0,0,0,0,0], cy = [0,0,0,0,0,0], cd = [0,0,0,0,0,0];
+    const lo2 = BIRD_MIN * BIRD_MIN, hi2 = BIRD_MAX * BIRD_MAX;
+    let n = 0;
+    for(let i = 0; i < arr.length; i += 11){
+      const ax = arr[i], az = arr[i+1];
+      const dx = ax - p.x, dz = az - p.z;
+      const d2 = dx*dx + dz*dz;
+      if(d2 < lo2 || d2 > hi2) continue;
+      if(n >= K && d2 >= cd[K-1]) continue;
+      let j = n < K ? n : K - 1;
+      while(j > 0 && cd[j-1] > d2){ cd[j]=cd[j-1]; cx[j]=cx[j-1]; cz[j]=cz[j-1]; cy[j]=cy[j-1]; j--; }
+      cd[j] = d2; cx[j] = ax; cz[j] = az; cy[j] = arr[i+2];
+      if(n < K) n++;
+    }
+    if(!n) return null;
+    /* 权重直接覆写 `cd`，原始 d2 不再需要 */
+    let wsum = 0;
+    for(let i = 0; i < n; i++){ cd[i] = 1 / (30 + Math.sqrt(cd[i])); wsum += cd[i]; }
+    let u = rnd() * wsum, k = 0;
+    for(; k < n - 1; k++){ u -= cd[k]; if(u <= 0) break; }
+    const dx = cx[k] - p.x, dz = cz[k] - p.z;
+    return { x: cx[k], y: cy[k], z: cz[k], d: Math.hypot(dx, dz), cand: n };
+  }
+
+  /* 鸟叫：2~4 个短促的滑音。音高每次随机，方位来自真实的那棵树。
      只在白天且不下雨时触发 —— 下雨鸟不出来，这条本身就是「场景在呼吸」的信号。 */
   function chirp(){
+    /* 每一条 return 路径都要写成同形状（§36/§37 连踩三次的坑）：
+       探针崩在「有没有发声」这一层，就验不到它真正要验的方位值。 */
+    const rec = { n: nChirp, d: 0, pan: 0, k: 0, cut: 0,
+                  x: 0, y: 0, z: 0, occ: 1, cand: 0, ms: 0, blocked: '' };
+    bDbg = rec;
+    if(!ctx || !on || !birdOut){ rec.blocked = 'audio'; return; }
+    const p = camera.position;
+    const sp = birdSpot();
+    /* 一棵候选树都没有（江心、楼顶、远离岸线的空地）→ 不叫。
+       以前无条件随机 pan，鸟能在江面正中间叫 —— 那是最假的一种。 */
+    if(!sp){ rec.blocked = 'notree'; return; }
     const t0 = ctx.currentTime + 0.05;
-    let pan = null, sink = birdOut;
+    const dx = sp.x - p.x, dz = sp.z - p.z;
+    const L = Math.max(1, Math.hypot(dx, dz));
+    _rv.set(1, 0, 0).applyQuaternion(camera.quaternion);
+    let panV = (dx / L) * _rv.x + (dz / L) * _rv.z;
+    panV = Math.max(-1, Math.min(1, panV));
+    const occ = occlK(p.x, p.z, sp.x, sp.z);
+    /* 1/(1+d/70)：14m 0.83、170m 0.29。楼挡一档再乘 0.42~1 */
+    const k = (1 / (1 + L / 70)) * (0.42 + 0.58 * occ);
+    /* 树冠吸收高频随距离走：近处全开，170m 外只剩 3.9kHz 以下 */
+    const cut = Math.min(12000, (3400 + 8600 * Math.exp(-L / 60)) * (0.55 + 0.45 * occ));
+
+    nChirp++;
+    rec.n = nChirp; rec.d = +L.toFixed(2); rec.pan = +panV.toFixed(3);
+    rec.k = +k.toFixed(4); rec.cut = Math.round(cut); rec.occ = +occ.toFixed(3);
+    rec.x = +sp.x.toFixed(1); rec.y = +sp.y.toFixed(1); rec.z = +sp.z.toFixed(1);
+    rec.cand = sp.cand;
+
+    let pan = null;
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = cut; lp.Q.value = 0.7;
     if(ctx.createStereoPanner){
       pan = ctx.createStereoPanner();
-      pan.pan.value = rnd() * 1.7 - 0.85;
-      pan.connect(birdOut);
-      sink = pan;
+      pan.pan.value = panV;
+      lp.connect(pan); pan.connect(birdOut);
+    } else {
+      lp.connect(birdOut);
     }
+
     let t = t0;
     const n = 2 + ((rnd() * 3) | 0);
     for(let i = 0; i < n; i++){
@@ -8196,17 +8372,16 @@ const AUD = (()=>{
       o.frequency.exponentialRampToValueAtTime(f0 * 1.62, t + 0.042);
       o.frequency.exponentialRampToValueAtTime(f0 * 0.88, t + 0.108);
       eg.gain.setValueAtTime(0.0001, t);
-      eg.gain.linearRampToValueAtTime(0.13, t + 0.013);
-      eg.gain.exponentialRampToValueAtTime(0.0006, t + 0.115);
-      o.connect(eg); eg.connect(sink);
+      eg.gain.linearRampToValueAtTime(0.13 * k, t + 0.013);
+      eg.gain.exponentialRampToValueAtTime(0.0006 * k, t + 0.115);
+      o.connect(eg); eg.connect(lp);
       o.start(t); o.stop(t + 0.13);
       t += 0.112 + rnd() * 0.075;
     }
-    /* panner 播完要断开，否则一直挂在 birdOut 上累积 */
-    if(pan){
-      const ms = Math.max(400, (t - t0 + 0.6) * 1000);
-      setTimeout(()=>{ try{ pan.disconnect(); }catch(e){} }, ms);
-    }
+    /* panner / 滤波器播完要断开，否则一直挂在 birdOut 上累积 */
+    const ms = Math.max(400, (t - t0 + 0.6) * 1000);
+    rec.ms = Math.round(ms);
+    setTimeout(()=>{ try{ lp.disconnect(); if(pan) pan.disconnect(); }catch(e){} }, ms);
   }
 
   /* 烟花爆炸声。三层：① 冲击（噪声 + 低频下扫）② 噼啪（星火爆裂）③ 楼群回响。
@@ -8218,7 +8393,101 @@ const AUD = (()=>{
   let fwDbg = { n: 0, d: 0, delay: 0, k: 0, pan: 0, cut: 0 };
   const _fwv = new THREE.Vector3();
 
-  function boom(wx, wy, wz){
+  /* ---- 升空哨音（§42）----
+     一发烟花升空 1.5s，声音就是这 1.5s 里的「咻——」：三角波从 380~470 上扬到
+     2.5~3 倍（气压随高度降低 → 音高上扬），叠一层窄带噪声当气流的「沙」，
+     6Hz 颤音让长音不呆。**它必须在爆点那一刻收尾**：`dur` 就是升空时长，
+     结束时刻 = `0.04 + d/340 + dur`，正好是 `boom(..., dur)` 的起始时刻 ——
+     所以「哨音 → 砰」的间隔在任何机位都一样。**调用方必须给两边传同一个值。**
+
+     比 boom 更狠的低通衰减（`500 + 5200·e^(-d/900)`）：哨音是高频，2km 外本来就只剩
+     一层气声，衰减不够会变成一根尖啸挂在天上。
+
+     同样**不消费 Math.random**（用模块自己的 `rnd`），否则植被分帧构建整片错位。 */
+  let nWhistle = 0;
+  let wDbg = { n: 0, dur: 0, f0: 0, f1: 0, cut: 0, pan: 0, k: 0, delay: 0, d: 0, blocked: '' };
+  function whistle(wx, wy, wz, dur){
+    /* 每一条 return 路径都要把 `wDbg` 写成同形状（§36/§37 连踩三次的坑）：
+       探针崩在「有没有发声」这一层，就验不到它真正要验的调度值。 */
+    const rec = { n: nWhistle, dur: +(dur || 0).toFixed(2), f0: 0, f1: 0, cut: 0, pan: 0, k: 0, delay: 0, d: 0, blocked: '' };
+    wDbg = rec;
+    if(!ctx || !on || !nbuf){ rec.blocked = 'audio'; return; }
+    /* 白天不发声：视觉上一侧是加色混合（`*0.11`），白天本来就看不出，
+       但声音会从「看不见的地方」冒出来。和 boom 用同一条门控。 */
+    if(skyUniforms.uNight.value < 0.30){ rec.blocked = 'day'; return; }
+    const p = camera.position;
+    const dx = wx - p.x, dy = wy - p.y, dz = wz - p.z;
+    const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+    rec.d = Math.round(d);
+    if(d > 3500){ rec.blocked = 'far'; return; }
+    nWhistle++;
+    rec.n = nWhistle;
+
+    const arrival = 0.04 + d / 340;
+    const t0 = ctx.currentTime + arrival;
+    const k = 1 / (1 + d / 850);
+    const cut = 500 + 5200 * Math.exp(-d / 900);
+    const hl = Math.max(1, Math.hypot(dx, dz));
+    _fwv.set(1, 0, 0).applyQuaternion(camera.quaternion);
+    const pan = Math.max(-1, Math.min(1, (dx * _fwv.x + dz * _fwv.z) / hl));
+    const f0 = 380 + rnd() * 90, f1 = f0 * (2.5 + rnd() * 0.5);
+    rec.delay = +arrival.toFixed(2); rec.k = +k.toFixed(3);
+    rec.f0 = Math.round(f0); rec.f1 = Math.round(f1);
+    rec.cut = Math.round(cut); rec.pan = +pan.toFixed(2);
+
+    let panner = null;
+    if(ctx.createStereoPanner){
+      panner = ctx.createStereoPanner();
+      panner.pan.value = pan * 0.90;
+      panner.connect(master);
+    }
+    const bus = ctx.createGain(); bus.gain.value = 1;
+    bus.connect(panner || master);
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = cut; lp.Q.value = 0.9;
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass'; hp.frequency.value = 240; hp.Q.value = 0.7;
+    lp.connect(hp); hp.connect(bus);
+
+    /* ① 主哨音：三角波（比正弦「金属」） */
+    const o = ctx.createOscillator();
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(f0, t0);
+    o.frequency.exponentialRampToValueAtTime(f1, t0 + dur);
+    const lo = ctx.createOscillator();
+    lo.type = 'sine'; lo.frequency.value = 5.5 + rnd() * 2.5;
+    const lg = ctx.createGain(); lg.gain.value = f0 * 0.016;
+    lo.connect(lg); lg.connect(o.frequency);
+    const eg = ctx.createGain();
+    eg.gain.setValueAtTime(0.0001, t0);
+    eg.gain.linearRampToValueAtTime(0.20 * k, t0 + 0.10);
+    eg.gain.linearRampToValueAtTime(0.26 * k, t0 + dur * 0.85);
+    eg.gain.exponentialRampToValueAtTime(0.0008, t0 + dur);
+    o.connect(eg); eg.connect(lp);
+    o.start(t0); o.stop(t0 + dur + 0.04);
+    lo.start(t0); lo.stop(t0 + dur + 0.04);
+
+    /* ② 气流「沙」：窄带噪声跟着音高一起上扬，Q 取 3.5 才有「一束」而不是「一片」 */
+    const ns = ctx.createBufferSource();
+    ns.buffer = nbuf; ns.loop = true;
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass'; bp.Q.value = 3.5;
+    bp.frequency.setValueAtTime(f0 * 1.6, t0);
+    bp.frequency.exponentialRampToValueAtTime(f1 * 1.5, t0 + dur);
+    const ng = ctx.createGain();
+    ng.gain.setValueAtTime(0.0001, t0);
+    ng.gain.linearRampToValueAtTime(0.11 * k, t0 + 0.16);
+    ng.gain.exponentialRampToValueAtTime(0.0006, t0 + dur);
+    ns.connect(bp); bp.connect(ng); ng.connect(lp);
+    ns.start(t0, rnd() * 1.2); ns.stop(t0 + dur + 0.04);
+
+    /* 播完断开 panner，否则一直挂在大师总线上累积 */
+    if(panner) setTimeout(()=>{ try{ panner.disconnect(); }catch(e){} }, Math.max(400, (arrival + dur + 0.6) * 1000));
+  }
+
+  /* `hold`：这一发已经升空了多久（§42）。爆点在 `now + hold`，所以声音也要
+     再晚 `hold` 到 —— 不然「哨音还在响，砰已经炸了」。 */
+  function boom(wx, wy, wz, hold){
     if(!ctx || !on || !nbuf) return;
     /* 白天不发声。烟花本身是按加色混合画的（`*0.11`），白天本来就几乎看不见 ——
        但**声音会从「看不见的地方」冒出来**，那是 bug 级的体验。
@@ -8232,7 +8501,7 @@ const AUD = (()=>{
     if(d > 3500) return;
     nBoom++;
 
-    const arrival = 0.04 + d / 340;
+    const arrival = 0.04 + d / 340 + (hold || 0);
     const t0 = ctx.currentTime + arrival;
 
     /* 距离衰减 + 空气吸收。远处只剩低频「轰」，高频先走掉 ——
@@ -8560,7 +8829,7 @@ const AUD = (()=>{
   function dbg(){
     /* 冷启动也要给 `fw` 的形状：探针第一步就要读它，字段缺失会让探针崩在
        「有没有开声」这一层，而不是它真正要验的那层。 */
-    if(!ctx) return { on: on, ctx: null, fw: fwDbg,
+    if(!ctx) return { on: on, ctx: null, fw: fwDbg, w: wDbg, b: bDbg,
                       water: { k: 1, pan: 0, occ: 1 },
                       cars: { n: 0, live: 0, d: 0, g: 0, pan: 0, dop: 0, cut: 0, raw: 0,
                               vr: 0, occ: 1, slots: [] } };
@@ -8596,6 +8865,16 @@ const AUD = (()=>{
       /* 烟花：最近一发的**逻辑调度值**。AudioParam 在 headless 里会被饿死，
          所以延时不读 delayTime、声像不读 pan.value —— 读的是算出来那一刻的数。 */
       fw: { n: fwDbg.n, d: fwDbg.d, delay: fwDbg.delay, k: fwDbg.k, pan: fwDbg.pan, cut: fwDbg.cut },
+      /* 升空哨音：同样是**逻辑调度值**（f0/f1 是写进 AudioParam 的目标频率，
+         不读 `frequency.value` —— headless 里能滞后一整个量子） */
+      w: { n: wDbg.n, dur: wDbg.dur, f0: wDbg.f0, f1: wDbg.f1,
+           cut: wDbg.cut, pan: wDbg.pan, k: wDbg.k, delay: wDbg.delay,
+           d: wDbg.d, blocked: wDbg.blocked },
+      /* 鸟叫方位：**逻辑值**。`x/y/z` 是选中的那棵树的世界坐标，
+         `d` 是树到相机的水平距离，`pan` 是方位在相机右向量上的投影。 */
+      b: { n: bDbg.n, d: bDbg.d, pan: bDbg.pan, k: bDbg.k, cut: bDbg.cut,
+           x: bDbg.x, y: bDbg.y, z: bDbg.z, occ: bDbg.occ,
+           cand: bDbg.cand, ms: bDbg.ms, blocked: bDbg.blocked },
       /* 车流 pass-by：最近一条声源的逻辑值（距离 / 包络 / 声像 / 多普勒比 / 低通） */
       cars: { n: carDbg.n, live: carDbg.live, d: carDbg.d0, g: carDbg.g0,
               pan: carDbg.pan0, dop: carDbg.dop0, cut: carDbg.cut0, vr: carDbg.vr0,
@@ -8609,7 +8888,10 @@ const AUD = (()=>{
     };
   }
 
-  return { toggle: toggle, tick: tick, dbg: dbg, boom: boom,
+  return { toggle: toggle, tick: tick, dbg: dbg, boom: boom, whistle: whistle,
+           /* 鸟叫的 2.4~7.8s 定时器探针等不起，也不该等 —— 直接驱动这两个函数。
+              `birdSpot` 是纯选取（只吃 `rnd`），`chirp` 才会碰 WebAudio。 */
+           chirp: chirp, birdSpot: birdSpot,
            /* 探针要能脱离 `tick` 的 10Hz/600ms 节流单独判这两个纯函数：
               遮挡是几何量，跟相机朝向无关，直接喂两端点最干净。 */
            occlK: occlK, probeWater: probeWater,
@@ -9256,6 +9538,20 @@ window.__dbg = { scene, camera, water, cityMesh, roadMesh, flyTo, HOME, setTour,
   renderer, composer, OCC, BD, PICK, MM, SHOT, AUD, isWater, get fly(){ return fly; }, get mode(){ return mode; }, addV, WATM, SHADOW, SKYIRR, BRIDGE_STATS, BRIDGE_DEBUG, BRIDGE_DECKS, BRIDGES: BRIDGE_PATHS, deckY, deckSection, BRIDGE_WIDTH, BRIDGE_MEDIAN, bridgeDeckAt, bridgeGroup, SIGNS: signBuilt, SHOPS: shopBuilt, FURN: furnBuilt, FURNDBG: furnDbg, getBankLights: ()=> BANK_LIGHTS,
   /* 烟花：探针要能「手动放一发」验声学调度，不能等 6~16s 的随机节奏 */
   FW: { spawn: spawnFirework, bursts, origin: FW_ORIGIN, colors: fwColors,
+        shells: FW_SHELLS, asc: FW_ASC,
+        /* 升空段的飞行状态（探针要验「h 在升空段单调上升、末点 == 爆心」） */
+        flight: () => FW_SHELLS.filter(s => s.live).map(s => ({
+          t0: +s.t0.toFixed(2),
+          q: +((elapsed - s.t0) / FW_ASC).toFixed(3),
+          ax: +s.a.x.toFixed(1), ay: +s.a.y.toFixed(1), az: +s.a.z.toFixed(1),
+          bx: +s.b.x.toFixed(1), by: +s.b.y.toFixed(1), bz: +s.b.z.toFixed(1),
+          x: +s.pts.geometry.attributes.position.array[0].toFixed(1),
+          y: +s.pts.geometry.attributes.position.array[1].toFixed(1),
+          z: +s.pts.geometry.attributes.position.array[2].toFixed(1),
+          vis: s.pts.visible, op: +s.mat.opacity.toFixed(3) })),
+        /* 爆点的 `uBirth` 减去「现在」：>0 说明还在升空段（爆点未出现） */
+        pending: () => bursts.filter(b => b.pts.visible && b.birth > elapsed)
+                             .map(b => +(b.birth - elapsed).toFixed(2)),
         get on(){ return fwOn; }, setOn: (v)=>{ fwOn = v; } },
   /* 「当前这幅画由哪几个旋钮决定」—— 分享链接要锁的就是这几个。
      `signTier` 读实际可见性，不重算公式（档位 / signs= / auto 掉档三条路径都会改它）。 */

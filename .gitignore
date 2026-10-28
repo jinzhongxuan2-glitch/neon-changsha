@@ -46,4 +46,6 @@ _build/shot*.js
 !_build/probe_car_pass.js
 !_build/probe_bridge_end.js
 !_build/probe_median.js
+!_build/probe_fw_whistle.js
+!_build/probe_bird.js
 !_build/shots.js
